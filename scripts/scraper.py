@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-정부기관 AI 데이터센터 관련 보도자료 자동 수집기
+정부기관 보도자료 자동 수집기 (전체 보기 버전)
 
 - 과학기술정보통신부 (RSS)
 - 기후에너지환경부 (RSS)
 - 산업통상부 (게시판 스크래핑)
+
+키워드 필터 없이, 각 기관의 최신 보도자료를 그대로 수집합니다.
 """
 
 import json
@@ -22,7 +24,8 @@ KST = timezone(timedelta(hours=9))
 TODAY = datetime.now(KST)
 TODAY_STR = TODAY.strftime("%Y년 %m월 %d일 (%a)")
 
-KEYWORDS = ["데이터센터", "인공지능", "AI", "GPU", "AX", "클라우드"]
+# 필터를 쓰고 싶으면 여기에 단어를 넣으세요. 비워두면(= []) 전부 다 보여줍니다.
+KEYWORDS = []
 
 HEADERS = {
     "User-Agent": (
@@ -48,6 +51,8 @@ def strip_html(text: str) -> str:
 
 
 def contains_keyword(text: str) -> bool:
+    if not KEYWORDS:
+        return True  # 키워드가 비어있으면 전부 통과
     if not text:
         return False
     return any(kw.lower() in text.lower() for kw in KEYWORDS)
@@ -177,8 +182,6 @@ def fetch_motir() -> list:
 
         if not title:
             continue
-        if not contains_keyword(title):
-            continue
 
         detail_url = f"https://www.motir.go.kr/kor/article/{board_code}/{article_id}/view"
         items.append(
@@ -214,7 +217,7 @@ def render_html(new_items: list, all_recent_items: list) -> str:
         </li>"""
 
     new_cards = "\n".join(card(i, True) for i in new_items) or (
-        '<li class="empty">오늘은 새로운 관련 보도자료가 없습니다.</li>'
+        '<li class="empty">오늘은 새로운 보도자료가 없습니다.</li>'
     )
     all_cards = "\n".join(
         card(i, i["id"] in {n["id"] for n in new_items}) for i in all_recent_items
@@ -225,7 +228,7 @@ def render_html(new_items: list, all_recent_items: list) -> str:
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>정부기관 AI 데이터센터 보도자료 모니터</title>
+<title>정부기관 보도자료 모니터</title>
 <style>
   :root {{
     --bg: #f7f7f5; --card: #ffffff; --border: #e5e3dd;
@@ -262,7 +265,7 @@ def render_html(new_items: list, all_recent_items: list) -> str:
 </head>
 <body>
   <header>
-    <h1>정부기관 AI 데이터센터 보도자료 모니터</h1>
+    <h1>정부기관 보도자료 모니터</h1>
     <div class="updated">최종 업데이트: {TODAY_STR} · 과기정통부 · 산업통상부 · 기후에너지환경부</div>
   </header>
 
@@ -277,7 +280,7 @@ def render_html(new_items: list, all_recent_items: list) -> str:
   </ul>
 
   <footer>
-    키워드: {", ".join(KEYWORDS)} · 매일 자동 수집 (GitHub Actions)
+    매일 자동 수집 (GitHub Actions)
   </footer>
 </body>
 </html>
@@ -310,7 +313,7 @@ def main() -> None:
     with open(OUTPUT_PATH, "w", encoding="utf-8") as f:
         f.write(html)
 
-    print(f"[INFO] 신규 {len(new_items)}건 / 전체 관련 {len(relevant)}건 -> {OUTPUT_PATH} 생성 완료")
+    print(f"[INFO] 신규 {len(new_items)}건 / 전체 {len(relevant)}건 -> {OUTPUT_PATH} 생성 완료")
 
 
 if __name__ == "__main__":
