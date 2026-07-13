@@ -5,45 +5,26 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>정부기관 보도자료 모니터</title>
 <style>
-  :root {
-    --bg: #f7f7f5; --card: #ffffff; --border: #e5e3dd;
-    --text: #2c2c2a; --muted: #6b6a63; --accent: #185fa5; --accent-dark: #0c447c;
-  }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0; padding: 0 16px 60px;
-    font-family: -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
-    background: var(--bg); color: var(--text);
-  }
-  header { max-width: 760px; margin: 0 auto; padding: 40px 0 16px; }
-  h1 { font-size: 22px; font-weight: 600; margin: 0 0 6px; }
-  .updated { color: var(--muted); font-size: 14px; }
-  .agency { max-width: 760px; margin: 0 auto 28px; }
-  .banner {
-    display: flex; align-items: center; gap: 10px; text-decoration: none;
-    background: var(--accent); color: #fff; border-radius: 10px 10px 0 0;
-    padding: 14px 16px;
-  }
-  .banner:hover { background: var(--accent-dark); }
-  .banner-name { font-size: 16px; font-weight: 700; }
-  .banner-count {
-    font-size: 12px; background: rgba(255,255,255,0.25); padding: 2px 8px; border-radius: 10px;
-  }
-  .banner-arrow { margin-left: auto; font-size: 12px; opacity: 0.9; }
-  ul {
-    list-style: none; margin: 0; padding: 0; background: var(--card);
-    border: 1px solid var(--border); border-top: none; border-radius: 0 0 10px 10px;
-  }
-  .item {
-    padding: 12px 16px; border-bottom: 1px solid var(--border);
-    display: flex; justify-content: space-between; align-items: baseline; gap: 12px;
-  }
-  .item:last-child { border-bottom: none; }
-  .title { color: var(--text); text-decoration: none; font-size: 14px; line-height: 1.5; }
-  .title:hover { text-decoration: underline; color: var(--accent); }
-  .date { font-size: 12px; color: var(--muted); white-space: nowrap; }
-  .empty { padding: 20px 16px; color: var(--muted); font-size: 13px; text-align: center; }
-  footer { max-width: 760px; margin: 40px auto 0; color: var(--muted); font-size: 12px; text-align: center; }
+  :root { --bg:#f7f7f5;--card:#fff;--border:#e5e3dd;--text:#2c2c2a;--muted:#6b6a63;--accent:#185fa5;--accent-dark:#0c447c; }
+  * { box-sizing:border-box; }
+  body { margin:0;padding:0 16px 60px;font-family:-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;background:var(--bg);color:var(--text); }
+  header { max-width:760px;margin:0 auto;padding:40px 0 16px; }
+  h1 { font-size:22px;font-weight:600;margin:0 0 6px; }
+  .updated { color:var(--muted);font-size:14px; }
+  .agency { max-width:760px;margin:0 auto 28px; }
+  .banner { display:flex;align-items:center;gap:10px;text-decoration:none;background:var(--accent);color:#fff;border-radius:10px 10px 0 0;padding:14px 16px; }
+  .banner:hover { background:var(--accent-dark); }
+  .banner-name { font-size:16px;font-weight:700; }
+  .banner-count { font-size:12px;background:rgba(255,255,255,0.25);padding:2px 8px;border-radius:10px; }
+  .banner-arrow { margin-left:auto;font-size:12px;opacity:0.9; }
+  ul { list-style:none;margin:0;padding:0;background:var(--card);border:1px solid var(--border);border-top:none;border-radius:0 0 10px 10px; }
+  .item { padding:12px 16px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:baseline;gap:12px; }
+  .item:last-child { border-bottom:none; }
+  .title { color:var(--text);text-decoration:none;font-size:14px;line-height:1.5; }
+  .title:hover { text-decoration:underline;color:var(--accent); }
+  .date { font-size:12px;color:var(--muted);white-space:nowrap; }
+  .empty { padding:20px 16px;color:var(--muted);font-size:13px;text-align:center; }
+  footer { max-width:760px;margin:40px auto 0;color:var(--muted);font-size:12px;text-align:center; }
 </style>
 </head>
 <body>
@@ -51,7 +32,6 @@
     <h1>정부기관 보도자료 모니터</h1>
     <div class="updated">2026년 07월 13일 (Mon) 기준 · 오늘 등록된 보도자료 총 0건</div>
   </header>
-
   
     <section class="agency">
       <a class="banner" href="https://www.msit.go.kr/bbs/list.do?sCode=user&amp;mId=307&amp;mPid=208" target="_blank" rel="noopener">
@@ -85,9 +65,6 @@
         <li class="empty">오늘 등록된 보도자료가 없습니다.</li>
       </ul>
     </section>
-
-  <footer>
-    매일 자동 수집 (GitHub Actions) · 기관명을 클릭하면 전체 보도자료 목록으로 이동합니다
-  </footer>
+  <footer>매일 자동 수집 (GitHub Actions) · 기관명을 클릭하면 전체 보도자료 목록으로 이동합니다</footer>
 </body>
 </html>
