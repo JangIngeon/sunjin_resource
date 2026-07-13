@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>오늘의 정부 보도자료</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <header>
+
+        <h1>📢 오늘의 정부 보도자료</h1>
+
+        <p id="update-time">
+            마지막 업데이트 :
+            <span id="lastUpdate">불러오는 중...</span>
+        </p>
+
+        <button id="refreshBtn">
+            🔄 새로고침
+        </button>
+
+    </header>
+
+    <main>
+
+        <!-- 과기정통부 -->
+        <section class="agency-card">
+
+            <a
+                class="agency-title"
+                href="https://www.msit.go.kr/bbs/list.do?sCode=user&mPid=208&mId=307"
+                target="_blank">
+
+                🔬 과학기술정보통신부
+            </a>
+
+            <ul id="msit-list">
+
+                <li class="loading">
+                    불러오는 중...
+                </li>
+
+            </ul>
+
+        </section>
+
+        <!-- 기후에너지환경부 -->
+        <section class="agency-card">
+
+            <a
+                class="agency-title"
+                href="https://mcee.go.kr/home/web/index.do?menuId=10598"
+                target="_blank">
+
+                🌱 기후에너지환경부
+            </a>
+
+            <ul id="mcee-list">
+
+                <li class="loading">
+                    불러오는 중...
+                </li>
+
+            </ul>
+
+        </section>
+
+        <!-- 산업통상부 -->
+        <section class="agency-card">
+
+            <a
+                class="agency-title"
+                href="https://www.motir.go.kr/kor/article/ATCL3f49a5a8c"
+                target="_blank">
+
+                🏭 산업통상부
+            </a>
+
+            <ul id="motir-list">
+
+                <li class="loading">
+                    불러오는 중...
+                </li>
+
+            </ul>
+
+        </section>
+
+    </main>
+
+    <footer>
+
+        © 2026 Government Press Dashboard
+
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
