@@ -1,0 +1,38 @@
+name: Daily URL Scraper
+
+on:
+  schedule:
+    # 매일 한국 시간(KST) 오후 6시 정각에 실행 (UTC 기준 09:00)
+    - cron: '0 9 * * *'
+  workflow_dispatch: # 필요할 때 깃허브에서 수동으로도 실행 가능하게 설정
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: 저장소 체크아웃
+      uses: actions/checkout@v4
+
+    - name: 파이썬 설정
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+
+    - name: 필요 라이브러리 설치
+      run: |
+        pip install requests beautifulsoup4
+
+    - name: 크롤링 및 웹페이지 생성 스크립트 실행
+      run: python update_links.py
+
+    - name: 변경사항이 있으면 깃허브에 커밋 및 푸시
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git add index.html
+        if ! git diff --staged --quiet; then
+          git commit -m "⚙️ 자동 업데이트: $(date +'%Y-%m-%d %H:%M:%S')"
+          git push
+        else
+          echo "새로운 게시물이 없어 업데이트를 건너뜁니다."
+        fi
