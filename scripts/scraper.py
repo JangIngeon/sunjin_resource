@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-정부기관 보도자료 자동 수집기 (프록시 경유 버전)
+정부기관 보도자료 자동 수집기 (v3)
 
-GitHub Actions 서버(Azure 클라우드 IP)가 정부기관 사이트에서 직접 차단당하는
-문제가 있어, 무료 프록시(allorigins)를 경유해서 요청합니다.
-프록시가 실패하면 직접 요청도 한 번 더 시도합니다.
+- 과학기술정보통신부: RSS
+- 기후에너지환경부: RSS가 오래된 자료만 주는 것으로 확인되어, 게시판 목록을 직접 스크래핑으로 변경
+- 산업통상부: 게시판 스크래핑 (onclick 방식 / href 직접노출 방식 둘 다 대응)
 """
 
 import re
@@ -33,6 +33,7 @@ HEADERS = {
 
 REQUEST_TIMEOUT = 25
 MOTIR_MAX_ITEMS = 60
+MCEE_MAX_ITEMS = 30
 
 PROXY_TEMPLATE = "https://api.allorigins.win/raw?url={}"
 
@@ -73,10 +74,10 @@ def parse_date_flexible(date_str: str):
 
 
 def safe_get(url: str, label: str):
-    """프록시로 먼저 시도하고, 실패하면 직접 요청도 한 번 시도한다."""
+    """direct 요청을 먼저 시도하고, 실패하면 프록시로 재시도한다."""
     attempts = [
-        ("proxy", PROXY_TEMPLATE.format(urllib.parse.quote(url, safe=""))),
         ("direct", url),
+        ("proxy", PROXY_TEMPLATE.format(urllib.parse.quote(url, safe=""))),
     ]
     for method, target in attempts:
         try:
@@ -85,7 +86,6 @@ def safe_get(url: str, label: str):
                   f"length {len(resp.text)}", file=sys.stderr)
             resp.raise_for_status()
             if len(resp.text) < 50:
-                # 프록시가 빈 응답/에러 페이지를 준 경우 다음 방법 시도
                 print(f"[WARN] {label} [{method}] response too short, trying next method",
                       file=sys.stderr)
                 continue
@@ -107,7 +107,6 @@ def fetch_msit() -> list:
         root = ET.fromstring(resp.text)
     except ET.ParseError as e:
         print(f"[WARN] MSIT RSS parse error: {e}", file=sys.stderr)
-        print(f"[DEBUG] MSIT raw (first 300 chars): {resp.text[:300]}", file=sys.stderr)
         return items
 
     for item in root.findall(".//item"):
@@ -123,36 +122,48 @@ def fetch_msit() -> list:
             "date": parse_date_flexible(pub_date_raw),
             "date_str": pub_date_raw,
         })
-
-    for it in items[:3]:
-        print(f"[DEBUG] MSIT sample: date_str='{it['date_str']}' parsed={it['date']} "
-              f"title={it['title'][:30]}", file=sys.stderr)
     return items
 
 
 def fetch_mcee() -> list:
-    url = "https://www.me.go.kr/home/web/board/rss.do?menuId=286&boardMasterId=1"
+    """RSS 대신 게시판 목록(menuId=281)을 직접 스크래핑."""
+    list_url = "https://me.go.kr/home/web/index.do?menuId=281"
     items = []
-    resp = safe_get(url, "MCEE")
+    resp = safe_get(list_url, "MCEE")
     if resp is None:
         return items
-    try:
-        root = ET.fromstring(resp.text)
-    except ET.ParseError as e:
-        print(f"[WARN] MCEE RSS parse error: {e}", file=sys.stderr)
-        print(f"[DEBUG] MCEE raw (first 300 chars): {resp.text[:300]}", file=sys.stderr)
-        return items
 
-    for item in root.findall(".//item"):
-        title = strip_html(item.findtext("title") or "")
-        link = strip_html(item.findtext("link") or "")
-        pub_date_raw = strip_html(item.findtext("pubDate") or "")
-        if not title or not link:
+    html = resp.text
+    rows = re.findall(r"<tr\b.*?</tr>", html, flags=re.S | re.I)
+    print(f"[DEBUG] MCEE: found {len(rows)} <tr> rows in HTML", file=sys.stderr)
+    seen_ids_this_run = set()
+
+    for row in rows[:MCEE_MAX_ITEMS]:
+        id_match = re.search(r"boardId=(\d+)", row)
+        if not id_match:
             continue
+        board_id = id_match.group(1)
+        if board_id in seen_ids_this_run:
+            continue
+        seen_ids_this_run.add(board_id)
+
+        title_match = re.search(r">([^<>]{4,200})</a>", row)
+        title = strip_html(title_match.group(1)) if title_match else ""
+
+        date_match = re.search(r"(\d{4}-\d{2}-\d{2})", row)
+        pub_date_raw = date_match.group(1) if date_match else ""
+
+        if not title:
+            continue
+
+        detail_url = (
+            f"https://me.go.kr/home/web/newsRead.do"
+            f"?menuId=10607&boardId={board_id}&boardMasterId=939"
+        )
         items.append({
             "source": "기후에너지환경부",
             "title": title,
-            "link": link,
+            "link": detail_url,
             "date": parse_date_flexible(pub_date_raw),
             "date_str": pub_date_raw,
         })
@@ -172,15 +183,25 @@ def fetch_motir() -> list:
         return items
 
     html = resp.text
+    # 페이지 구조가 onclick 방식이든, href 직접노출 방식이든 둘 다 대응
+    id_pattern = re.compile(
+        r"article\.view\(\s*['\"]?(\d+)['\"]?\s*\)|" + re.escape(board_code) + r"/(\d+)/view"
+    )
+    total_matches = len(id_pattern.findall(html))
+    print(f"[DEBUG] MOTIR: {total_matches} id pattern matches in full HTML", file=sys.stderr)
+
     rows = re.findall(r"<tr\b.*?</tr>", html, flags=re.S | re.I)
     print(f"[DEBUG] MOTIR: found {len(rows)} <tr> rows in HTML", file=sys.stderr)
+    if rows and total_matches == 0:
+        print(f"[DEBUG] MOTIR first row raw (first 400 chars): {rows[0][:400]}", file=sys.stderr)
+
     seen_ids_this_run = set()
 
     for row in rows[:MOTIR_MAX_ITEMS]:
-        id_match = re.search(r"article\.view\(\s*'(\d+)'\s*\)", row)
-        if not id_match:
+        m = id_pattern.search(row)
+        if not m:
             continue
-        article_id = id_match.group(1)
+        article_id = m.group(1) or m.group(2)
         if article_id in seen_ids_this_run:
             continue
         seen_ids_this_run.add(article_id)
