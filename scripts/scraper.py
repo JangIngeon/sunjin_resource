@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-정부기관 보도자료 자동 수집기 (프록시 경유 버전)
+정부기관 보도자료 자동 수집기 (v4 - 최종본)
 
-GitHub Actions 서버(Azure 클라우드 IP)가 정부기관 사이트에서 직접 차단당하는
-문제가 있어, 무료 프록시(allorigins)를 경유해서 요청합니다.
-프록시가 실패하면 직접 요청도 한 번 더 시도합니다.
+- 과학기술정보통신부: RSS
+- 기후에너지환경부: 홈페이지 내장 보도자료 위젯 스크래핑 (menuId=10598)
+- 산업통상부: 게시판 스크래핑 (onclick / href 두 방식 다 대응)
+
+각 기관에서 발행일이 오늘(KST)인 글만 걸러 기관별로 묶어 보여준다.
 """
 
 import re
@@ -34,11 +36,15 @@ HEADERS = {
 REQUEST_TIMEOUT = 25
 MOTIR_MAX_ITEMS = 60
 
-PROXY_TEMPLATE = "https://api.allorigins.win/raw?url={}"
+PROXY_TEMPLATES = [
+    "https://api.allorigins.win/raw?url={}",
+    "https://corsproxy.io/?url={}",
+    "https://api.codetabs.com/v1/proxy?quest={}",
+]
 
 SOURCE_BOARD_URL = {
     "과학기술정보통신부": "https://www.msit.go.kr/bbs/list.do?sCode=user&mId=307&mPid=208",
-    "기후에너지환경부": "https://me.go.kr/home/web/index.do?menuId=281",
+    "기후에너지환경부": "https://www.mcee.go.kr/home/web/index.do?menuId=10598",
     "산업통상부": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c",
 }
 
@@ -73,11 +79,12 @@ def parse_date_flexible(date_str: str):
 
 
 def safe_get(url: str, label: str):
-    """프록시로 먼저 시도하고, 실패하면 직접 요청도 한 번 시도한다."""
-    attempts = [
-        ("proxy", PROXY_TEMPLATE.format(urllib.parse.quote(url, safe=""))),
-        ("direct", url),
-    ]
+    """direct -> 프록시 여러 개를 순서대로 시도한다."""
+    attempts = [("direct", url)]
+    encoded = urllib.parse.quote(url, safe="")
+    for i, tmpl in enumerate(PROXY_TEMPLATES, start=1):
+        attempts.append((f"proxy{i}", tmpl.format(encoded)))
+
     for method, target in attempts:
         try:
             resp = requests.get(target, headers=HEADERS, timeout=REQUEST_TIMEOUT)
@@ -85,7 +92,6 @@ def safe_get(url: str, label: str):
                   f"length {len(resp.text)}", file=sys.stderr)
             resp.raise_for_status()
             if len(resp.text) < 50:
-                # 프록시가 빈 응답/에러 페이지를 준 경우 다음 방법 시도
                 print(f"[WARN] {label} [{method}] response too short, trying next method",
                       file=sys.stderr)
                 continue
@@ -107,7 +113,6 @@ def fetch_msit() -> list:
         root = ET.fromstring(resp.text)
     except ET.ParseError as e:
         print(f"[WARN] MSIT RSS parse error: {e}", file=sys.stderr)
-        print(f"[DEBUG] MSIT raw (first 300 chars): {resp.text[:300]}", file=sys.stderr)
         return items
 
     for item in root.findall(".//item"):
@@ -123,41 +128,54 @@ def fetch_msit() -> list:
             "date": parse_date_flexible(pub_date_raw),
             "date_str": pub_date_raw,
         })
-
-    for it in items[:3]:
-        print(f"[DEBUG] MSIT sample: date_str='{it['date_str']}' parsed={it['date']} "
-              f"title={it['title'][:30]}", file=sys.stderr)
     return items
 
 
 def fetch_mcee() -> list:
-    url = "https://www.me.go.kr/home/web/board/rss.do?menuId=286&boardMasterId=1"
+    """홈페이지 내장 보도자료 위젯(menuId=10598)을 스크래핑.
+    boardMasterId=939 가 붙은 링크만 진짜 보도자료(배너 등 다른 위젯 제외)."""
+    url = "https://www.mcee.go.kr/home/web/index.do?menuId=10598"
     items = []
     resp = safe_get(url, "MCEE")
     if resp is None:
         return items
-    try:
-        root = ET.fromstring(resp.text)
-    except ET.ParseError as e:
-        print(f"[WARN] MCEE RSS parse error: {e}", file=sys.stderr)
-        print(f"[DEBUG] MCEE raw (first 300 chars): {resp.text[:300]}", file=sys.stderr)
-        return items
 
-    for item in root.findall(".//item"):
-        title = strip_html(item.findtext("title") or "")
-        link = strip_html(item.findtext("link") or "")
-        pub_date_raw = strip_html(item.findtext("pubDate") or "")
-        if not title or not link:
+    html = resp.text
+    blocks = re.findall(r"<a\b[^>]*>.*?</a>", html, flags=re.S)
+    print(f"[DEBUG] MCEE: found {len(blocks)} <a> blocks in HTML", file=sys.stderr)
+    seen_ids_this_run = set()
+
+    for block in blocks:
+        if "boardMasterId=939" not in block:
             continue
+        id_match = re.search(r"boardId=(\d+)", block)
+        title_match = re.search(r'title="([^"]*)"', block)
+        date_match = re.search(r"(\d{4}-\d{2}-\d{2})", block)
+        if not id_match or not title_match:
+            continue
+        board_id = id_match.group(1)
+        if board_id in seen_ids_this_run:
+            continue
+        seen_ids_this_run.add(board_id)
+
+        title = strip_html(unescape(title_match.group(1)))
+        pub_date_raw = date_match.group(1) if date_match else ""
+        if not title:
+            continue
+
+        detail_url = (
+            f"https://www.mcee.go.kr/home/web/board/read.do"
+            f"?menuId=10598&boardMasterId=939&boardId={board_id}"
+        )
         items.append({
             "source": "기후에너지환경부",
             "title": title,
-            "link": link,
+            "link": detail_url,
             "date": parse_date_flexible(pub_date_raw),
             "date_str": pub_date_raw,
         })
 
-    for it in items[:3]:
+    for it in items[:5]:
         print(f"[DEBUG] MCEE sample: date_str='{it['date_str']}' parsed={it['date']} "
               f"title={it['title'][:30]}", file=sys.stderr)
     return items
@@ -172,15 +190,25 @@ def fetch_motir() -> list:
         return items
 
     html = resp.text
+    # onclick 방식(article.view('id'))과 href 직접노출 방식(.../{id}/view) 둘 다 대응
+    id_pattern = re.compile(
+        r"article\.view\(\s*['\"]?(\d+)['\"]?\s*\)|" + re.escape(board_code) + r"/(\d+)/view"
+    )
+    total_matches = len(id_pattern.findall(html))
+    print(f"[DEBUG] MOTIR: {total_matches} id pattern matches in full HTML", file=sys.stderr)
+
     rows = re.findall(r"<tr\b.*?</tr>", html, flags=re.S | re.I)
     print(f"[DEBUG] MOTIR: found {len(rows)} <tr> rows in HTML", file=sys.stderr)
+    if rows and total_matches == 0:
+        print(f"[DEBUG] MOTIR first row raw (first 500 chars): {rows[0][:500]}", file=sys.stderr)
+
     seen_ids_this_run = set()
 
     for row in rows[:MOTIR_MAX_ITEMS]:
-        id_match = re.search(r"article\.view\(\s*'(\d+)'\s*\)", row)
-        if not id_match:
+        m = id_pattern.search(row)
+        if not m:
             continue
-        article_id = id_match.group(1)
+        article_id = m.group(1) or m.group(2)
         if article_id in seen_ids_this_run:
             continue
         seen_ids_this_run.add(article_id)
@@ -203,7 +231,7 @@ def fetch_motir() -> list:
             "date_str": pub_date_raw,
         })
 
-    for it in items[:3]:
+    for it in items[:5]:
         print(f"[DEBUG] MOTIR sample: date_str='{it['date_str']}' parsed={it['date']} "
               f"title={it['title'][:30]}", file=sys.stderr)
     return items
