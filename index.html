@@ -1,70 +1,47 @@
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>정부기관 보도자료 모니터</title>
-<style>
-  :root { --bg:#f7f7f5;--card:#fff;--border:#e5e3dd;--text:#2c2c2a;--muted:#6b6a63;--accent:#185fa5;--accent-dark:#0c447c; }
-  * { box-sizing:border-box; }
-  body { margin:0;padding:0 16px 60px;font-family:-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;background:var(--bg);color:var(--text); }
-  header { max-width:760px;margin:0 auto;padding:40px 0 16px; }
-  h1 { font-size:22px;font-weight:600;margin:0 0 6px; }
-  .updated { color:var(--muted);font-size:14px; }
-  .agency { max-width:760px;margin:0 auto 28px; }
-  .banner { display:flex;align-items:center;gap:10px;text-decoration:none;background:var(--accent);color:#fff;border-radius:10px 10px 0 0;padding:14px 16px; }
-  .banner:hover { background:var(--accent-dark); }
-  .banner-name { font-size:16px;font-weight:700; }
-  .banner-count { font-size:12px;background:rgba(255,255,255,0.25);padding:2px 8px;border-radius:10px; }
-  .banner-arrow { margin-left:auto;font-size:12px;opacity:0.9; }
-  ul { list-style:none;margin:0;padding:0;background:var(--card);border:1px solid var(--border);border-top:none;border-radius:0 0 10px 10px; }
-  .item { padding:12px 16px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:baseline;gap:12px; }
-  .item:last-child { border-bottom:none; }
-  .title { color:var(--text);text-decoration:none;font-size:14px;line-height:1.5; }
-  .title:hover { text-decoration:underline;color:var(--accent); }
-  .date { font-size:12px;color:var(--muted);white-space:nowrap; }
-  .empty { padding:20px 16px;color:var(--muted);font-size:13px;text-align:center; }
-  footer { max-width:760px;margin:40px auto 0;color:var(--muted);font-size:12px;text-align:center; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>당일 등록 게시물 모아보기</title>
+    <style>
+        body { font-family: sans-serif; line-height: 1.6; padding: 20px; max-width: 800px; margin: 0 auto; background: #f9f9f9; }
+        h1 { color: #333; border-bottom: 2px solid #333; padding-bottom: 10px; }
+        .site-section { background: white; padding: 15px; margin-bottom: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .site-title { font-size: 1.2em; color: #0066cc; margin-top: 0; }
+        ul { padding-left: 20px; }
+        li { margin-bottom: 8px; }
+        a { color: #333; text-decoration: none; }
+        a:hover { text-decoration: underline; color: #0066cc; }
+        .no-data { color: #999; font-style: italic; }
+        .time { font-size: 0.85em; color: #666; text-align: right; }
+    </style>
 </head>
 <body>
-  <header>
-    <h1>정부기관 보도자료 모니터</h1>
-    <div class="updated">2026년 07월 13일 (Mon) 기준 · 오늘 등록된 보도자료 총 0건</div>
-  </header>
-  
-    <section class="agency">
-      <a class="banner" href="https://www.msit.go.kr/bbs/list.do?sCode=user&amp;mId=307&amp;mPid=208" target="_blank" rel="noopener">
-        <span class="banner-name">과학기술정보통신부</span>
-        <span class="banner-count">0건</span>
-        <span class="banner-arrow">전체 보도자료 목록 보기 &rarr;</span>
-      </a>
-      <ul>
-        <li class="empty">오늘 등록된 보도자료가 없습니다.</li>
-      </ul>
-    </section>
+    <h1>📅 당일 등록 게시물 요약</h1>
+    <p class="time">최근 업데이트: 2026-07-13 06:56:59</p>
 
-    <section class="agency">
-      <a class="banner" href="https://www.mcee.go.kr/home/web/index.do?menuId=10598" target="_blank" rel="noopener">
-        <span class="banner-name">기후에너지환경부</span>
-        <span class="banner-count">0건</span>
-        <span class="banner-arrow">전체 보도자료 목록 보기 &rarr;</span>
-      </a>
-      <ul>
-        <li class="empty">오늘 등록된 보도자료가 없습니다.</li>
-      </ul>
-    </section>
-
-    <section class="agency">
-      <a class="banner" href="https://www.motir.go.kr/kor/article/ATCL3f49a5a8c" target="_blank" rel="noopener">
-        <span class="banner-name">산업통상부</span>
-        <span class="banner-count">0건</span>
-        <span class="banner-arrow">전체 보도자료 목록 보기 &rarr;</span>
-      </a>
-      <ul>
-        <li class="empty">오늘 등록된 보도자료가 없습니다.</li>
-      </ul>
-    </section>
-  <footer>매일 자동 수집 (GitHub Actions) · 기관명을 클릭하면 전체 보도자료 목록으로 이동합니다</footer>
+    <div class="site-section">
+        <div class="site-title">과학기술정보통신부</div>
+        <ul>
+    <li class="no-data">오늘 등록된 새 게시물이 없습니다.</li>
+        </ul>
+    </div>
+    
+    <div class="site-section">
+        <div class="site-title">중소기업중앙회(MCEE)</div>
+        <ul>
+    <li class="no-data">오늘 등록된 새 게시물이 없습니다.</li>
+        </ul>
+    </div>
+    
+    <div class="site-section">
+        <div class="site-title">광물자원연구소(MOTIR)</div>
+        <ul>
+    <li class="no-data">오늘 등록된 새 게시물이 없습니다.</li>
+        </ul>
+    </div>
+    
 </body>
 </html>
