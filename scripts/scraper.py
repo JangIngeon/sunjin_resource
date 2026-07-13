@@ -1,11 +1,16 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-정부기관 보도자료 자동 수집기 (디버그 로그 강화 버전)
+정부기관 보도자료 자동 수집기 (프록시 경유 버전)
+
+GitHub Actions 서버(Azure 클라우드 IP)가 정부기관 사이트에서 직접 차단당하는
+문제가 있어, 무료 프록시(allorigins)를 경유해서 요청합니다.
+프록시가 실패하면 직접 요청도 한 번 더 시도합니다.
 """
 
 import re
 import sys
+import urllib.parse
 import xml.etree.ElementTree as ET
 from datetime import date, datetime, timedelta, timezone
 from email.utils import parsedate_to_datetime
@@ -26,8 +31,10 @@ HEADERS = {
     "Accept-Language": "ko-KR,ko;q=0.9,en;q=0.8",
 }
 
-REQUEST_TIMEOUT = 15
+REQUEST_TIMEOUT = 25
 MOTIR_MAX_ITEMS = 60
+
+PROXY_TEMPLATE = "https://api.allorigins.win/raw?url={}"
 
 SOURCE_BOARD_URL = {
     "과학기술정보통신부": "https://www.msit.go.kr/bbs/list.do?sCode=user&mId=307&mPid=208",
@@ -66,16 +73,28 @@ def parse_date_flexible(date_str: str):
 
 
 def safe_get(url: str, label: str):
-    try:
-        resp = requests.get(url, headers=HEADERS, timeout=REQUEST_TIMEOUT)
-        print(f"[DEBUG] {label} GET {url} -> status {resp.status_code}, "
-              f"length {len(resp.text)}", file=sys.stderr)
-        resp.raise_for_status()
-        resp.encoding = resp.apparent_encoding or "utf-8"
-        return resp
-    except requests.RequestException as e:
-        print(f"[WARN] {label} request failed: {url} ({e})", file=sys.stderr)
-        return None
+    """프록시로 먼저 시도하고, 실패하면 직접 요청도 한 번 시도한다."""
+    attempts = [
+        ("proxy", PROXY_TEMPLATE.format(urllib.parse.quote(url, safe=""))),
+        ("direct", url),
+    ]
+    for method, target in attempts:
+        try:
+            resp = requests.get(target, headers=HEADERS, timeout=REQUEST_TIMEOUT)
+            print(f"[DEBUG] {label} [{method}] GET -> status {resp.status_code}, "
+                  f"length {len(resp.text)}", file=sys.stderr)
+            resp.raise_for_status()
+            if len(resp.text) < 50:
+                # 프록시가 빈 응답/에러 페이지를 준 경우 다음 방법 시도
+                print(f"[WARN] {label} [{method}] response too short, trying next method",
+                      file=sys.stderr)
+                continue
+            resp.encoding = resp.apparent_encoding or "utf-8"
+            return resp
+        except requests.RequestException as e:
+            print(f"[WARN] {label} [{method}] request failed: {e}", file=sys.stderr)
+            continue
+    return None
 
 
 def fetch_msit() -> list:
@@ -88,7 +107,7 @@ def fetch_msit() -> list:
         root = ET.fromstring(resp.text)
     except ET.ParseError as e:
         print(f"[WARN] MSIT RSS parse error: {e}", file=sys.stderr)
-        print(f"[DEBUG] MSIT raw response (first 300 chars): {resp.text[:300]}", file=sys.stderr)
+        print(f"[DEBUG] MSIT raw (first 300 chars): {resp.text[:300]}", file=sys.stderr)
         return items
 
     for item in root.findall(".//item"):
@@ -106,8 +125,8 @@ def fetch_msit() -> list:
         })
 
     for it in items[:3]:
-        print(f"[DEBUG] MSIT sample: date_str='{it['date_str']}' parsed={it['date']} title={it['title'][:30]}",
-              file=sys.stderr)
+        print(f"[DEBUG] MSIT sample: date_str='{it['date_str']}' parsed={it['date']} "
+              f"title={it['title'][:30]}", file=sys.stderr)
     return items
 
 
@@ -121,7 +140,7 @@ def fetch_mcee() -> list:
         root = ET.fromstring(resp.text)
     except ET.ParseError as e:
         print(f"[WARN] MCEE RSS parse error: {e}", file=sys.stderr)
-        print(f"[DEBUG] MCEE raw response (first 300 chars): {resp.text[:300]}", file=sys.stderr)
+        print(f"[DEBUG] MCEE raw (first 300 chars): {resp.text[:300]}", file=sys.stderr)
         return items
 
     for item in root.findall(".//item"):
@@ -139,8 +158,8 @@ def fetch_mcee() -> list:
         })
 
     for it in items[:3]:
-        print(f"[DEBUG] MCEE sample: date_str='{it['date_str']}' parsed={it['date']} title={it['title'][:30]}",
-              file=sys.stderr)
+        print(f"[DEBUG] MCEE sample: date_str='{it['date_str']}' parsed={it['date']} "
+              f"title={it['title'][:30]}", file=sys.stderr)
     return items
 
 
@@ -185,8 +204,8 @@ def fetch_motir() -> list:
         })
 
     for it in items[:3]:
-        print(f"[DEBUG] MOTIR sample: date_str='{it['date_str']}' parsed={it['date']} title={it['title'][:30]}",
-              file=sys.stderr)
+        print(f"[DEBUG] MOTIR sample: date_str='{it['date_str']}' parsed={it['date']} "
+              f"title={it['title'][:30]}", file=sys.stderr)
     return items
 
 
