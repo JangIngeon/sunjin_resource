@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>기관별 오늘의 보도자료</title>
+<title>정부기관·공기업 오늘의 보도자료</title>
 <style>
   :root { color-scheme: light dark; }
   body { font-family: -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
@@ -11,61 +11,105 @@
           background: #f7f7f5; color: #222; }
   header h1 { font-size: 22px; margin-bottom: 4px; }
   header p { color: #666; font-size: 14px; margin-top: 0; }
+  .tab-banner { display: flex; gap: 8px; margin: 20px 0 24px; }
+  .tab-btn { flex: 1; padding: 12px 0; border: 1px solid #d8d6cf; border-radius: 10px;
+              background: #fff; color: #444; font-size: 15px; font-weight: 600;
+              cursor: pointer; }
+  .tab-btn.active { background: #185fa5; border-color: #185fa5; color: #fff; }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
   section.agency { background: #fff; border: 1px solid #e3e2dc; border-radius: 10px;
                      margin-bottom: 20px; padding: 4px 20px 16px; }
   section.agency h2 { font-size: 17px; padding: 10px 0; }
   section.agency h2 a { color: #185fa5; text-decoration: none; }
   section.agency h2 a:hover { text-decoration: underline; }
   ul { list-style: none; margin: 0; padding: 0; }
-  li { padding: 8px 0; border-top: 1px solid #eee; }
+  li { padding: 8px 0; border-top: 1px solid #eee; display: flex; justify-content: space-between;
+        align-items: baseline; gap: 12px; }
   li:first-child { border-top: none; }
   li a { color: #222; text-decoration: none; font-size: 14px; line-height: 1.5; }
   li a:hover { text-decoration: underline; color: #185fa5; }
+  li .date { font-size: 12px; color: #888; white-space: nowrap; }
   .msg { font-size: 13px; padding: 12px 0; }
   .msg.empty { color: #888; }
   .msg.fail { color: #b3401f; }
+  details.more { margin-top: 8px; }
+  details.more summary { font-size: 13px; color: #185fa5; cursor: pointer; padding: 8px 0; }
+  details.more ul { padding-top: 4px; }
   footer { color: #999; font-size: 12px; text-align: center; margin-top: 32px; }
   @media (prefers-color-scheme: dark) {
     body { background: #17181a; color: #e8e8e6; }
+    .tab-btn { background: #232527; border-color: #33353a; color: #ccc; }
     section.agency { background: #232527; border-color: #33353a; }
     li { border-top-color: #33353a; }
     li a { color: #e8e8e6; }
+    li .date { color: #999; }
     .msg.empty { color: #9a9a9a; }
   }
 </style>
 </head>
 <body>
   <header>
-    <h1>기관별 오늘의 보도자료</h1>
-    <p>2026년 07월 13일 기준 · 매일 자동 업데이트</p>
+    <h1>정부기관·공기업 오늘의 보도자료</h1>
+    <p>2026년 07월 14일 기준 · 매일 자동 업데이트</p>
   </header>
-  
+  <div class="tab-banner">
+    <button class="tab-btn active" data-tab="gov" onclick="showTab('gov')">정부기관</button>
+    <button class="tab-btn" data-tab="public" onclick="showTab('public')">공기업</button>
+  </div>
+  <div id="tab-gov" class="tab-panel active">
     <section class="agency">
       <h2><a href="https://www.msit.go.kr/bbs/list.do?sCode=user&amp;mPid=208&amp;mId=307" target="_blank" rel="noopener">과학기술정보통신부</a></h2>
-      <ul><li><a href="https://www.msit.go.kr/bbs/view.do?sCode=user&amp;bbsSeqNo=94&amp;nttSeqNo=3187542" target="_blank" rel="noopener">세계적 권위의 생명과학상 ‘HFSP 나카소네상’  아시아 최초, 한국 연구자 선정</a></li>
-<li><a href="https://www.msit.go.kr/bbs/view.do?sCode=user&amp;bbsSeqNo=94&amp;nttSeqNo=3187538" target="_blank" rel="noopener">딥테크가 만드는 대한민국의 미래, 2026년 딥테크 성과교류회 개최</a></li>
-<li><a href="https://www.msit.go.kr/bbs/view.do?sCode=user&amp;bbsSeqNo=94&amp;nttSeqNo=3187541" target="_blank" rel="noopener">공무원이 직접 만든 ‘인공지능 법령 비서’ 시범 개시</a></li>
-<li><a href="https://www.msit.go.kr/bbs/view.do?sCode=user&amp;bbsSeqNo=94&amp;nttSeqNo=3187540" target="_blank" rel="noopener">아세안 디지털 혁신을 이끌 AI 인재 양성, 말레이시아 디지털 아카데미 개소</a></li>
-<li><a href="https://www.msit.go.kr/bbs/view.do?sCode=user&amp;bbsSeqNo=94&amp;nttSeqNo=3187539" target="_blank" rel="noopener">[보도 참고] 우리 한국형 인공지능(K-AI) 모델이  현장에 펼쳐지고 있습니다 ⑩</a></li>
-<li><a href="https://www.msit.go.kr/bbs/view.do?sCode=user&amp;bbsSeqNo=94&amp;nttSeqNo=3187544" target="_blank" rel="noopener">화면 속 인공지능은 생각하는 걸까? 국립중앙과학관, 특별전 &amp;lt;생각 중 Thinking or Calculating&amp;gt; 개최</a></li></ul>
+      <p class="msg fail">사이트 접속에 실패하여 확인하지 못했습니다. 다음 자동 실행에서 다시 시도합니다.</p>
     </section>
 
     <section class="agency">
       <h2><a href="https://mcee.go.kr/home/web/index.do?menuId=10598" target="_blank" rel="noopener">기후에너지환경부</a></h2>
-      <ul><li><a href="https://mcee.go.kr/home/web/board/read.do?menuId=10598&amp;boardMasterId=939&amp;boardId=1877100" target="_blank" rel="noopener">카페업계 등 탈플라스틱 실천에 참여</a></li>
-<li><a href="https://mcee.go.kr/home/web/board/read.do?menuId=10598&amp;boardMasterId=939&amp;boardId=1876910" target="_blank" rel="noopener">폐배터리 속 리튬, 미생물로 90% 이상 회수한다</a></li></ul>
+      <p class="msg fail">사이트 접속에 실패하여 확인하지 못했습니다. 다음 자동 실행에서 다시 시도합니다.</p>
     </section>
 
     <section class="agency">
       <h2><a href="https://www.motir.go.kr/kor/article/ATCL3f49a5a8c" target="_blank" rel="noopener">산업통상부</a></h2>
-      <ul><li><a href="https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172020/view" target="_blank" rel="noopener">정부 부처 협업, 수출기업의 해외인증 장벽 허문다</a></li>
-<li><a href="https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172019/view" target="_blank" rel="noopener">산업부, EU 공급망 실사지침 가이드라인에 우리 기업 목소리 담는다</a></li>
-<li><a href="https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172018/view" target="_blank" rel="noopener">통상현안 대응 및 통상네트워크 확대 역량 집중</a></li>
-<li><a href="https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172017/view" target="_blank" rel="noopener">“K-조선의 지속가능한 미래를 위해 노사정이 머리를 맞대다”</a></li>
-<li><a href="https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172016/view" target="_blank" rel="noopener">(참고자료)정부, 중동정세 긴장 재고조에  원유 수급상황 긴급 점검</a></li>
-<li><a href="https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172015/view" target="_blank" rel="noopener">EU 신철강 조치 시행 이후 對EU 수출여건 및 업계 애로사항 점검</a></li>
-<li><a href="https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172014/view" target="_blank" rel="noopener">제조업의 AI 대전환(M.AX) 시대... 스마트제조 국제표준화, 한국이 주도한다</a></li></ul>
+      <p class="msg fail">사이트 접속에 실패하여 확인하지 못했습니다. 다음 자동 실행에서 다시 시도합니다.</p>
     </section>
-  <footer>기관명을 클릭하면 해당 기관의 보도자료 게시판 전체 목록으로 이동합니다.</footer>
+    </div>
+  <div id="tab-public" class="tab-panel">
+    <section class="agency">
+      <h2><a href="https://www.kepco.co.kr/home/media/newsroom/pr/boardList.do" target="_blank" rel="noopener">한국전력공사</a></h2>
+      <p class="msg fail">사이트 접속에 실패하여 확인하지 못했습니다. 다음 자동 실행에서 다시 시도합니다.</p>
+    </section>
+
+    <section class="agency">
+      <h2><a href="https://www.kwater.or.kr/news/repoList.do?brdId=KO26&amp;s_mid=36" target="_blank" rel="noopener">한국수자원공사</a></h2>
+      <p class="msg empty">오늘 등록된 보도자료 없음</p>
+      <details class="more">
+        <summary>더보기 (최근 5건, 날짜 무관)</summary>
+        <ul><li><a href="https://www.kwater.or.kr/news/repoView.do?seq=140801&amp;brdId=KO26&amp;orderByField=&amp;orderByDirection=&amp;s_mid=36" target="_blank" rel="noopener">한국수자원공사, 55개 회원국 아우르는 국제기구 GGGI와 글로벌 물 협력 본격화</a><span class="date">2026-07-13</span></li><li><a href="https://www.kwater.or.kr/news/repoView.do?seq=140735&amp;brdId=KO26&amp;orderByField=&amp;orderByDirection=&amp;s_mid=36" target="_blank" rel="noopener">한국수자원공사, 여름철 종합대책 가동 &#x27;기후위기 복합 리스크 대응에 전사 역량 결집&#x27;</a><span class="date">2026-07-06</span></li><li><a href="https://www.kwater.or.kr/news/repoView.do?seq=140710&amp;brdId=KO26&amp;orderByField=&amp;orderByDirection=&amp;s_mid=36" target="_blank" rel="noopener">한국수자원공사, 대전창조경제혁신센터와 손잡고 지역 창업생태계 혁신 이끈다</a><span class="date">2026-07-01</span></li><li><a href="https://www.kwater.or.kr/news/repoView.do?seq=140689&amp;brdId=KO26&amp;orderByField=&amp;orderByDirection=&amp;s_mid=36" target="_blank" rel="noopener">한국수자원공사, ‘수상태양광 산업 활성화를 위한 민관 협력 간담회’ 개최</a><span class="date">2026-06-26</span></li><li><a href="https://www.kwater.or.kr/news/repoView.do?seq=140688&amp;brdId=KO26&amp;orderByField=&amp;orderByDirection=&amp;s_mid=36" target="_blank" rel="noopener">한국수자원공사, ‘2026년 댐 지원사업 지자체 신규사업 공모’ 최종 6건 선정</a><span class="date">2026-06-26</span></li></ul>
+      </details>
+    </section>
+
+    <section class="agency">
+      <h2><a href="https://www.nipa.kr/home/4-4-1" target="_blank" rel="noopener">정보통신산업진흥원</a></h2>
+      <p class="msg empty">오늘 등록된 보도자료 없음</p>
+      <details class="more">
+        <summary>더보기 (최근 5건, 날짜 무관)</summary>
+        <ul><li><a href="https://www.nipa.kr/home/4-4-1/16851" target="_blank" rel="noopener">정보통신산업진흥원, ‘2026 오픈소스 아카데미 발대식’ 개최</a><span class="date">2026-07-13</span></li><li><a href="https://www.nipa.kr/home/4-4-1/16849" target="_blank" rel="noopener">정보통신산업진흥원, 하노이아이티(IT)지원센터 파트너스 데이 개최... 한-베 인공지능(AI) 협력 본격화</a><span class="date">2026-07-08</span></li><li><a href="https://www.nipa.kr/home/4-4-1/16835" target="_blank" rel="noopener">한국형 의료(K-헬스) 사업, 3개 수행 지역 최초 공동 해외 실증 프로그램 성과 창출</a><span class="date">2026-06-30</span></li><li><a href="https://www.nipa.kr/home/4-4-1/16811" target="_blank" rel="noopener">정보통신산업진흥원, ‘2026 대한민국 가상융합산업대전(KMF)’ 성황리 폐막</a><span class="date">2026-06-15</span></li><li><a href="https://www.nipa.kr/home/4-4-1/16784" target="_blank" rel="noopener">정보통신산업진흥원, 윤리경영과 부패 예방으로 기타 공공기관 부문 대상 수상</a><span class="date">2026-05-22</span></li></ul>
+      </details>
+    </section>
+
+    <section class="agency">
+      <h2><a href="https://nia.or.kr/site/nia_kor/ex/bbs/List.do?cbIdx=90549" target="_blank" rel="noopener">한국지능정보사회진흥원</a></h2>
+      <p class="msg fail">사이트 접속에 실패하여 확인하지 못했습니다. 다음 자동 실행에서 다시 시도합니다.</p>
+    </section>
+    </div>
+  <footer>기관·기업명을 클릭하면 해당 보도자료 게시판 전체 목록으로 이동합니다.</footer>
+  <script>
+    function showTab(tab) {
+      document.querySelectorAll('.tab-panel').forEach(function (el) { el.classList.remove('active'); });
+      document.querySelectorAll('.tab-btn').forEach(function (el) { el.classList.remove('active'); });
+      document.getElementById('tab-' + tab).classList.add('active');
+      document.querySelector('.tab-btn[data-tab="' + tab + '"]').classList.add('active');
+    }
+  </script>
 </body>
 </html>
