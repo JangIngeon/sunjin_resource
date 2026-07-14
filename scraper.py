@@ -27,6 +27,7 @@ from bs4 import BeautifulSoup, NavigableString
 KST = timezone(timedelta(hours=9))
 TODAY = datetime.now(KST).date()
 TODAY_LABEL = datetime.now(KST).strftime("%Y년 %m월 %d일")
+GENERATED_AT_LABEL = datetime.now(KST).strftime("%Y-%m-%d %H:%M")
 
 # 전날 기준
 # KST = timezone(timedelta(hours=9))
@@ -823,6 +824,40 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
       {body}
     </section>"""
 
+    def highlights_html() -> str:
+        rows = []
+        for org in GOV_AGENCIES:
+            for it in today_items.get(org, []):
+                rows.append(("정부기관", "cat-gov", org, it))
+        for org in PUBLIC_ENTERPRISES:
+            for it in today_items.get(org, []):
+                rows.append(("공기업", "cat-public", org, it))
+        for it in aidc_items:
+            if it.get("pub_dt") and it["pub_dt"].date() == TODAY:
+                rows.append(("지자체 관련 기사", "cat-local", it["region"], it))
+        for it in listed_items:
+            if it.get("pub_dt") and it["pub_dt"].date() == TODAY:
+                rows.append(("상장법인 관련 기사", "cat-listed", it["company"], it))
+
+        if not rows:
+            body = '<p class="msg empty">오늘 등록된 자료가 아직 없습니다.</p>'
+        else:
+            lis = []
+            for cat_label, cat_class, sub_label, it in rows:
+                lis.append(f"""
+      <li class="highlight-item">
+        <span class="cat-badge {cat_class}">{escape(cat_label)}</span>
+        <a href="{escape(it['link'])}" target="_blank" rel="noopener">{escape(it['title'])}</a>
+        <span class="highlight-sub">{escape(sub_label)}</span>
+      </li>""")
+            body = "<ul class=\"highlight-list\">" + "".join(lis) + "</ul>"
+
+        return f"""
+  <section class="highlights">
+    <h2>오늘 올라온 자료들</h2>
+    {body}
+  </section>"""
+
     tab_buttons = []
     tab_panels = []
     for i, (key, label, orgs) in enumerate(CATEGORIES):
@@ -859,6 +894,22 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
           background: #f7f7f5; color: #222; }}
   header h1 {{ font-size: 22px; margin-bottom: 4px; }}
   header p {{ color: #666; font-size: 14px; margin-top: 0; }}
+  section.highlights {{ background: #fff; border: 1px solid #e3e2dc; border-radius: 10px;
+                         margin-top: 20px; padding: 4px 20px 16px; }}
+  section.highlights h2 {{ font-size: 17px; padding: 10px 0; }}
+  ul.highlight-list {{ display: block; }}
+  li.highlight-item {{ display: flex; align-items: baseline; gap: 8px; padding: 8px 0;
+                        border-top: 1px solid #eee; flex-wrap: wrap; }}
+  li.highlight-item:first-child {{ border-top: none; }}
+  li.highlight-item a {{ color: #222; text-decoration: none; font-size: 14px; }}
+  li.highlight-item a:hover {{ text-decoration: underline; color: #185fa5; }}
+  .cat-badge {{ font-size: 11px; font-weight: 700; color: #fff; padding: 2px 8px;
+                border-radius: 10px; white-space: nowrap; }}
+  .cat-badge.cat-gov {{ background: #185fa5; }}
+  .cat-badge.cat-public {{ background: #1f8a4c; }}
+  .cat-badge.cat-local {{ background: #c2703d; }}
+  .cat-badge.cat-listed {{ background: #7b4fa6; }}
+  .highlight-sub {{ font-size: 12px; color: #888; }}
   .tab-banner {{ display: flex; gap: 8px; margin: 20px 0 24px; }}
   .tab-btn {{ flex: 1; padding: 12px 0; border: 1px solid #d8d6cf; border-radius: 10px;
               background: #fff; color: #444; font-size: 15px; font-weight: 600;
@@ -903,14 +954,19 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
     .msg.empty {{ color: #9a9a9a; }}
     li.news-item .news-summary {{ color: #aaa; }}
     li.news-item .news-meta {{ color: #999; }}
+    section.highlights {{ background: #232527; border-color: #33353a; }}
+    li.highlight-item {{ border-top-color: #33353a; }}
+    li.highlight-item a {{ color: #e8e8e6; }}
+    .highlight-sub {{ color: #999; }}
   }}
 </style>
 </head>
 <body>
   <header>
     <h1>정부기관·공기업 오늘의 보도자료</h1>
-    <p>{TODAY_LABEL} 기준 · 매일 자동 업데이트</p>
+    <p>{TODAY_LABEL} 기준 · 마지막 업데이트: {GENERATED_AT_LABEL} (KST) · 매일 자동 업데이트(하루 6회)</p>
   </header>
+  {highlights_html()}
   <div class="tab-banner">
     {tab_buttons_html}
   </div>
