@@ -73,6 +73,33 @@ NAVER_DISPLAY = 100
 NAVER_MAX_PAGES = 3  # 쿼리당 최대 100 x 3 = 300건 후보 확보
 AIDC_TOP_N = 20
 
+# --- "상장법인 관련 기사" (AI데이터센터/AIDC + 상장법인명) 배너용 설정 -----------------
+
+COMPANY_NAMES_PATH = os.path.join("data", "company_names.txt")
+COMPANY_TOP_N = 20
+
+
+def load_company_names():
+    if not os.path.exists(COMPANY_NAMES_PATH):
+        log(f"[WARN] {COMPANY_NAMES_PATH} not found - 상장법인 목록 없이 진행합니다")
+        return []
+    with open(COMPANY_NAMES_PATH, encoding="utf-8") as f:
+        names = [line.strip() for line in f if line.strip()]
+    # 짧은 이름이 긴 이름의 부분 문자열인 경우(예: "이노텍" vs "LG이노텍")
+    # 더 구체적인(긴) 이름이 먼저 매칭되도록 길이 내림차순 정렬
+    names.sort(key=len, reverse=True)
+    return names
+
+
+COMPANY_NAMES = load_company_names()
+
+
+def find_company_in_text(text: str):
+    for name in COMPANY_NAMES:
+        if name in text:
+            return name
+    return None
+
 # 국내 지역명(시/도 정식명칭·약칭 + 주요 시/군/구). 기사 "제목"에 이 중 하나라도
 # 포함되면 지자체 관련 기사로 인정한다. 다소 방대한 목록이라 완벽하지 않을 수 있음
 # (누락된 지역명이 있으면 추가하면 됨).
@@ -644,6 +671,67 @@ def fetch_aidc_news():
     return top, True
 
 
+def fetch_listed_company_news():
+    """'AI데이터센터'/'AIDC' + 상장법인명이 함께 언급된 기사 상위 20건.
+    반환값: (items, ok). ok=False면 API 호출 자체가 실패한 것(진짜로 0건인 것과 구분)."""
+    seen_links = set()
+    candidates = []
+    any_ok = False
+
+    for query in NAVER_NEWS_QUERIES:
+        raw_items = fetch_naver_news_raw(query)
+        if raw_items is None:
+            continue
+        any_ok = True
+
+        for it in raw_items:
+            link = it.get("originallink") or it.get("link") or ""
+            if not link or link in seen_links:
+                continue
+            seen_links.add(link)
+
+            title = clean_naver_text(it.get("title", ""))
+            desc = clean_naver_text(it.get("description", ""))
+            if not title:
+                continue
+
+            combined_norm = normalize_for_match(title + " " + desc)
+            if "ai데이터센터" not in combined_norm and "aidc" not in combined_norm:
+                continue
+
+            company = find_company_in_text(title) or find_company_in_text(desc)
+            if not company:
+                continue
+
+            pub_dt = None
+            try:
+                pub_dt = parsedate_to_datetime(it.get("pubDate", ""))
+                if pub_dt.tzinfo is None:
+                    pub_dt = pub_dt.replace(tzinfo=KST)
+                pub_dt = pub_dt.astimezone(KST)
+            except (TypeError, ValueError):
+                pub_dt = None
+
+            display_link = it.get("link") or link
+            candidates.append({
+                "title": title,
+                "summary": desc,
+                "link": display_link,
+                "press": press_name_from_link(link),
+                "pub_dt": pub_dt,
+                "company": company,
+            })
+
+    if not any_ok:
+        log("[SUMMARY] LISTED: FETCH FAILED")
+        return [], False
+
+    candidates.sort(key=lambda x: x["pub_dt"] or datetime.min.replace(tzinfo=KST), reverse=True)
+    top = candidates[:COMPANY_TOP_N]
+    log(f"[SUMMARY] LISTED: {len(candidates)}건 매칭, 상위 {len(top)}건 표시")
+    return top, True
+
+
 FETCHERS = {
     "과학기술정보통신부": fetch_msit,
     "기후에너지환경부": fetch_mcee,
@@ -656,7 +744,8 @@ FETCHERS = {
 
 
 def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
-                 aidc_items: list, aidc_ok: bool) -> str:
+                 aidc_items: list, aidc_ok: bool,
+                 listed_items: list, listed_ok: bool) -> str:
     def date_label(item: dict) -> str:
         if item.get("date"):
             return item["date"].strftime("%Y-%m-%d")
@@ -693,7 +782,7 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
       {body}{more_html}
     </section>"""
 
-    def news_li(item: dict) -> str:
+    def news_li(item: dict, tag_key: str) -> str:
         pub_label = item["pub_dt"].strftime("%Y-%m-%d %H:%M") if item.get("pub_dt") else "-"
         return f"""
       <li class="news-item">
@@ -702,7 +791,7 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
         <p class="news-meta">
           <span class="press">{escape(item['press'])}</span> ·
           <span class="pubdate">{escape(pub_label)}</span> ·
-          <span class="region-tag">{escape(item['region'])}</span>
+          <span class="region-tag">{escape(item[tag_key])}</span>
         </p>
       </li>"""
 
@@ -710,13 +799,27 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
         if not aidc_ok:
             body = '<p class="msg fail">뉴스 검색에 실패하여 확인하지 못했습니다. 다음 자동 실행에서 다시 시도합니다.</p>'
         elif aidc_items:
-            body = "<ul class=\"news-list\">" + "".join(news_li(it) for it in aidc_items) + "</ul>"
+            body = "<ul class=\"news-list\">" + "".join(news_li(it, "region") for it in aidc_items) + "</ul>"
         else:
             body = '<p class="msg empty">조건에 맞는 기사가 없습니다</p>'
         return f"""
     <section class="agency">
       <h2>AI데이터센터(AIDC) · 지자체 언급 기사</h2>
       <p class="section-desc">네이버 뉴스에서 "AI데이터센터"/"AIDC"와 국내 지역명이 함께 언급된 기사 중 최신 {AIDC_TOP_N}건</p>
+      {body}
+    </section>"""
+
+    def listed_panel() -> str:
+        if not listed_ok:
+            body = '<p class="msg fail">뉴스 검색에 실패하여 확인하지 못했습니다. 다음 자동 실행에서 다시 시도합니다.</p>'
+        elif listed_items:
+            body = "<ul class=\"news-list\">" + "".join(news_li(it, "company") for it in listed_items) + "</ul>"
+        else:
+            body = '<p class="msg empty">조건에 맞는 기사가 없습니다</p>'
+        return f"""
+    <section class="agency">
+      <h2>AI데이터센터(AIDC) · 상장법인 언급 기사</h2>
+      <p class="section-desc">네이버 뉴스에서 "AI데이터센터"/"AIDC"와 상장법인명이 함께 언급된 기사 중 최신 {COMPANY_TOP_N}건</p>
       {body}
     </section>"""
 
@@ -734,6 +837,11 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
         '<button class="tab-btn" data-tab="local" onclick="showTab(\'local\')">지자체 관련 기사</button>'
     )
     tab_panels.append(f'<div id="tab-local" class="tab-panel">{aidc_panel()}\n    </div>')
+
+    tab_buttons.append(
+        '<button class="tab-btn" data-tab="listed" onclick="showTab(\'listed\')">상장법인 관련 기사</button>'
+    )
+    tab_panels.append(f'<div id="tab-listed" class="tab-panel">{listed_panel()}\n    </div>')
 
     tab_buttons_html = "\n    ".join(tab_buttons)
     tab_panels_html = "\n  ".join(tab_panels)
@@ -838,8 +946,10 @@ def main() -> None:
         log(f"[SUMMARY] {org}: {len(matched)} item(s) today (of {len(items)} total parsed)")
 
     aidc_items, aidc_ok = fetch_aidc_news()
+    listed_items, listed_ok = fetch_listed_company_news()
 
-    html = render_html(today_items, recent_items, fetch_failed, aidc_items, aidc_ok)
+    html = render_html(today_items, recent_items, fetch_failed,
+                        aidc_items, aidc_ok, listed_items, listed_ok)
 
     os.makedirs("public", exist_ok=True)
     with open("public/index.html", "w", encoding="utf-8") as f:
