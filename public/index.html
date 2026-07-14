@@ -36,6 +36,14 @@
   details.more { margin-top: 8px; }
   details.more summary { font-size: 13px; color: #185fa5; cursor: pointer; padding: 8px 0; }
   details.more ul { padding-top: 4px; }
+  .section-desc { font-size: 12px; color: #888; margin: -6px 0 12px; }
+  ul.news-list { display: block; }
+  li.news-item { display: block; padding: 14px 0; }
+  li.news-item .news-title { display: block; font-size: 15px; font-weight: 600; color: #185fa5; }
+  li.news-item .news-title:hover { text-decoration: underline; }
+  li.news-item .news-summary { font-size: 13px; color: #555; margin: 6px 0; line-height: 1.5; }
+  li.news-item .news-meta { font-size: 12px; color: #888; margin: 0; }
+  li.news-item .region-tag { color: #185fa5; font-weight: 600; }
   footer { color: #999; font-size: 12px; text-align: center; margin-top: 32px; }
   @media (prefers-color-scheme: dark) {
     body { background: #17181a; color: #e8e8e6; }
@@ -45,6 +53,8 @@
     li a { color: #e8e8e6; }
     li .date { color: #999; }
     .msg.empty { color: #9a9a9a; }
+    li.news-item .news-summary { color: #aaa; }
+    li.news-item .news-meta { color: #999; }
   }
 </style>
 </head>
@@ -56,33 +66,22 @@
   <div class="tab-banner">
     <button class="tab-btn active" data-tab="gov" onclick="showTab('gov')">정부기관</button>
     <button class="tab-btn" data-tab="public" onclick="showTab('public')">공기업</button>
+    <button class="tab-btn" data-tab="local" onclick="showTab('local')">지자체 관련 기사</button>
   </div>
   <div id="tab-gov" class="tab-panel active">
     <section class="agency">
       <h2><a href="https://www.msit.go.kr/bbs/list.do?sCode=user&amp;mPid=208&amp;mId=307" target="_blank" rel="noopener">과학기술정보통신부</a></h2>
-      <p class="msg empty">오늘 등록된 보도자료 없음</p>
-      <details class="more">
-        <summary>더보기 (최근 5건, 날짜 무관)</summary>
-        <ul><li><a href="https://www.msit.go.kr/bbs/view.do?sCode=user&amp;bbsSeqNo=94&amp;nttSeqNo=3187543" target="_blank" rel="noopener">구혁채 1차관, 국가신약개발 현장소통</a><span class="date">2026-07-13</span></li><li><a href="https://www.msit.go.kr/bbs/view.do?sCode=user&amp;bbsSeqNo=94&amp;nttSeqNo=3187542" target="_blank" rel="noopener">세계적 권위의 생명과학상 ‘HFSP 나카소네상’  아시아 최초, 한국 연구자 선정</a><span class="date">2026-07-13</span></li><li><a href="https://www.msit.go.kr/bbs/view.do?sCode=user&amp;bbsSeqNo=94&amp;nttSeqNo=3187538" target="_blank" rel="noopener">딥테크가 만드는 대한민국의 미래, 2026년 딥테크 성과교류회 개최</a><span class="date">2026-07-13</span></li><li><a href="https://www.msit.go.kr/bbs/view.do?sCode=user&amp;bbsSeqNo=94&amp;nttSeqNo=3187541" target="_blank" rel="noopener">공무원이 직접 만든 ‘인공지능 법령 비서’ 시범 개시</a><span class="date">2026-07-13</span></li><li><a href="https://www.msit.go.kr/bbs/view.do?sCode=user&amp;bbsSeqNo=94&amp;nttSeqNo=3187540" target="_blank" rel="noopener">아세안 디지털 혁신을 이끌 AI 인재 양성, 말레이시아 디지털 아카데미 개소</a><span class="date">2026-07-13</span></li></ul>
-      </details>
+      <p class="msg fail">사이트 접속에 실패하여 확인하지 못했습니다. 다음 자동 실행에서 다시 시도합니다.</p>
     </section>
 
     <section class="agency">
       <h2><a href="https://mcee.go.kr/home/web/index.do?menuId=10598" target="_blank" rel="noopener">기후에너지환경부</a></h2>
-      <p class="msg empty">오늘 등록된 보도자료 없음</p>
-      <details class="more">
-        <summary>더보기 (최근 5건, 날짜 무관)</summary>
-        <ul><li><a href="https://mcee.go.kr/home/web/board/read.do?menuId=10598&amp;boardMasterId=939&amp;boardId=1877100" target="_blank" rel="noopener">카페업계 등 탈플라스틱 실천에 참여</a><span class="date">2026-07-13</span></li><li><a href="https://mcee.go.kr/home/web/board/read.do?menuId=10598&amp;boardMasterId=939&amp;boardId=1876910" target="_blank" rel="noopener">폐배터리 속 리튬, 미생물로 90% 이상 회수한다</a><span class="date">2026-07-13</span></li><li><a href="https://mcee.go.kr/home/web/board/read.do?menuId=10598&amp;boardMasterId=939&amp;boardId=1876880" target="_blank" rel="noopener">기후위기 감시할 ‘온실가스 관측 초소형 위성’의 이름을 지어주세요</a><span class="date">2026-07-12</span></li><li><a href="https://mcee.go.kr/home/web/board/read.do?menuId=10598&amp;boardMasterId=939&amp;boardId=1876770" target="_blank" rel="noopener">국내 최초, 호남의 재생에너지 계통제약 배전망 에너지저장장치로 해소해 나간다</a><span class="date">2026-07-10</span></li><li><a href="https://mcee.go.kr/home/web/board/read.do?menuId=10598&amp;boardMasterId=939&amp;boardId=1876670" target="_blank" rel="noopener">기후부, 호남권 반도체 산단 조성 관련 용수 공급계획 현장점검</a><span class="date">2026-07-10</span></li></ul>
-      </details>
+      <p class="msg fail">사이트 접속에 실패하여 확인하지 못했습니다. 다음 자동 실행에서 다시 시도합니다.</p>
     </section>
 
     <section class="agency">
       <h2><a href="https://www.motir.go.kr/kor/article/ATCL3f49a5a8c" target="_blank" rel="noopener">산업통상부</a></h2>
-      <p class="msg empty">오늘 등록된 보도자료 없음</p>
-      <details class="more">
-        <summary>더보기 (최근 5건, 날짜 무관)</summary>
-        <ul><li><a href="https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172020/view" target="_blank" rel="noopener">정부 부처 협업, 수출기업의 해외인증 장벽 허문다</a><span class="date">2026-07-13</span></li><li><a href="https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172019/view" target="_blank" rel="noopener">산업부, EU 공급망 실사지침 가이드라인에 우리 기업 목소리 담는다</a><span class="date">2026-07-13</span></li><li><a href="https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172018/view" target="_blank" rel="noopener">통상현안 대응 및 통상네트워크 확대 역량 집중</a><span class="date">2026-07-13</span></li><li><a href="https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172017/view" target="_blank" rel="noopener">“K-조선의 지속가능한 미래를 위해 노사정이 머리를 맞대다”</a><span class="date">2026-07-13</span></li><li><a href="https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172016/view" target="_blank" rel="noopener">(참고자료)정부, 중동정세 긴장 재고조에  원유 수급상황 긴급 점검</a><span class="date">2026-07-13</span></li></ul>
-      </details>
+      <p class="msg fail">사이트 접속에 실패하여 확인하지 못했습니다. 다음 자동 실행에서 다시 시도합니다.</p>
     </section>
     </div>
   <div id="tab-public" class="tab-panel">
@@ -120,6 +119,193 @@
         <summary>더보기 (최근 5건, 날짜 무관)</summary>
         <ul><li><a href="https://nia.or.kr/site/nia_kor/ex/bbs/View.do?cbIdx=90549&amp;bcIdx=29651&amp;parentSeq=29651" target="_blank" rel="noopener">NIA, Hyper-AI 네트워크로 산업현장 피지컬 AI 시대 연다</a><span class="date">2026-07-14</span></li><li><a href="https://nia.or.kr/site/nia_kor/ex/bbs/View.do?cbIdx=90549&amp;bcIdx=29642&amp;parentSeq=29642" target="_blank" rel="noopener">글로벌 AI 청년 인재 키우는 월드프렌즈코리아 IT봉사단… 정부의 &#x27;AI 3대 강국&#x27; 도약 기여</a><span class="date">2026-07-10</span></li><li><a href="https://nia.or.kr/site/nia_kor/ex/bbs/View.do?cbIdx=90549&amp;bcIdx=29626&amp;parentSeq=29626" target="_blank" rel="noopener">NIA, ISO 37001(부패방지경영시스템) 국제표준 인증 획득</a><span class="date">2026-07-07</span></li><li><a href="https://nia.or.kr/site/nia_kor/ex/bbs/View.do?cbIdx=90549&amp;bcIdx=29618&amp;parentSeq=29618" target="_blank" rel="noopener">NIA, 한국표준협회「AI 적용 서비스 우수사례 공모전」에서‘서비스 AI 리더상’수상</a><span class="date">2026-07-06</span></li><li><a href="https://nia.or.kr/site/nia_kor/ex/bbs/View.do?cbIdx=90549&amp;bcIdx=29601&amp;parentSeq=29601" target="_blank" rel="noopener">NIA, 「인공지능정책센터」공식 개소</a><span class="date">2026-06-30</span></li></ul>
       </details>
+    </section>
+    </div>
+  <div id="tab-local" class="tab-panel">
+    <section class="agency">
+      <h2>AI데이터센터(AIDC) · 지자체 언급 기사</h2>
+      <p class="section-desc">네이버 뉴스에서 "AI데이터센터"/"AIDC"와 국내 지역명이 함께 언급된 기사 중 최신 20건</p>
+      <ul class="news-list">
+      <li class="news-item">
+        <a class="news-title" href="https://slownews.kr/163176" target="_blank" rel="noopener">“광주 반도체 클러스터, 원전 없이는 불가능? 어디서 거짓말을.”</a>
+        <p class="news-summary">불편한 진실: 지금도 LNG 발전소가 남아돈다.AI 데이터센터? 냉정하게 보자.전기 부족하니 원전 지어야 한다는 거짓말.태양광이라 불안정하다는 거짓말.“원전을 기저전원으로 깔고 가자”는 환경부 장관.속도전? 송전망...</p>
+        <p class="news-meta">
+          <span class="press">slownews.kr</span> ·
+          <span class="pubdate">2026-07-14 09:24</span> ·
+          <span class="region-tag">광주</span>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://n.news.naver.com/mnews/article/586/0000133681?sid=102" target="_blank" rel="noopener">[강원 24시] 우상호 강원도정, 첫 실국 업무보고 돌입…&quot;성과로 평가받...</a>
+        <p class="news-summary">이 자리에서 우 도지사는 &#x27;청정강원·청년강원·평화강원&#x27;을 도정의 3대 축으로 제시하고, AI 데이터센터 유치와 청정에너지 고속도로 구축, 식품융합클러스터 조성, 목재산업 육성 등 이른바 &#x27;강원형 산업&#x27;의 추진 배경과...</p>
+        <p class="news-meta">
+          <span class="press">sisajournal.com</span> ·
+          <span class="pubdate">2026-07-14 09:19</span> ·
+          <span class="region-tag">강원</span>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://n.news.naver.com/mnews/article/056/0012217500?sid=100" target="_blank" rel="noopener">우상호 지사, 강원도청 16개 실국 업무보고 청취</a>
+        <p class="news-summary">특히 AI 데이터센터 설치 등 민선 9기 강원도정이 추진할 공약 사업의 방향도 설계합니다. 강릉 주문진에 있는 글로벌본부는 별도 일정으로 업무보고를 받을 예정입니다.</p>
+        <p class="news-meta">
+          <span class="press">KBS</span> ·
+          <span class="pubdate">2026-07-14 08:38</span> ·
+          <span class="region-tag">강원</span>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://www.ajunews.com/view/20260714075838541" target="_blank" rel="noopener">부산 명지녹산에 &#x27;국산 NPU&#x27; 기반 AI 데이터센터 들어선다</a>
+        <p class="news-summary">부산시는 산업통상부의 ‘2026년 산업단지 엣지 AIDC 실증 시범사업’ 공모에 ‘부산 조선·해양 엣지 AI 데이터센터 구축사업’이 최종 선정됐다고 밝혔다. 사업 기간은 2026년 7월부터 2027년 6월까지다. 국비 140억원과...</p>
+        <p class="news-meta">
+          <span class="press">ajunews.com</span> ·
+          <span class="pubdate">2026-07-14 08:06</span> ·
+          <span class="region-tag">부산</span>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://n.news.naver.com/mnews/article/003/0014064511?sid=102" target="_blank" rel="noopener">[인터뷰]우성빈 기장군수 &quot;군민 중심의 행정 패러다임 전환&quot;</a>
+        <p class="news-summary">유치된 소형모듈원자로(SMR)의 청정에너지를 기반으로 고부가가치 첨단 산업인 AI 데이터센터를 유치할 생각이다. 또 부산대 미래융합 캠퍼스를 유치하고 연구 기관을 확충해 기장의 미래세대인 청년이 고향을 떠나지...</p>
+        <p class="news-meta">
+          <span class="press">뉴시스</span> ·
+          <span class="pubdate">2026-07-14 08:00</span> ·
+          <span class="region-tag">기장군</span>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://www.viva100.com/article/20260713501343" target="_blank" rel="noopener">배경훈 “AIDC 세종·동해·울산 확정… 2035년까지 18.4GW 구축”</a>
+        <p class="news-summary">정부가 오는 2035년까지 18.4GW(기가와트) 규모의 인공지능 데이터센터(AIDC) 구축에 나선 가운데 배경훈 부총리... 이날 배 부총리는 정부의 메가프로젝트의 핵심 요소로 AIDC와 피지컬 AI를 언급했다. 그는 “AIDC는 겉으로만...</p>
+        <p class="news-meta">
+          <span class="press">viva100.com</span> ·
+          <span class="pubdate">2026-07-13 21:08</span> ·
+          <span class="region-tag">울산</span>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://n.news.naver.com/mnews/article/047/0002522420?sid=101" target="_blank" rel="noopener">세종대왕 훈민정음 꿈꾸는 &#x27;모두의 AI&#x27;… 챗GPT 독점에 맞서다</a>
+        <p class="news-summary">축구장 140개 규모의 기반시설… 세종·동해·울산 넘어 메가 AIDC로 ▲  배경훈 부총리 겸... 4GW(기가와트) 규모의 &#x27;AI 데이터센터(AIDC)&#x27;를 구축하기로 했다. 이미 세종, 동해, 울산의 부지가 확정돼 추진 중이며, 전국적으로...</p>
+        <p class="news-meta">
+          <span class="press">ohmynews.com</span> ·
+          <span class="pubdate">2026-07-13 18:56</span> ·
+          <span class="region-tag">세종</span>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://n.news.naver.com/mnews/article/469/0000941990?sid=102" target="_blank" rel="noopener">부산 명지녹산산단에 &#x27;엣지 AI 데이터센터&#x27; 들어선다</a>
+        <p class="news-summary">부산시는 산업통상자원부가 주관한 &#x27;2026년 산업단지 엣지 인공지능 데이터센터(AIDC) 실증 시범사업&#x27; 공모에 &#x27;부산 조선·해양 엣지 AI 데이터센터 구축사업&#x27;이 최종 선정됐다고 13일 밝혔다. 엣지 AI 데이터센터는 생성형...</p>
+        <p class="news-meta">
+          <span class="press">한국일보</span> ·
+          <span class="pubdate">2026-07-13 15:46</span> ·
+          <span class="region-tag">부산</span>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="http://www.iminju.net/news/articleView.html?idxno=166560" target="_blank" rel="noopener">[부산은 오늘] 부산시·부산 동래구·부산 동구</a>
+        <p class="news-summary">민주신문=양희정 기자｜부산시는 산업통상부가 주관한 &#x27;2026년 산업단지 엣지 AIDC 실증 시범사업&#x27; 공모에 &#x27;부산 조선·해양 엣지 AI 데이터센터 구축사업&#x27;이 최종 선정됐다고 밝혔다. 사업 기간은 2026년 7월부터 2027년...</p>
+        <p class="news-meta">
+          <span class="press">iminju.net</span> ·
+          <span class="pubdate">2026-07-13 15:16</span> ·
+          <span class="region-tag">부산</span>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://n.news.naver.com/mnews/article/018/0006329213?sid=105" target="_blank" rel="noopener">배경훈 &quot;세종·동해·울산 외 최대 4곳 AIDC…피지컬 AI 시장 선점할 것...</a>
+        <p class="news-summary">배 부총리는 이번 메가 프로젝트의 양대 축으로 ‘AI 데이터센터(AIDC)’와 ‘피지컬 AI’를 제시하며 국가 전략 산업화하겠다는 구상을 구체화했다. 그는 AI 데이터센터에 대해 “겉으로 보기에는 AI 반도체와 IT 전력...</p>
+        <p class="news-meta">
+          <span class="press">이데일리</span> ·
+          <span class="pubdate">2026-07-13 15:05</span> ·
+          <span class="region-tag">울산</span>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://n.news.naver.com/mnews/article/008/0005385207?sid=102" target="_blank" rel="noopener">부산시 명지녹산산단에 엣지 AI 데이터센터 구축</a>
+        <p class="news-summary">부산시는 산업단지 입주기업이 구축하기 어려운 AI 연산 인프라를 공용으로 제공하기 위해 산업통상부의 &#x27;2026년 산업단지 엣지 AIDC 실증 시범사업&#x27; 공모에 &#x27;부산 조선·해양 엣지 AI 데이터센터 구축사업&#x27;을 응모해...</p>
+        <p class="news-meta">
+          <span class="press">mt.co.kr</span> ·
+          <span class="pubdate">2026-07-13 14:51</span> ·
+          <span class="region-tag">부산</span>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://news.dealsitetv.com/articles/173208" target="_blank" rel="noopener">부산 명지녹산산단에 조선·해양 엣지 AI 데이터센터</a>
+        <p class="news-summary">산업통상부 공모 선정…183억 투입 올 12월부터 베타 오픈 서비스 부산시는 산업통상부가 주관한 &#x27;2026년 산업단지 엣지 AIDC 실증 시범사업&#x27; 공모에 &#x27;부산 조선·해양 엣지 AI 데이터센터 구축사업&#x27;이 최종 선정됐다고 13일...</p>
+        <p class="news-meta">
+          <span class="press">news.dealsitetv.com</span> ·
+          <span class="pubdate">2026-07-13 14:00</span> ·
+          <span class="region-tag">부산</span>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://www.asiatime.co.kr/article/20260713500228" target="_blank" rel="noopener">[13일 부산시] &#x27;생활권계획 시민참여단&#x27; 공식 출범 등</a>
+        <p class="news-summary">&#x27;조선·해양 엣지 AI 데이터 실증 시범사업&#x27; 최종 선정 부산시는 산업통상부가 주관한 &#x27;산업단지 엣지 AIDC 실증 시범사업&#x27; 공모에 &#x27;부산 조선·해양 엣지 AI 데이터센터 구축사업&#x27;이 최종 선정됐다고 밝혔다. 이번 사업은...</p>
+        <p class="news-meta">
+          <span class="press">asiatime.co.kr</span> ·
+          <span class="pubdate">2026-07-13 12:56</span> ·
+          <span class="region-tag">부산</span>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://news.skbroadband.com/news/articleView.html?idxno=231850" target="_blank" rel="noopener">부산 명지녹산산단, 전국 첫 엣지 AI 데이터센터 구축</a>
+        <p class="news-summary">부산시가 산업통상자원부의 &#x27;2026년 산업단지 엣지 AIDC 실증 시범사업&#x27;에 최종 선정됐습니다. 이에 따라 명지녹산국가산업단지에 전국 산업단지 최초로 그래픽처리장치와 국산 신경망처리장치 기반의 엣지 AI...</p>
+        <p class="news-meta">
+          <span class="press">news.skbroadband.com</span> ·
+          <span class="pubdate">2026-07-13 12:40</span> ·
+          <span class="region-tag">부산</span>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://n.news.naver.com/mnews/article/009/0005706522?sid=102" target="_blank" rel="noopener">부산지역 산단 잇단 공모 선정… AI 데이터센터 등 4~5년간 1392억원 투입</a>
+        <p class="news-summary">부산시는 산업통상부 주관 ‘2026 산업단지 엣지 AIDC 실증 시범사업’ 공모에서 ‘부산 조선·해양 엣지 AI 데이터센터 구축사업’이 최종선정됐다고 13일 밝혔다. 부산은 명지녹산국가산단을 대상지로 참여했다. 이...</p>
+        <p class="news-meta">
+          <span class="press">매일경제</span> ·
+          <span class="pubdate">2026-07-13 11:48</span> ·
+          <span class="region-tag">부산</span>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://www.thepublic.kr/news/articleView.html?idxno=310997" target="_blank" rel="noopener">부산, 조선·해양 AI 인프라 구축 시동...명지녹산산단에 엣지 데이터센...</a>
+        <p class="news-summary">부산시는 산업통상자원부가 주관한 &#x27;2026년 산업단지 엣지 AIDC 실증 시범사업&#x27; 공모에 &#x27;부산 조선·해양 엣지 AI 데이터센터 구축사업&#x27;이 선정됐다고 13일 밝혔다. 이번 사업은 산업단지 입주기업이 공동으로 활용할 수...</p>
+        <p class="news-meta">
+          <span class="press">thepublic.kr</span> ·
+          <span class="pubdate">2026-07-13 11:46</span> ·
+          <span class="region-tag">부산</span>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://n.news.naver.com/mnews/article/021/0002804254?sid=102" target="_blank" rel="noopener">부산시, 명지녹산산단에 조선해양 AI데이터센터</a>
+        <p class="news-summary">부산시는 산업통상부의 ‘2026년 산업단지 엣지 AIDC 실증 시범사업’ 공모에서 ‘부산 조선·해양 AI 데이터센터 구축사업’이 최종 선정됐다고 13일 밝혔다. 사업에는 총 183억 원(국비 140억 원·시비 21억 원·민간 22억...</p>
+        <p class="news-meta">
+          <span class="press">munhwa.com</span> ·
+          <span class="pubdate">2026-07-13 11:38</span> ·
+          <span class="region-tag">부산</span>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://n.news.naver.com/mnews/article/081/0003660618?sid=102" target="_blank" rel="noopener">부산시, 산업부 ‘산단 엣지 AIDC 실증 사업’ 공모 선정</a>
+        <p class="news-summary">부산시는 산업통상부 주관 ‘2026년 산업단지 엣지 AIDC 실증 시범사업’ 공모에 ‘부산 조선·해양 엣지 AI 데이터센터 구축사업’이 선정됐다고 13일 밝혔다. 이번 사업은 산업단지 입주기업이 개별적으로 구축하기...</p>
+        <p class="news-meta">
+          <span class="press">서울신문</span> ·
+          <span class="pubdate">2026-07-13 11:18</span> ·
+          <span class="region-tag">부산</span>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://n.news.naver.com/mnews/article/016/0002669405?sid=101" target="_blank" rel="noopener">부산시, ‘조선해양 엣지 AI데이터 실증 시범사업’ 선정</a>
+        <p class="news-summary">부산시는 산업통상부 주관 ‘2026년 산업단지 엣지 AIDC 실증 시범사업’ 공모에 ‘부산 조선·해양 엣지 AI 데이터센터 구축사업’이 최종 선정됐다고 13일 밝혔다. 이번 사업은 산단 입주기업이 개별구축하기...</p>
+        <p class="news-meta">
+          <span class="press">헤럴드경제</span> ·
+          <span class="pubdate">2026-07-13 11:08</span> ·
+          <span class="region-tag">부산</span>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://n.news.naver.com/mnews/article/005/0001860617?sid=101" target="_blank" rel="noopener">부산 제조업 AI·친환경 전환 시동…국비 340억 확보</a>
+        <p class="news-summary">부산시는 산업통상자원부의 ‘산업단지 엣지 AIDC 실증 시범 사업’과 ‘산업단지 에너지 자급자족 인프라 구축 사업’ 공모에 잇따라 선정됐다고 13일 밝혔다. 두 사업에는 국비 340억원을 포함해 총사업비 503억원이...</p>
+        <p class="news-meta">
+          <span class="press">kmib.co.kr</span> ·
+          <span class="pubdate">2026-07-13 10:59</span> ·
+          <span class="region-tag">부산</span>
+        </p>
+      </li></ul>
     </section>
     </div>
   <footer>기관·기업명을 클릭하면 해당 보도자료 게시판 전체 목록으로 이동합니다.</footer>
