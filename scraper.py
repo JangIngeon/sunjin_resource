@@ -12,13 +12,14 @@
   가장 최근 게시물 5건을 확인할 수 있다.
 """
 
+import os
 import re
 import sys
 import time
 from datetime import date, datetime, timedelta, timezone
 from email.utils import parsedate_to_datetime
-from html import escape
-from urllib.parse import urljoin
+from html import escape, unescape
+from urllib.parse import urljoin, urlparse
 
 import requests
 from bs4 import BeautifulSoup, NavigableString
@@ -60,6 +61,86 @@ BOARD_URL = {
     "한국수자원공사": "https://www.kwater.or.kr/news/repoList.do?brdId=KO26&s_mid=36",
     "정보통신산업진흥원": "https://www.nipa.kr/home/4-4-1",
     "한국지능정보사회진흥원": "https://nia.or.kr/site/nia_kor/ex/bbs/List.do?cbIdx=90549",
+}
+
+# --- "지자체 관련 기사" (AI데이터센터/AIDC + 지역명) 배너용 설정 ---------------------
+
+NAVER_CLIENT_ID = os.environ.get("NAVER_CLIENT_ID", "")
+NAVER_CLIENT_SECRET = os.environ.get("NAVER_CLIENT_SECRET", "")
+NAVER_NEWS_URL = "https://openapi.naver.com/v1/search/news.json"
+NAVER_NEWS_QUERIES = ["AI데이터센터", "AIDC"]
+NAVER_DISPLAY = 100
+NAVER_MAX_PAGES = 3  # 쿼리당 최대 100 x 3 = 300건 후보 확보
+AIDC_TOP_N = 20
+
+# 국내 지역명(시/도 정식명칭·약칭 + 주요 시/군/구). 기사 "제목"에 이 중 하나라도
+# 포함되면 지자체 관련 기사로 인정한다. 다소 방대한 목록이라 완벽하지 않을 수 있음
+# (누락된 지역명이 있으면 추가하면 됨).
+REGION_NAMES = [
+    # 17개 시/도 정식명칭
+    "서울특별시", "부산광역시", "대구광역시", "인천광역시", "광주광역시", "대전광역시",
+    "울산광역시", "세종특별자치시", "경기도", "강원특별자치도", "충청북도", "충청남도",
+    "전북특별자치도", "전라남도", "경상북도", "경상남도", "제주특별자치도",
+    # 시/도 약칭
+    "서울", "부산", "대구", "인천", "광주", "대전", "울산", "세종",
+    "경기", "강원", "충북", "충남", "전북", "전남", "경북", "경남", "제주",
+    # 서울 자치구
+    "강남구", "강동구", "강북구", "강서구", "관악구", "광진구", "구로구", "금천구",
+    "노원구", "도봉구", "동대문구", "동작구", "마포구", "서대문구", "서초구", "성동구",
+    "성북구", "송파구", "양천구", "영등포구", "용산구", "은평구", "종로구", "중랑구",
+    # 부산/대구/인천/광주/대전/울산 구·군 (일부는 여러 시에 중복 존재)
+    "금정구", "동래구", "부산진구", "북구", "사상구", "사하구", "수영구", "연제구",
+    "영도구", "해운대구", "기장군", "달서구", "수성구", "달성군", "군위군",
+    "계양구", "남동구", "미추홀구", "부평구", "연수구", "강화군", "옹진군",
+    "광산구", "대덕구", "유성구", "울주군", "동구", "서구", "남구", "중구",
+    # 경기도
+    "수원시", "성남시", "의정부시", "안양시", "부천시", "광명시", "평택시", "동두천시",
+    "안산시", "고양시", "과천시", "구리시", "남양주시", "오산시", "시흥시", "군포시",
+    "의왕시", "하남시", "용인시", "파주시", "이천시", "안성시", "김포시", "화성시",
+    "광주시", "양주시", "포천시", "여주시", "연천군", "가평군", "양평군",
+    # 강원특별자치도
+    "춘천시", "원주시", "강릉시", "동해시", "태백시", "속초시", "삼척시", "홍천군",
+    "횡성군", "영월군", "평창군", "정선군", "철원군", "화천군", "양구군", "인제군",
+    "고성군", "양양군",
+    # 충청북도
+    "청주시", "충주시", "제천시", "보은군", "옥천군", "영동군", "증평군", "진천군",
+    "괴산군", "음성군", "단양군",
+    # 충청남도
+    "천안시", "공주시", "보령시", "아산시", "서산시", "논산시", "계룡시", "당진시",
+    "금산군", "부여군", "서천군", "청양군", "홍성군", "예산군", "태안군",
+    # 전북특별자치도
+    "전주시", "군산시", "익산시", "정읍시", "남원시", "김제시", "완주군", "진안군",
+    "무주군", "장수군", "임실군", "순창군", "고창군", "부안군",
+    # 전라남도
+    "목포시", "여수시", "순천시", "나주시", "광양시", "담양군", "곡성군", "구례군",
+    "고흥군", "보성군", "화순군", "장흥군", "강진군", "해남군", "영암군", "무안군",
+    "함평군", "영광군", "장성군", "완도군", "진도군", "신안군",
+    # 경상북도
+    "포항시", "경주시", "김천시", "안동시", "구미시", "영주시", "영천시", "상주시",
+    "문경시", "경산시", "의성군", "청송군", "영양군", "영덕군", "청도군", "고령군",
+    "성주군", "칠곡군", "예천군", "봉화군", "울진군", "울릉군",
+    # 경상남도
+    "창원시", "진주시", "통영시", "사천시", "김해시", "밀양시", "거제시", "양산시",
+    "의령군", "함안군", "창녕군", "고성군", "남해군", "하동군", "산청군", "함양군",
+    "거창군", "합천군",
+    # 제주특별자치도
+    "제주시", "서귀포시",
+    # 흔히 쓰이는 별칭/특수 지명
+    "새만금",
+]
+
+# 언론사 도메인 -> 표시용 이름 (Naver API가 언론사명을 직접 주지 않아 링크로 추정)
+PRESS_DOMAIN_MAP = {
+    "yna.co.kr": "연합뉴스", "yonhapnews.co.kr": "연합뉴스",
+    "chosun.com": "조선일보", "donga.com": "동아일보", "joongang.co.kr": "중앙일보",
+    "hani.co.kr": "한겨레", "khan.co.kr": "경향신문", "mk.co.kr": "매일경제",
+    "hankyung.com": "한국경제", "sedaily.com": "서울경제", "edaily.co.kr": "이데일리",
+    "news1.kr": "뉴스1", "newsis.com": "뉴시스", "ytn.co.kr": "YTN",
+    "mbn.co.kr": "MBN", "sbs.co.kr": "SBS", "imbc.com": "MBC", "kbs.co.kr": "KBS",
+    "yonhap.co.kr": "연합뉴스", "hankookilbo.com": "한국일보", "seoul.co.kr": "서울신문",
+    "fnnews.com": "파이낸셜뉴스", "asiae.co.kr": "아시아경제", "etnews.com": "전자신문",
+    "zdnet.co.kr": "지디넷코리아", "dt.co.kr": "디지털타임스", "moneys.co.kr": "머니S",
+    "newsway.co.kr": "뉴스웨이", "heraldcorp.com": "헤럴드경제",
 }
 
 
@@ -429,6 +510,140 @@ def fetch_nia():
     return items or None
 
 
+_TAG_RE = re.compile(r"<[^>]+>")
+
+
+def clean_naver_text(text: str) -> str:
+    return unescape(_TAG_RE.sub("", text or "")).strip()
+
+
+def normalize_for_match(text: str) -> str:
+    return re.sub(r"\s+", "", text or "").lower()
+
+
+def find_region_in_title(title: str):
+    for name in REGION_NAMES:
+        if name in title:
+            return name
+    return None
+
+
+def press_name_from_link(link: str) -> str:
+    try:
+        host = urlparse(link).netloc
+    except ValueError:
+        return ""
+    host = re.sub(r"^www\.", "", host)
+    for domain, name in PRESS_DOMAIN_MAP.items():
+        if host == domain or host.endswith("." + domain):
+            return name
+    return host
+
+
+def fetch_naver_news_raw(query: str):
+    """네이버 뉴스 검색 API 호출. 실패하면 None, 성공하면 items 리스트(빈 리스트 가능)."""
+    if not NAVER_CLIENT_ID or not NAVER_CLIENT_SECRET:
+        log("[ERROR] NAVER: NAVER_CLIENT_ID/NAVER_CLIENT_SECRET 환경변수가 설정되지 않았습니다")
+        return None
+
+    headers = {
+        "X-Naver-Client-Id": NAVER_CLIENT_ID,
+        "X-Naver-Client-Secret": NAVER_CLIENT_SECRET,
+    }
+
+    all_items = []
+    for page in range(NAVER_MAX_PAGES):
+        start = page * NAVER_DISPLAY + 1
+        params = {"query": query, "display": NAVER_DISPLAY, "start": start, "sort": "date"}
+
+        data = None
+        last_err = None
+        for attempt in range(1, RETRIES + 1):
+            try:
+                resp = requests.get(NAVER_NEWS_URL, headers=headers, params=params, timeout=TIMEOUT)
+                resp.raise_for_status()
+                data = resp.json()
+                break
+            except requests.RequestException as e:
+                last_err = e
+                log(f"[WARN] NAVER[{query}] page{page + 1} attempt {attempt} failed: {e}")
+                if attempt < RETRIES:
+                    time.sleep(RETRY_WAIT_SECONDS)
+
+        if data is None:
+            log(f"[ERROR] NAVER[{query}] page{page + 1}: all attempts failed ({last_err})")
+            return all_items if all_items else None
+
+        items = data.get("items", [])
+        all_items.extend(items)
+        if len(items) < NAVER_DISPLAY:
+            break
+
+    log(f"[INFO] NAVER[{query}]: {len(all_items)} raw items fetched")
+    return all_items
+
+
+def fetch_aidc_news():
+    """'AI데이터센터'/'AIDC' + 지자체 지역명이 제목에 함께 언급된 기사 상위 20건.
+    반환값: (items, ok). ok=False면 API 호출 자체가 실패한 것(진짜로 0건인 것과 구분)."""
+    seen_links = set()
+    candidates = []
+    any_ok = False
+
+    for query in NAVER_NEWS_QUERIES:
+        raw_items = fetch_naver_news_raw(query)
+        if raw_items is None:
+            continue
+        any_ok = True
+
+        for it in raw_items:
+            link = it.get("originallink") or it.get("link") or ""
+            if not link or link in seen_links:
+                continue
+            seen_links.add(link)
+
+            title = clean_naver_text(it.get("title", ""))
+            desc = clean_naver_text(it.get("description", ""))
+            if not title:
+                continue
+
+            combined_norm = normalize_for_match(title + " " + desc)
+            if "ai데이터센터" not in combined_norm and "aidc" not in combined_norm:
+                continue
+
+            region = find_region_in_title(title)
+            if not region:
+                continue
+
+            pub_dt = None
+            try:
+                pub_dt = parsedate_to_datetime(it.get("pubDate", ""))
+                if pub_dt.tzinfo is None:
+                    pub_dt = pub_dt.replace(tzinfo=KST)
+                pub_dt = pub_dt.astimezone(KST)
+            except (TypeError, ValueError):
+                pub_dt = None
+
+            display_link = it.get("link") or link
+            candidates.append({
+                "title": title,
+                "summary": desc,
+                "link": display_link,
+                "press": press_name_from_link(link),
+                "pub_dt": pub_dt,
+                "region": region,
+            })
+
+    if not any_ok:
+        log("[SUMMARY] AIDC: FETCH FAILED")
+        return [], False
+
+    candidates.sort(key=lambda x: x["pub_dt"] or datetime.min.replace(tzinfo=KST), reverse=True)
+    top = candidates[:AIDC_TOP_N]
+    log(f"[SUMMARY] AIDC: {len(candidates)}건 매칭, 상위 {len(top)}건 표시")
+    return top, True
+
+
 FETCHERS = {
     "과학기술정보통신부": fetch_msit,
     "기후에너지환경부": fetch_mcee,
@@ -440,7 +655,8 @@ FETCHERS = {
 }
 
 
-def render_html(today_items: dict, recent_items: dict, fetch_failed: set) -> str:
+def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
+                 aidc_items: list, aidc_ok: bool) -> str:
     def date_label(item: dict) -> str:
         if item.get("date"):
             return item["date"].strftime("%Y-%m-%d")
@@ -467,7 +683,7 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set) -> str
         if org not in fetch_failed and recent:
             more_html = f"""
       <details class="more">
-        <summary>더보기 (최근 {len(recent)}건)</summary>
+        <summary>더보기 (최근 {len(recent)}건, 날짜 무관)</summary>
         <ul>{"".join(item_li(it) for it in recent)}</ul>
       </details>"""
 
@@ -475,6 +691,33 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set) -> str
     <section class="agency">
       <h2><a href="{escape(BOARD_URL[org])}" target="_blank" rel="noopener">{escape(org)}</a></h2>
       {body}{more_html}
+    </section>"""
+
+    def news_li(item: dict) -> str:
+        pub_label = item["pub_dt"].strftime("%Y-%m-%d %H:%M") if item.get("pub_dt") else "-"
+        return f"""
+      <li class="news-item">
+        <a class="news-title" href="{escape(item['link'])}" target="_blank" rel="noopener">{escape(item['title'])}</a>
+        <p class="news-summary">{escape(item['summary'])}</p>
+        <p class="news-meta">
+          <span class="press">{escape(item['press'])}</span> ·
+          <span class="pubdate">{escape(pub_label)}</span> ·
+          <span class="region-tag">{escape(item['region'])}</span>
+        </p>
+      </li>"""
+
+    def aidc_panel() -> str:
+        if not aidc_ok:
+            body = '<p class="msg fail">뉴스 검색에 실패하여 확인하지 못했습니다. 다음 자동 실행에서 다시 시도합니다.</p>'
+        elif aidc_items:
+            body = "<ul class=\"news-list\">" + "".join(news_li(it) for it in aidc_items) + "</ul>"
+        else:
+            body = '<p class="msg empty">조건에 맞는 기사가 없습니다</p>'
+        return f"""
+    <section class="agency">
+      <h2>AI데이터센터(AIDC) · 지자체 언급 기사</h2>
+      <p class="section-desc">네이버 뉴스에서 "AI데이터센터"/"AIDC"와 국내 지역명이 함께 언급된 기사 중 최신 {AIDC_TOP_N}건</p>
+      {body}
     </section>"""
 
     tab_buttons = []
@@ -486,6 +729,11 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set) -> str
         )
         sections_html = "\n".join(org_section(org) for org in orgs)
         tab_panels.append(f'<div id="tab-{key}" class="tab-panel{active}">{sections_html}\n    </div>')
+
+    tab_buttons.append(
+        '<button class="tab-btn" data-tab="local" onclick="showTab(\'local\')">지자체 관련 기사</button>'
+    )
+    tab_panels.append(f'<div id="tab-local" class="tab-panel">{aidc_panel()}\n    </div>')
 
     tab_buttons_html = "\n    ".join(tab_buttons)
     tab_panels_html = "\n  ".join(tab_panels)
@@ -528,6 +776,14 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set) -> str
   details.more {{ margin-top: 8px; }}
   details.more summary {{ font-size: 13px; color: #185fa5; cursor: pointer; padding: 8px 0; }}
   details.more ul {{ padding-top: 4px; }}
+  .section-desc {{ font-size: 12px; color: #888; margin: -6px 0 12px; }}
+  ul.news-list {{ display: block; }}
+  li.news-item {{ display: block; padding: 14px 0; }}
+  li.news-item .news-title {{ display: block; font-size: 15px; font-weight: 600; color: #185fa5; }}
+  li.news-item .news-title:hover {{ text-decoration: underline; }}
+  li.news-item .news-summary {{ font-size: 13px; color: #555; margin: 6px 0; line-height: 1.5; }}
+  li.news-item .news-meta {{ font-size: 12px; color: #888; margin: 0; }}
+  li.news-item .region-tag {{ color: #185fa5; font-weight: 600; }}
   footer {{ color: #999; font-size: 12px; text-align: center; margin-top: 32px; }}
   @media (prefers-color-scheme: dark) {{
     body {{ background: #17181a; color: #e8e8e6; }}
@@ -537,6 +793,8 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set) -> str
     li a {{ color: #e8e8e6; }}
     li .date {{ color: #999; }}
     .msg.empty {{ color: #9a9a9a; }}
+    li.news-item .news-summary {{ color: #aaa; }}
+    li.news-item .news-meta {{ color: #999; }}
   }}
 </style>
 </head>
@@ -579,9 +837,10 @@ def main() -> None:
         recent_items[org] = items[:RECENT_LIMIT]
         log(f"[SUMMARY] {org}: {len(matched)} item(s) today (of {len(items)} total parsed)")
 
-    html = render_html(today_items, recent_items, fetch_failed)
+    aidc_items, aidc_ok = fetch_aidc_news()
 
-    import os
+    html = render_html(today_items, recent_items, fetch_failed, aidc_items, aidc_ok)
+
     os.makedirs("public", exist_ok=True)
     with open("public/index.html", "w", encoding="utf-8") as f:
         f.write(html)
