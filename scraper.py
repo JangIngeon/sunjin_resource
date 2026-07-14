@@ -20,8 +20,13 @@ import requests
 from bs4 import BeautifulSoup
 
 KST = timezone(timedelta(hours=9))
-TODAY = datetime.now(KST).date() - timedelta(days=1)
-TODAY_LABEL = (datetime.now(KST) - timedelta(days=1)).strftime("%Y년 %m월 %d일")
+TODAY = datetime.now(KST).date()
+TODAY_LABEL = datetime.now(KST).strftime("%Y년 %m월 %d일")
+
+#전날 기준
+# KST = timezone(timedelta(hours=9))
+# TODAY = datetime.now(KST).date() - timedelta(days=1)
+# TODAY_LABEL = (datetime.now(KST) - timedelta(days=1)).strftime("%Y년 %m월 %d일")
 
 HEADERS = {
     "User-Agent": (
