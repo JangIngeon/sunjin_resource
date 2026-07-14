@@ -467,7 +467,7 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set) -> str
         if org not in fetch_failed and recent:
             more_html = f"""
       <details class="more">
-        <summary>더보기 (최근 {len(recent)}건, 날짜 무관)</summary>
+        <summary>더보기 (최근 {len(recent)}건)</summary>
         <ul>{"".join(item_li(it) for it in recent)}</ul>
       </details>"""
 
