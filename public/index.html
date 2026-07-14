@@ -11,6 +11,22 @@
           background: #f7f7f5; color: #222; }
   header h1 { font-size: 22px; margin-bottom: 4px; }
   header p { color: #666; font-size: 14px; margin-top: 0; }
+  section.highlights { background: #fff; border: 1px solid #e3e2dc; border-radius: 10px;
+                         margin-top: 20px; padding: 4px 20px 16px; }
+  section.highlights h2 { font-size: 17px; padding: 10px 0; }
+  ul.highlight-list { display: block; }
+  li.highlight-item { display: flex; align-items: baseline; gap: 8px; padding: 8px 0;
+                        border-top: 1px solid #eee; flex-wrap: wrap; }
+  li.highlight-item:first-child { border-top: none; }
+  li.highlight-item a { color: #222; text-decoration: none; font-size: 14px; }
+  li.highlight-item a:hover { text-decoration: underline; color: #185fa5; }
+  .cat-badge { font-size: 11px; font-weight: 700; color: #fff; padding: 2px 8px;
+                border-radius: 10px; white-space: nowrap; }
+  .cat-badge.cat-gov { background: #185fa5; }
+  .cat-badge.cat-public { background: #1f8a4c; }
+  .cat-badge.cat-local { background: #c2703d; }
+  .cat-badge.cat-listed { background: #7b4fa6; }
+  .highlight-sub { font-size: 12px; color: #888; }
   .tab-banner { display: flex; gap: 8px; margin: 20px 0 24px; }
   .tab-btn { flex: 1; padding: 12px 0; border: 1px solid #d8d6cf; border-radius: 10px;
               background: #fff; color: #444; font-size: 15px; font-weight: 600;
@@ -55,14 +71,203 @@
     .msg.empty { color: #9a9a9a; }
     li.news-item .news-summary { color: #aaa; }
     li.news-item .news-meta { color: #999; }
+    section.highlights { background: #232527; border-color: #33353a; }
+    li.highlight-item { border-top-color: #33353a; }
+    li.highlight-item a { color: #e8e8e6; }
+    .highlight-sub { color: #999; }
   }
 </style>
 </head>
 <body>
   <header>
     <h1>정부기관·공기업 오늘의 보도자료</h1>
-    <p>2026년 07월 14일 기준 · 매일 자동 업데이트</p>
+    <p>2026년 07월 14일 기준 · 마지막 업데이트: 2026-07-14 13:45 (KST) · 매일 자동 업데이트(하루 6회)</p>
   </header>
+  
+  <section class="highlights">
+    <h2>오늘 올라온 자료들</h2>
+    <ul class="highlight-list">
+      <li class="highlight-item">
+        <span class="cat-badge cat-gov">정부기관</span>
+        <a href="https://www.msit.go.kr/bbs/view.do?sCode=user&amp;bbsSeqNo=94&amp;nttSeqNo=3187546" target="_blank" rel="noopener">K-블록체인, ‘팀 코리아’로 유럽 시장 진출 성과 거둬 「GITEX AI 유럽 2026」 후속 성과 창출 본격 지원</a>
+        <span class="highlight-sub">과학기술정보통신부</span>
+      </li>
+      <li class="highlight-item">
+        <span class="cat-badge cat-gov">정부기관</span>
+        <a href="https://mcee.go.kr/home/web/board/read.do?menuId=10598&amp;boardMasterId=939&amp;boardId=1877370" target="_blank" rel="noopener">기후부, 호남권 반도체 산단 공업용수 적기 공급을 위한 점검회의 개최</a>
+        <span class="highlight-sub">기후에너지환경부</span>
+      </li>
+      <li class="highlight-item">
+        <span class="cat-badge cat-gov">정부기관</span>
+        <a href="https://mcee.go.kr/home/web/board/read.do?menuId=10598&amp;boardMasterId=939&amp;boardId=1877330" target="_blank" rel="noopener">자동차 온실가스 기준 고시 개정안 행정예고</a>
+        <span class="highlight-sub">기후에너지환경부</span>
+      </li>
+      <li class="highlight-item">
+        <span class="cat-badge cat-gov">정부기관</span>
+        <a href="https://mcee.go.kr/home/web/board/read.do?menuId=10598&amp;boardMasterId=939&amp;boardId=1877320" target="_blank" rel="noopener">사물인터넷 측정기기 부착한 사업장, 운영기록부 작성 면제된다</a>
+        <span class="highlight-sub">기후에너지환경부</span>
+      </li>
+      <li class="highlight-item">
+        <span class="cat-badge cat-gov">정부기관</span>
+        <a href="https://mcee.go.kr/home/web/board/read.do?menuId=10598&amp;boardMasterId=939&amp;boardId=1877300" target="_blank" rel="noopener">동물대체시험법 국제표준화 논의의 장 열린다</a>
+        <span class="highlight-sub">기후에너지환경부</span>
+      </li>
+      <li class="highlight-item">
+        <span class="cat-badge cat-gov">정부기관</span>
+        <a href="https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172025/view" target="_blank" rel="noopener">기업책임경영, AIㆍ공급망 시대  지속가능한 성장의 핵심</a>
+        <span class="highlight-sub">산업통상부</span>
+      </li>
+      <li class="highlight-item">
+        <span class="cat-badge cat-gov">정부기관</span>
+        <a href="https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172024/view" target="_blank" rel="noopener">2026년 첫 「찾아가는 FTA‧통상 데스크」 개최</a>
+        <span class="highlight-sub">산업통상부</span>
+      </li>
+      <li class="highlight-item">
+        <span class="cat-badge cat-gov">정부기관</span>
+        <a href="https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172023/view" target="_blank" rel="noopener">2026년 상반기 및 6월 정보통신산업(ICT) 수출입 동향</a>
+        <span class="highlight-sub">산업통상부</span>
+      </li>
+      <li class="highlight-item">
+        <span class="cat-badge cat-public">공기업</span>
+        <a href="https://www.nipa.kr/home/4-4-1/16853" target="_blank" rel="noopener">정보통신산업진흥원, 베트남·말레이시아에 한-아세안 디지털 아카데미 개소... 아세안 디지털 인재 양성 본격 추진</a>
+        <span class="highlight-sub">정보통신산업진흥원</span>
+      </li>
+      <li class="highlight-item">
+        <span class="cat-badge cat-public">공기업</span>
+        <a href="https://nia.or.kr/site/nia_kor/ex/bbs/View.do?cbIdx=90549&amp;bcIdx=29651&amp;parentSeq=29651" target="_blank" rel="noopener">NIA, Hyper-AI 네트워크로 산업현장 피지컬 AI 시대 연다</a>
+        <span class="highlight-sub">한국지능정보사회진흥원</span>
+      </li>
+      <li class="highlight-item">
+        <span class="cat-badge cat-local">지자체 관련 기사</span>
+        <a href="http://amenews.kr/news/view.php?idx=67419" target="_blank" rel="noopener">3Q 제조업 경기전망 반등…전분기比 4p↑</a>
+        <span class="highlight-sub">경기</span>
+      </li>
+      <li class="highlight-item">
+        <span class="cat-badge cat-local">지자체 관련 기사</span>
+        <a href="http://www.kwangju.co.kr/article.php?aid=1783998660801235277" target="_blank" rel="noopener">대전환기획위 “새 중재안 없다”…국립의대 통합신청 자율협의가 마지...</a>
+        <span class="highlight-sub">대전</span>
+      </li>
+      <li class="highlight-item">
+        <span class="cat-badge cat-local">지자체 관련 기사</span>
+        <a href="https://n.news.naver.com/mnews/article/629/0000515879?sid=102" target="_blank" rel="noopener">탑솔라·전남개발공사, 1500억 원 규모 PF 마무리·ESS 확충 시동</a>
+        <span class="highlight-sub">전남</span>
+      </li>
+      <li class="highlight-item">
+        <span class="cat-badge cat-local">지자체 관련 기사</span>
+        <a href="https://n.news.naver.com/mnews/article/029/0003036945?sid=101" target="_blank" rel="noopener">현대차그룹 새만금 9조 투자… 배후지 기대감 높아지는 ‘전주 라온프라...</a>
+        <span class="highlight-sub">새만금</span>
+      </li>
+      <li class="highlight-item">
+        <span class="cat-badge cat-local">지자체 관련 기사</span>
+        <a href="https://n.news.naver.com/mnews/article/002/0002448280?sid=102" target="_blank" rel="noopener">우상호 강원지사, 첫 공식 업무보고 돌입…“도민 삶의 실질적 변화 이...</a>
+        <span class="highlight-sub">강원</span>
+      </li>
+      <li class="highlight-item">
+        <span class="cat-badge cat-local">지자체 관련 기사</span>
+        <a href="https://www.ajunews.com/view/20260714075838541" target="_blank" rel="noopener">부산 명지녹산에 &#x27;국산 NPU&#x27; 기반 AI 데이터센터 들어선다</a>
+        <span class="highlight-sub">부산</span>
+      </li>
+      <li class="highlight-item">
+        <span class="cat-badge cat-listed">상장법인 관련 기사</span>
+        <a href="https://www.joongangenews.com/news/articleView.html?idxno=532708" target="_blank" rel="noopener">네이버·카카오·SKT·KT·LGU+ 총출동…&#x27;모두의 AI&#x27; 국가사업 쟁탈전 막...</a>
+        <span class="highlight-sub">카카오</span>
+      </li>
+      <li class="highlight-item">
+        <span class="cat-badge cat-listed">상장법인 관련 기사</span>
+        <a href="https://www.newsworks.co.kr/news/articleView.html?idxno=847147" target="_blank" rel="noopener">정부 &#x27;반도체 800조&#x27; 투자…서남권 &#x27;제2 생산거점&#x27; 육성</a>
+        <span class="highlight-sub">서남</span>
+      </li>
+      <li class="highlight-item">
+        <span class="cat-badge cat-listed">상장법인 관련 기사</span>
+        <a href="https://www.job-post.co.kr/news/articleView.html?idxno=221035" target="_blank" rel="noopener">대우건설 정원주 회장, 인도네시아 방문 &#x27;AI 데이터센터·에너지 융복합...</a>
+        <span class="highlight-sub">대우건설</span>
+      </li>
+      <li class="highlight-item">
+        <span class="cat-badge cat-listed">상장법인 관련 기사</span>
+        <a href="https://www.datanet.co.kr/news/articleView.html?idxno=213049" target="_blank" rel="noopener">나인앤컴퍼니 &#x27;AI 데이터센터 냉각솔루션&#x27; 신규사업으로 낙점</a>
+        <span class="highlight-sub">나인앤컴퍼니</span>
+      </li>
+      <li class="highlight-item">
+        <span class="cat-badge cat-listed">상장법인 관련 기사</span>
+        <a href="https://www.lcnews.co.kr/news/articleView.html?idxno=204900" target="_blank" rel="noopener">[건설 Pick] 대우건설·롯데건설·LH, 해외 신사업부터 안전·주택공급까...</a>
+        <span class="highlight-sub">대우건설</span>
+      </li>
+      <li class="highlight-item">
+        <span class="cat-badge cat-listed">상장법인 관련 기사</span>
+        <a href="http://www.biztribune.co.kr/news/articleView.html?idxno=355910" target="_blank" rel="noopener">삼성SDI, UPS 배터리 화재 안전성 입증…AI 데이터센터 공략</a>
+        <span class="highlight-sub">삼성SDI</span>
+      </li>
+      <li class="highlight-item">
+        <span class="cat-badge cat-listed">상장법인 관련 기사</span>
+        <a href="https://n.news.naver.com/mnews/article/214/0001511551?sid=101" target="_blank" rel="noopener">반도체 추가 세수로 &#x27;미래기금&#x27; 신설‥ KIC &#x27;국부펀드&#x27;로 민관투자</a>
+        <span class="highlight-sub">대상</span>
+      </li>
+      <li class="highlight-item">
+        <span class="cat-badge cat-listed">상장법인 관련 기사</span>
+        <a href="https://www.aitimes.com/news/articleView.html?idxno=212740" target="_blank" rel="noopener">나인앤컴퍼니, AI 데이터센터 냉각솔루션 사업 본격화…전담 조직 신설...</a>
+        <span class="highlight-sub">나인앤컴퍼니</span>
+      </li>
+      <li class="highlight-item">
+        <span class="cat-badge cat-listed">상장법인 관련 기사</span>
+        <a href="http://www.thevaluenews.co.kr/news/view.php?idx=200074" target="_blank" rel="noopener">삼성SDI, UPS 배터리 화재 차단 기술 입증…강제 전소에도 화재 전파 차...</a>
+        <span class="highlight-sub">삼성SDI</span>
+      </li>
+      <li class="highlight-item">
+        <span class="cat-badge cat-listed">상장법인 관련 기사</span>
+        <a href="https://sateconomy.co.kr/news/view/1065585964266259" target="_blank" rel="noopener">국내 AI 특화 서비스 ‘모두의 AI’ 경쟁 구체화…네카오·통신 3사 참여...</a>
+        <span class="highlight-sub">SK텔레콤</span>
+      </li>
+      <li class="highlight-item">
+        <span class="cat-badge cat-listed">상장법인 관련 기사</span>
+        <a href="https://www.mdtoday.co.kr/news/articleView.html?idxno=604839" target="_blank" rel="noopener">삼성SDI, UPS 배터리 화재 안전성 입증</a>
+        <span class="highlight-sub">삼성SDI</span>
+      </li>
+      <li class="highlight-item">
+        <span class="cat-badge cat-listed">상장법인 관련 기사</span>
+        <a href="https://www.naeil.com/news/read/595288?ref=naver" target="_blank" rel="noopener">삼성SDI 배터리 ‘화재안전’ 시험 통과</a>
+        <span class="highlight-sub">삼성SDI</span>
+      </li>
+      <li class="highlight-item">
+        <span class="cat-badge cat-listed">상장법인 관련 기사</span>
+        <a href="https://www.naeil.com/news/read/595278?ref=naver" target="_blank" rel="noopener">한국전력, 송전망 4층 철탑 건설 추진</a>
+        <span class="highlight-sub">국전</span>
+      </li>
+      <li class="highlight-item">
+        <span class="cat-badge cat-listed">상장법인 관련 기사</span>
+        <a href="https://theviewers.co.kr/View.aspx?No=4148478" target="_blank" rel="noopener">삼성SDI, AI 데이터센터용 배터리 안전성 입증</a>
+        <span class="highlight-sub">삼성SDI</span>
+      </li>
+      <li class="highlight-item">
+        <span class="cat-badge cat-listed">상장법인 관련 기사</span>
+        <a href="https://theviewers.co.kr/View.aspx?No=4146088" target="_blank" rel="noopener">[AI시대, NEW 패권①] 반도체보다 전기…승자는 ‘전력 가진 기업’</a>
+        <span class="highlight-sub">NEW</span>
+      </li>
+      <li class="highlight-item">
+        <span class="cat-badge cat-listed">상장법인 관련 기사</span>
+        <a href="https://www.naeil.com/news/read/595218?ref=naver" target="_blank" rel="noopener">‘3대 메가 프로젝트’에 국가총력 지원체계 가동한다</a>
+        <span class="highlight-sub">서남</span>
+      </li>
+      <li class="highlight-item">
+        <span class="cat-badge cat-listed">상장법인 관련 기사</span>
+        <a href="https://www.it-b.co.kr/news/articleView.html?idxno=89094" target="_blank" rel="noopener">나인앤컴퍼니, 신규 성장사업으로 &#x27;AI 데이터센터 냉각솔루션&#x27; 낙점</a>
+        <span class="highlight-sub">나인앤컴퍼니</span>
+      </li>
+      <li class="highlight-item">
+        <span class="cat-badge cat-listed">상장법인 관련 기사</span>
+        <a href="https://daily.hankooki.com/news/articleView.html?idxno=1385767" target="_blank" rel="noopener">최태원 &quot;AI 비용 낮춰야 경쟁력&quot;…데이터센터 혁신 속도</a>
+        <span class="highlight-sub">SK하이닉스</span>
+      </li>
+      <li class="highlight-item">
+        <span class="cat-badge cat-listed">상장법인 관련 기사</span>
+        <a href="https://www.epnc.co.kr/news/articleView.html?idxno=404256" target="_blank" rel="noopener">삼성SDI, UPS용 배터리 UL 화재 안전성 입증</a>
+        <span class="highlight-sub">삼성SDI</span>
+      </li>
+      <li class="highlight-item">
+        <span class="cat-badge cat-listed">상장법인 관련 기사</span>
+        <a href="https://n.news.naver.com/mnews/article/020/0003733773?sid=101" target="_blank" rel="noopener">나인앤컴퍼니, AI 데이터센터 냉각 솔루션으로 미래 성장동력 확보 나선...</a>
+        <span class="highlight-sub">나인앤컴퍼니</span>
+      </li></ul>
+  </section>
   <div class="tab-banner">
     <button class="tab-btn active" data-tab="gov" onclick="showTab('gov')">정부기관</button>
     <button class="tab-btn" data-tab="public" onclick="showTab('public')">공기업</button>
@@ -72,30 +277,33 @@
   <div id="tab-gov" class="tab-panel active">
     <section class="agency">
       <h2><a href="https://www.msit.go.kr/bbs/list.do?sCode=user&amp;mPid=208&amp;mId=307" target="_blank" rel="noopener">과학기술정보통신부</a></h2>
-      <p class="msg empty">오늘 등록된 보도자료 없음</p>
+      <ul><li><a href="https://www.msit.go.kr/bbs/view.do?sCode=user&amp;bbsSeqNo=94&amp;nttSeqNo=3187546" target="_blank" rel="noopener">K-블록체인, ‘팀 코리아’로 유럽 시장 진출 성과 거둬 「GITEX AI 유럽 2026」 후속 성과 창출 본격 지원</a><span class="date">2026-07-14</span></li></ul>
       <details class="more">
         <summary>더보기 (최근 5건, 날짜 무관)</summary>
-        <ul><li><a href="https://www.msit.go.kr/bbs/view.do?sCode=user&amp;bbsSeqNo=94&amp;nttSeqNo=3187543" target="_blank" rel="noopener">구혁채 1차관, 국가신약개발 현장소통</a><span class="date">2026-07-13</span></li><li><a href="https://www.msit.go.kr/bbs/view.do?sCode=user&amp;bbsSeqNo=94&amp;nttSeqNo=3187542" target="_blank" rel="noopener">세계적 권위의 생명과학상 ‘HFSP 나카소네상’  아시아 최초, 한국 연구자 선정</a><span class="date">2026-07-13</span></li><li><a href="https://www.msit.go.kr/bbs/view.do?sCode=user&amp;bbsSeqNo=94&amp;nttSeqNo=3187538" target="_blank" rel="noopener">딥테크가 만드는 대한민국의 미래, 2026년 딥테크 성과교류회 개최</a><span class="date">2026-07-13</span></li><li><a href="https://www.msit.go.kr/bbs/view.do?sCode=user&amp;bbsSeqNo=94&amp;nttSeqNo=3187541" target="_blank" rel="noopener">공무원이 직접 만든 ‘인공지능 법령 비서’ 시범 개시</a><span class="date">2026-07-13</span></li><li><a href="https://www.msit.go.kr/bbs/view.do?sCode=user&amp;bbsSeqNo=94&amp;nttSeqNo=3187540" target="_blank" rel="noopener">아세안 디지털 혁신을 이끌 AI 인재 양성, 말레이시아 디지털 아카데미 개소</a><span class="date">2026-07-13</span></li></ul>
+        <ul><li><a href="https://www.msit.go.kr/bbs/view.do?sCode=user&amp;bbsSeqNo=94&amp;nttSeqNo=3187546" target="_blank" rel="noopener">K-블록체인, ‘팀 코리아’로 유럽 시장 진출 성과 거둬 「GITEX AI 유럽 2026」 후속 성과 창출 본격 지원</a><span class="date">2026-07-14</span></li><li><a href="https://www.msit.go.kr/bbs/view.do?sCode=user&amp;bbsSeqNo=94&amp;nttSeqNo=3187543" target="_blank" rel="noopener">구혁채 1차관, 국가신약개발 현장소통</a><span class="date">2026-07-13</span></li><li><a href="https://www.msit.go.kr/bbs/view.do?sCode=user&amp;bbsSeqNo=94&amp;nttSeqNo=3187542" target="_blank" rel="noopener">세계적 권위의 생명과학상 ‘HFSP 나카소네상’  아시아 최초, 한국 연구자 선정</a><span class="date">2026-07-13</span></li><li><a href="https://www.msit.go.kr/bbs/view.do?sCode=user&amp;bbsSeqNo=94&amp;nttSeqNo=3187538" target="_blank" rel="noopener">딥테크가 만드는 대한민국의 미래, 2026년 딥테크 성과교류회 개최</a><span class="date">2026-07-13</span></li><li><a href="https://www.msit.go.kr/bbs/view.do?sCode=user&amp;bbsSeqNo=94&amp;nttSeqNo=3187541" target="_blank" rel="noopener">공무원이 직접 만든 ‘인공지능 법령 비서’ 시범 개시</a><span class="date">2026-07-13</span></li></ul>
       </details>
     </section>
 
     <section class="agency">
       <h2><a href="https://mcee.go.kr/home/web/index.do?menuId=10598" target="_blank" rel="noopener">기후에너지환경부</a></h2>
-      <ul><li><a href="https://mcee.go.kr/home/web/board/read.do?menuId=10598&amp;boardMasterId=939&amp;boardId=1877330" target="_blank" rel="noopener">자동차 온실가스 기준 고시 개정안 행정예고</a><span class="date">2026-07-14</span></li>
+      <ul><li><a href="https://mcee.go.kr/home/web/board/read.do?menuId=10598&amp;boardMasterId=939&amp;boardId=1877370" target="_blank" rel="noopener">기후부, 호남권 반도체 산단 공업용수 적기 공급을 위한 점검회의 개최</a><span class="date">2026-07-14</span></li>
+<li><a href="https://mcee.go.kr/home/web/board/read.do?menuId=10598&amp;boardMasterId=939&amp;boardId=1877330" target="_blank" rel="noopener">자동차 온실가스 기준 고시 개정안 행정예고</a><span class="date">2026-07-14</span></li>
 <li><a href="https://mcee.go.kr/home/web/board/read.do?menuId=10598&amp;boardMasterId=939&amp;boardId=1877320" target="_blank" rel="noopener">사물인터넷 측정기기 부착한 사업장, 운영기록부 작성 면제된다</a><span class="date">2026-07-14</span></li>
 <li><a href="https://mcee.go.kr/home/web/board/read.do?menuId=10598&amp;boardMasterId=939&amp;boardId=1877300" target="_blank" rel="noopener">동물대체시험법 국제표준화 논의의 장 열린다</a><span class="date">2026-07-14</span></li></ul>
       <details class="more">
         <summary>더보기 (최근 5건, 날짜 무관)</summary>
-        <ul><li><a href="https://mcee.go.kr/home/web/board/read.do?menuId=10598&amp;boardMasterId=939&amp;boardId=1877330" target="_blank" rel="noopener">자동차 온실가스 기준 고시 개정안 행정예고</a><span class="date">2026-07-14</span></li><li><a href="https://mcee.go.kr/home/web/board/read.do?menuId=10598&amp;boardMasterId=939&amp;boardId=1877320" target="_blank" rel="noopener">사물인터넷 측정기기 부착한 사업장, 운영기록부 작성 면제된다</a><span class="date">2026-07-14</span></li><li><a href="https://mcee.go.kr/home/web/board/read.do?menuId=10598&amp;boardMasterId=939&amp;boardId=1877300" target="_blank" rel="noopener">동물대체시험법 국제표준화 논의의 장 열린다</a><span class="date">2026-07-14</span></li><li><a href="https://mcee.go.kr/home/web/board/read.do?menuId=10598&amp;boardMasterId=939&amp;boardId=1877100" target="_blank" rel="noopener">카페업계 등 탈플라스틱 실천에 참여</a><span class="date">2026-07-13</span></li><li><a href="https://mcee.go.kr/home/web/board/read.do?menuId=10598&amp;boardMasterId=939&amp;boardId=1876910" target="_blank" rel="noopener">폐배터리 속 리튬, 미생물로 90% 이상 회수한다</a><span class="date">2026-07-13</span></li></ul>
+        <ul><li><a href="https://mcee.go.kr/home/web/board/read.do?menuId=10598&amp;boardMasterId=939&amp;boardId=1877370" target="_blank" rel="noopener">기후부, 호남권 반도체 산단 공업용수 적기 공급을 위한 점검회의 개최</a><span class="date">2026-07-14</span></li><li><a href="https://mcee.go.kr/home/web/board/read.do?menuId=10598&amp;boardMasterId=939&amp;boardId=1877330" target="_blank" rel="noopener">자동차 온실가스 기준 고시 개정안 행정예고</a><span class="date">2026-07-14</span></li><li><a href="https://mcee.go.kr/home/web/board/read.do?menuId=10598&amp;boardMasterId=939&amp;boardId=1877320" target="_blank" rel="noopener">사물인터넷 측정기기 부착한 사업장, 운영기록부 작성 면제된다</a><span class="date">2026-07-14</span></li><li><a href="https://mcee.go.kr/home/web/board/read.do?menuId=10598&amp;boardMasterId=939&amp;boardId=1877300" target="_blank" rel="noopener">동물대체시험법 국제표준화 논의의 장 열린다</a><span class="date">2026-07-14</span></li><li><a href="https://mcee.go.kr/home/web/board/read.do?menuId=10598&amp;boardMasterId=939&amp;boardId=1877100" target="_blank" rel="noopener">카페업계 등 탈플라스틱 실천에 참여</a><span class="date">2026-07-13</span></li></ul>
       </details>
     </section>
 
     <section class="agency">
       <h2><a href="https://www.motir.go.kr/kor/article/ATCL3f49a5a8c" target="_blank" rel="noopener">산업통상부</a></h2>
-      <p class="msg empty">오늘 등록된 보도자료 없음</p>
+      <ul><li><a href="https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172025/view" target="_blank" rel="noopener">기업책임경영, AIㆍ공급망 시대  지속가능한 성장의 핵심</a><span class="date">2026-07-14</span></li>
+<li><a href="https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172024/view" target="_blank" rel="noopener">2026년 첫 「찾아가는 FTA‧통상 데스크」 개최</a><span class="date">2026-07-14</span></li>
+<li><a href="https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172023/view" target="_blank" rel="noopener">2026년 상반기 및 6월 정보통신산업(ICT) 수출입 동향</a><span class="date">2026-07-14</span></li></ul>
       <details class="more">
         <summary>더보기 (최근 5건, 날짜 무관)</summary>
-        <ul><li><a href="https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172020/view" target="_blank" rel="noopener">정부 부처 협업, 수출기업의 해외인증 장벽 허문다</a><span class="date">2026-07-13</span></li><li><a href="https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172019/view" target="_blank" rel="noopener">산업부, EU 공급망 실사지침 가이드라인에 우리 기업 목소리 담는다</a><span class="date">2026-07-13</span></li><li><a href="https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172018/view" target="_blank" rel="noopener">통상현안 대응 및 통상네트워크 확대 역량 집중</a><span class="date">2026-07-13</span></li><li><a href="https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172017/view" target="_blank" rel="noopener">“K-조선의 지속가능한 미래를 위해 노사정이 머리를 맞대다”</a><span class="date">2026-07-13</span></li><li><a href="https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172016/view" target="_blank" rel="noopener">(참고자료)정부, 중동정세 긴장 재고조에  원유 수급상황 긴급 점검</a><span class="date">2026-07-13</span></li></ul>
+        <ul><li><a href="https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172025/view" target="_blank" rel="noopener">기업책임경영, AIㆍ공급망 시대  지속가능한 성장의 핵심</a><span class="date">2026-07-14</span></li><li><a href="https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172024/view" target="_blank" rel="noopener">2026년 첫 「찾아가는 FTA‧통상 데스크」 개최</a><span class="date">2026-07-14</span></li><li><a href="https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172023/view" target="_blank" rel="noopener">2026년 상반기 및 6월 정보통신산업(ICT) 수출입 동향</a><span class="date">2026-07-14</span></li><li><a href="https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172020/view" target="_blank" rel="noopener">정부 부처 협업, 수출기업의 해외인증 장벽 허문다</a><span class="date">2026-07-13</span></li><li><a href="https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172019/view" target="_blank" rel="noopener">산업부, EU 공급망 실사지침 가이드라인에 우리 기업 목소리 담는다</a><span class="date">2026-07-13</span></li></ul>
       </details>
     </section>
     </div>
@@ -141,6 +349,15 @@
       <h2>AI데이터센터(AIDC) · 지자체 언급 기사</h2>
       <p class="section-desc">네이버 뉴스에서 "AI데이터센터"/"AIDC"와 국내 지역명이 함께 언급된 기사 중 최신 20건</p>
       <ul class="news-list">
+      <li class="news-item">
+        <a class="news-title" href="http://amenews.kr/news/view.php?idx=67419" target="_blank" rel="noopener">3Q 제조업 경기전망 반등…전분기比 4p↑</a>
+        <p class="news-summary">특히 전자·통신 업종은 글로벌 빅테크 기업들의 AI 데이터센터 투자 확대 영향으로 전분기 대비 가장 큰 상승폭을 기록했다. AI 데이터센터 구축에 필요한 회로기판, MLCC(적층세라믹콘덴서) 등 관련 부품 수요 증가가...</p>
+        <p class="news-meta">
+          <span class="press">amenews.kr</span> ·
+          <span class="pubdate">2026-07-14 13:44</span> ·
+          <span class="region-tag">경기</span>
+        </p>
+      </li>
       <li class="news-item">
         <a class="news-title" href="http://www.kwangju.co.kr/article.php?aid=1783998660801235277" target="_blank" rel="noopener">대전환기획위 “새 중재안 없다”…국립의대 통합신청 자율협의가 마지...</a>
         <p class="news-summary">국가 AI데이터센터와 삼성·SK 등 800조원 규모 반도체·AI 투자가 서부권에 집중된다는 점도 근거로 들었다. 대안으로는 통합대학 본부와 의대를 순천에 두고 대학병원은 단계적으로 세우는 방식을 제시했다. 공은 다시...</p>
@@ -311,15 +528,6 @@
           <span class="pubdate">2026-07-13 11:08</span> ·
           <span class="region-tag">부산</span>
         </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://n.news.naver.com/mnews/article/005/0001860617?sid=101" target="_blank" rel="noopener">부산 제조업 AI·친환경 전환 시동…국비 340억 확보</a>
-        <p class="news-summary">부산시는 산업통상자원부의 ‘산업단지 엣지 AIDC 실증 시범 사업’과 ‘산업단지 에너지 자급자족 인프라 구축 사업’ 공모에 잇따라 선정됐다고 13일 밝혔다. 두 사업에는 국비 340억원을 포함해 총사업비 503억원이...</p>
-        <p class="news-meta">
-          <span class="press">kmib.co.kr</span> ·
-          <span class="pubdate">2026-07-13 10:59</span> ·
-          <span class="region-tag">부산</span>
-        </p>
       </li></ul>
     </section>
     </div>
@@ -329,183 +537,183 @@
       <p class="section-desc">네이버 뉴스에서 "AI데이터센터"/"AIDC"와 상장법인명이 함께 언급된 기사 중 최신 20건</p>
       <ul class="news-list">
       <li class="news-item">
+        <a class="news-title" href="https://www.joongangenews.com/news/articleView.html?idxno=532708" target="_blank" rel="noopener">네이버·카카오·SKT·KT·LGU+ 총출동…&#x27;모두의 AI&#x27; 국가사업 쟁탈전 막...</a>
+        <p class="news-summary">SK텔레콤은 자체 파운데이션 모델과 AI 서비스 &#x27;에이닷&#x27;, AI 데이터센터 등 풀스택 AI 역량을 바탕으로 참여 여부를 검토하고 있다. 네이버 역시 &#x27;하이퍼클로바X&#x27;와 AI 검색 서비스 &#x27;AI탭&#x27;을 기반으로 사업 참여를 검토...</p>
+        <p class="news-meta">
+          <span class="press">joongangenews.com</span> ·
+          <span class="pubdate">2026-07-14 13:44</span> ·
+          <span class="region-tag">카카오</span>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://www.newsworks.co.kr/news/articleView.html?idxno=847147" target="_blank" rel="noopener">정부 &#x27;반도체 800조&#x27; 투자…서남권 &#x27;제2 생산거점&#x27; 육성</a>
+        <p class="news-summary">8.4GW급 AI 데이터센터 구축에는 총 550조원(투자유치 포함)을 투입한다. SK와 GS, 네이버 등이 참여한다. 2028년 상반기 착공해 2029년부터 단계적으로 운영에 들어갈 예정이다. 내년 3월 시행되는 AI 데이터센터...</p>
+        <p class="news-meta">
+          <span class="press">newsworks.co.kr</span> ·
+          <span class="pubdate">2026-07-14 13:40</span> ·
+          <span class="region-tag">서남</span>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://www.job-post.co.kr/news/articleView.html?idxno=221035" target="_blank" rel="noopener">대우건설 정원주 회장, 인도네시아 방문 &#x27;AI 데이터센터·에너지 융복합...</a>
+        <p class="news-summary">이 자리에서 정 회장은 대우건설이 축적한 에너지 인프라 기술력을 바탕으로 소형모듈원전(SMR), LNG 터미널·발전소와 함께 기가와트(GW)급 AI 데이터센터를 동시에 구축하는 &#x27;올인원(All-in-one) 융복합 개발&#x27; 모델을...</p>
+        <p class="news-meta">
+          <span class="press">job-post.co.kr</span> ·
+          <span class="pubdate">2026-07-14 13:38</span> ·
+          <span class="region-tag">대우건설</span>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://www.datanet.co.kr/news/articleView.html?idxno=213049" target="_blank" rel="noopener">나인앤컴퍼니 &#x27;AI 데이터센터 냉각솔루션&#x27; 신규사업으로 낙점</a>
+        <p class="news-summary">나인앤컴퍼니(구 공구우먼)가 최근 임시주주총회를 통해 기업 가치 제고를 위한 신규 성장동력으로 &#x27;AI 데이터센터 냉각솔루션&#x27; 사업을 낙점하고, 전담 신규 조직을 신설과 함께 관련 시장 공략에 나설 계획이다. AI...</p>
+        <p class="news-meta">
+          <span class="press">datanet.co.kr</span> ·
+          <span class="pubdate">2026-07-14 13:36</span> ·
+          <span class="region-tag">나인앤컴퍼니</span>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://www.lcnews.co.kr/news/articleView.html?idxno=204900" target="_blank" rel="noopener">[건설 Pick] 대우건설·롯데건설·LH, 해외 신사업부터 안전·주택공급까...</a>
+        <p class="news-summary">대우건설은 인도네시아에서 AI 데이터센터와 에너지 인프라를 결합한 미래형 개발사업 확대에 나섰고, 롯데건설은 민관 협력을 통한 건설안전 교육 강화에 속도를 내고 있다. 한국토지주택공사(LH)는 3기 신도시 핵심...</p>
+        <p class="news-meta">
+          <span class="press">lcnews.co.kr</span> ·
+          <span class="pubdate">2026-07-14 13:30</span> ·
+          <span class="region-tag">대우건설</span>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="http://www.biztribune.co.kr/news/articleView.html?idxno=355910" target="_blank" rel="noopener">삼성SDI, UPS 배터리 화재 안전성 입증…AI 데이터센터 공략</a>
+        <p class="news-summary">│삼성SDI AI 데이터센터 확산으로 안정적인 전력 공급의 중요성이 커지는 가운데 삼성SDI가 UPS(무정전전원장치)용 배터리의 화재 안전성을 글로벌 인증기관으로부터 인정받았다. 데이터센터 운영사들이 배터리...</p>
+        <p class="news-meta">
+          <span class="press">biztribune.co.kr</span> ·
+          <span class="pubdate">2026-07-14 13:26</span> ·
+          <span class="region-tag">삼성SDI</span>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://n.news.naver.com/mnews/article/214/0001511551?sid=101" target="_blank" rel="noopener">반도체 추가 세수로 &#x27;미래기금&#x27; 신설‥ KIC &#x27;국부펀드&#x27;로 민관투자</a>
+        <p class="news-summary">투자 대상은 반도체와 피지컬 AI, AI 데이터센터 등 &#x27;3대 메가프로젝트&#x27;와 소재·부품·장비, 원전, 우주·항공, 양자 등 전략산업입니다. 한국형 국부펀드는 당초 별도 공사를 설립하는 방향으로 검토됐지만, 정부는...</p>
+        <p class="news-meta">
+          <span class="press">MBC</span> ·
+          <span class="pubdate">2026-07-14 13:26</span> ·
+          <span class="region-tag">대상</span>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://www.aitimes.com/news/articleView.html?idxno=212740" target="_blank" rel="noopener">나인앤컴퍼니, AI 데이터센터 냉각솔루션 사업 본격화…전담 조직 신설...</a>
+        <p class="news-summary">나인앤컴퍼니(구 공구우먼)가 미래 성장동력 확보를 위해 AI 데이터센터 냉각솔루션 사업에 본격 진출한다. 회사는 해당 사업을 전담하는 조직을 신설하고 기술 확보와 글로벌 시장 진출을 위한 사업 기반 구축에...</p>
+        <p class="news-meta">
+          <span class="press">aitimes.com</span> ·
+          <span class="pubdate">2026-07-14 13:24</span> ·
+          <span class="region-tag">나인앤컴퍼니</span>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="http://www.thevaluenews.co.kr/news/view.php?idx=200074" target="_blank" rel="noopener">삼성SDI, UPS 배터리 화재 차단 기술 입증…강제 전소에도 화재 전파 차...</a>
+        <p class="news-summary">삼성SDI는 이번 화재 차단 검증을 바탕으로 고안전성 배터리 박스(SBB) 등 다양한 에너지저장장치(ESS) 라인업을 앞세워 AI 데이터센터와 전력용 ESS 시장 확대를 추진할 계획이다.</p>
+        <p class="news-meta">
+          <span class="press">thevaluenews.co.kr</span> ·
+          <span class="pubdate">2026-07-14 13:24</span> ·
+          <span class="region-tag">삼성SDI</span>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://sateconomy.co.kr/news/view/1065585964266259" target="_blank" rel="noopener">국내 AI 특화 서비스 ‘모두의 AI’ 경쟁 구체화…네카오·통신 3사 참여...</a>
+        <p class="news-summary">SK텔레콤은 에이닷과 AI 데이터센터 등 풀스택 역량을 기반으로 참여를 검토하고 있다. 네이버는 하이퍼클로바X와 AI 검색 서비스 ‘AI탭’을, KT는 통신 인프라와 AI 서비스 역량을 앞세워 사업성을 살피고 있다. 다만...</p>
+        <p class="news-meta">
+          <span class="press">sateconomy.co.kr</span> ·
+          <span class="pubdate">2026-07-14 13:20</span> ·
+          <span class="region-tag">SK텔레콤</span>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://www.mdtoday.co.kr/news/articleView.html?idxno=604839" target="_blank" rel="noopener">삼성SDI, UPS 배터리 화재 안전성 입증</a>
+        <p class="news-summary">글로벌 빅테크 기업과 AI 데이터센터 사업자들이 배터리 공급사 선정의 필수 조건으로 화재 안전성 검증을 요구하는 추세에 따라, 삼성SDI는 UPS용 배터리를 비롯해 SBB(Samsung Battery Box) 등 다양한 에너지저장장치...</p>
+        <p class="news-meta">
+          <span class="press">mdtoday.co.kr</span> ·
+          <span class="pubdate">2026-07-14 13:08</span> ·
+          <span class="region-tag">삼성SDI</span>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://www.naeil.com/news/read/595288?ref=naver" target="_blank" rel="noopener">삼성SDI 배터리 ‘화재안전’ 시험 통과</a>
+        <p class="news-summary">UPS는 갑작스러운 정전이나 전압 불안정 등 전력공급 이상이 발생했을 때 배터리에 저장된 비상전력을 즉시 공급해 AI 데이터센터 등의 안정적인 가동을 보장하는 핵심 인프라 장치다. 삼성SDI는 최근 글로벌 안전...</p>
+        <p class="news-meta">
+          <span class="press">naeil.com</span> ·
+          <span class="pubdate">2026-07-14 13:06</span> ·
+          <span class="region-tag">삼성SDI</span>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://www.naeil.com/news/read/595278?ref=naver" target="_blank" rel="noopener">한국전력, 송전망 4층 철탑 건설 추진</a>
+        <p class="news-summary">국내에서도 수요반응 제도를 운영하고 있지만 AI 데이터센터가 급증하는 환경에서는 고객참여형 부하차단과 같은 유연성 자원을 적극적으로 활용할 필요가 있다. ◆전력시스템 전체 다시 설계해야 = 전문가들은 송전망...</p>
+        <p class="news-meta">
+          <span class="press">naeil.com</span> ·
+          <span class="pubdate">2026-07-14 13:04</span> ·
+          <span class="region-tag">국전</span>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://theviewers.co.kr/View.aspx?No=4148478" target="_blank" rel="noopener">삼성SDI, AI 데이터센터용 배터리 안전성 입증</a>
+        <p class="news-summary">뷰어스 김태현 기­자 ted359@viewers.co.kr 삼성SDI가 무정전전원장치(UPS)용 배터리의 화재 안전성을 입증하며 AI 데이터센터용 배터리 시장 공략에 속도를 낸다. AI 데이터센터 확산으로 안정적인 전력 백업 수요가 커지는...</p>
+        <p class="news-meta">
+          <span class="press">theviewers.co.kr</span> ·
+          <span class="pubdate">2026-07-14 13:02</span> ·
+          <span class="region-tag">삼성SDI</span>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://theviewers.co.kr/View.aspx?No=4146088" target="_blank" rel="noopener">[AI시대, NEW 패권①] 반도체보다 전기…승자는 ‘전력 가진 기업’</a>
+        <p class="news-summary">AI 데이터센터는 수만 개의 GPU 서버가 24시간 가동되는 대표적인 전력 다소비 시설이다. 전기를 생산하는 발전설비뿐 아니라 이를 안정적으로 공급하기 위한 초고압 송전망과 변압기, 케이블, ESS 수요도 함께 증가하고...</p>
+        <p class="news-meta">
+          <span class="press">theviewers.co.kr</span> ·
+          <span class="pubdate">2026-07-14 13:02</span> ·
+          <span class="region-tag">NEW</span>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://www.naeil.com/news/read/595218?ref=naver" target="_blank" rel="noopener">‘3대 메가 프로젝트’에 국가총력 지원체계 가동한다</a>
+        <p class="news-summary">◆3대 메가프로젝트 총력지원 = 정부는 또 3대 메가프로젝트(반도체·AI 데이터센터·피지컬 AI)에 국가 총력 지원체계를 가동한다. 서남권 반도체 팹 4기 구축에 총 800조원을 투자하고 5년 내 메모리 생산 능력을 2배로...</p>
+        <p class="news-meta">
+          <span class="press">naeil.com</span> ·
+          <span class="pubdate">2026-07-14 13:02</span> ·
+          <span class="region-tag">서남</span>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://www.it-b.co.kr/news/articleView.html?idxno=89094" target="_blank" rel="noopener">나인앤컴퍼니, 신규 성장사업으로 &#x27;AI 데이터센터 냉각솔루션&#x27; 낙점</a>
+        <p class="news-summary">나인앤컴퍼니(구 공구우먼)가 신규 성장동력으로 &#x27;AI 데이터센터 냉각솔루션&#x27; 사업을 낙점했다고 14일 밝혔다. 회사는 이를 위해 전담 신규조직을 신설했으며, 본격적인 사업 확장에 나설 계획이다. 나인앤컴퍼니는 지난...</p>
+        <p class="news-meta">
+          <span class="press">it-b.co.kr</span> ·
+          <span class="pubdate">2026-07-14 12:48</span> ·
+          <span class="region-tag">나인앤컴퍼니</span>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://daily.hankooki.com/news/articleView.html?idxno=1385767" target="_blank" rel="noopener">최태원 &quot;AI 비용 낮춰야 경쟁력&quot;…데이터센터 혁신 속도</a>
+        <p class="news-summary">AI 데이터센터 구축과 SK하이닉스의 미국 나스닥 미국주식예탁증서(ADR) 상장을 기반으로 글로벌 AI 투자와 사업 확장에도 속도를 내겠다는 구상이다. 14일 업계에 따르면 최 회장은 미국 테크 전문 플랫폼...</p>
+        <p class="news-meta">
+          <span class="press">daily.hankooki.com</span> ·
+          <span class="pubdate">2026-07-14 12:46</span> ·
+          <span class="region-tag">SK하이닉스</span>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://www.epnc.co.kr/news/articleView.html?idxno=404256" target="_blank" rel="noopener">삼성SDI, UPS용 배터리 UL 화재 안전성 입증</a>
+        <p class="news-summary">UPS는 정전이나 전압 이상이 발생했을 때 배터리에 저장된 비상전력을 즉시 공급해 AI 데이터센터 등 주요 시설의 안정적인 운영을 지원하는 장치다. 삼성SDI는 최근 UL 솔루션즈가 주관한 Indoor LSFT(옥내 대형 화재...</p>
+        <p class="news-meta">
+          <span class="press">epnc.co.kr</span> ·
+          <span class="pubdate">2026-07-14 12:40</span> ·
+          <span class="region-tag">삼성SDI</span>
+        </p>
+      </li>
+      <li class="news-item">
         <a class="news-title" href="https://n.news.naver.com/mnews/article/020/0003733773?sid=101" target="_blank" rel="noopener">나인앤컴퍼니, AI 데이터센터 냉각 솔루션으로 미래 성장동력 확보 나선...</a>
         <p class="news-summary">회사가 AI 데이터센터 냉각 솔루션 분야에 주목한 것은 고성능 GPU(그래픽처리장치) 서버 도입 확대로 인해 데이터센터의 전력 밀도와 발열량이 급격히 증가하고 있기 때문이다. 이에 따라 고효율 냉각 기술이 AI 인프라...</p>
         <p class="news-meta">
           <span class="press">동아일보</span> ·
           <span class="pubdate">2026-07-14 12:29</span> ·
           <span class="region-tag">나인앤컴퍼니</span>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://www.kyosu.net/news/articleView.html?idxno=207608" target="_blank" rel="noopener">국립목포대, AI 기반 차세대 전력망 연구 워크숍 개최…에너지 혁신 논...</a>
-        <p class="news-summary">차승태 한전전력연구원 연구소장은 재생에너지 확대에 따른 전력계통 변동성 대응과 AI 운영 체계 구축 방향을, 이종필 한국전기연구원 센터장은 AI 데이터센터의 전력 수요 특성을 고려한 전력 솔루션을 각각...</p>
-        <p class="news-meta">
-          <span class="press">kyosu.net</span> ·
-          <span class="pubdate">2026-07-14 12:28</span> ·
-          <span class="region-tag">국전</span>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://www.kgnews.co.kr/news/article.html?no=903740" target="_blank" rel="noopener">정원주 대우건설 회장, 인도네시아서 정·관계 만남...AI데이터센터 구...</a>
-        <p class="news-summary">7~11일 자카르타 방문해 정부·정계·현지 주요 개발사와 협력 논의 SMR, LNG 터미널·발전소, AI 데이터센터 등 동시 구축하는 융복합 개발 모델 제안...인니 정부 지원 약속 대우건설이 인도네시아 등 동남아지역 진출을...</p>
-        <p class="news-meta">
-          <span class="press">kgnews.co.kr</span> ·
-          <span class="pubdate">2026-07-14 12:24</span> ·
-          <span class="region-tag">대우건설</span>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="http://www.newsprime.co.kr/news/article.html?no=740138" target="_blank" rel="noopener">김대헌 호반그룹 사장, 호주서 글로벌 현장경영 &quot;대한전선 성장축 직접...</a>
-        <p class="news-summary">이번 방문은 AI 데이터센터 확대와 전력망 투자 증가에 대응해 오세아니아 시장 내 사업 기반을 강화하기 위해 마련됐다. 호반그룹은 대한전선 중심으로 글로벌 전력 인프라 시장 공략을 확대하고 있으며, 김대헌 사장도...</p>
-        <p class="news-meta">
-          <span class="press">newsprime.co.kr</span> ·
-          <span class="pubdate">2026-07-14 12:18</span> ·
-          <span class="region-tag">대한전선</span>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="http://www.kwangju.co.kr/article.php?aid=1783998660801235277" target="_blank" rel="noopener">대전환기획위 “새 중재안 없다”…국립의대 통합신청 자율협의가 마지...</a>
-        <p class="news-summary">국가 AI데이터센터와 삼성·SK 등 800조원 규모 반도체·AI 투자가 서부권에 집중된다는 점도 근거로 들었다. 대안으로는 통합대학 본부와 의대를 순천에 두고 대학병원은 단계적으로 세우는 방식을 제시했다. 공은 다시...</p>
-        <p class="news-meta">
-          <span class="press">kwangju.co.kr</span> ·
-          <span class="pubdate">2026-07-14 12:14</span> ·
-          <span class="region-tag">SK</span>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://n.news.naver.com/mnews/article/119/0003111242?sid=101" target="_blank" rel="noopener">HBM만 있나…550조 AI DC에 전력·냉각 &#x27;K장비&#x27; 뜬다[하반기 경제전략]</a>
-        <p class="news-summary">정부가 대규모 AI 데이터센터 구축을 계기로 관련 기술과 장비를 국산화하고 해외 수출 산업으로 키우는 전략을 내놓으면서다. LG전자와 LS일렉트릭 등 국내 기업들도 이미 데이터센터 냉각과 차세대 전력 솔루션 사업...</p>
-        <p class="news-meta">
-          <span class="press">dailian.co.kr</span> ·
-          <span class="pubdate">2026-07-14 12:11</span> ·
-          <span class="region-tag">LG전자</span>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://n.news.naver.com/mnews/article/421/0009058339?sid=101" target="_blank" rel="noopener">반도체 호황에 성장률 3% 상향…&#x27;고용없는 성장·K자 양극화&#x27; 여전한 과...</a>
-        <p class="news-summary">정부는 서남권 반도체 팹 4기 신설과 AI 데이터센터 구축, 피지컬 AI 등 3대 메가프로젝트에 따른 조기 투자 가능성도 일부 반영했다. 다만 메가프로젝트가 설비투자 전망을 끌어올린 정도는 별도로 산출하기 어렵다고...</p>
-        <p class="news-meta">
-          <span class="press">뉴스1</span> ·
-          <span class="pubdate">2026-07-14 12:05</span> ·
-          <span class="region-tag">서남</span>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="http://www.4th.kr/news/articleView.html?idxno=2114726" target="_blank" rel="noopener">&quot;3·4·5 경제 대도약&quot;..반도체 호황에 자신감</a>
-        <p class="news-summary">이를 위한 핵심 지렛대로 반도체와 AI 데이터센터, 피지컬 AI 등 3대 메가 프로젝트를 제시했다. 정부는 서남권에 반도체 생산공장 4기를 구축하는 데 800조원을 투자하고, 8.4기가와트(GW) 규모 AI 데이터센터 구축에는...</p>
-        <p class="news-meta">
-          <span class="press">4th.kr</span> ·
-          <span class="pubdate">2026-07-14 12:02</span> ·
-          <span class="region-tag">서남</span>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://n.news.naver.com/mnews/article/138/0002234132?sid=105" target="_blank" rel="noopener">[AI스택플레이션②] 견적 유효기간 1~2주로 ‘뚝’…메모리 쇼크에 기업...</a>
-        <p class="news-summary">AI 데이터센터가 고성능 메모리와 SSD 공급을 흡수하면서 하드웨어 가격, 클라우드 원가, 소프트웨어 운영비, 기업 IT예산 집행에 연쇄 압박이 생기고 있는 상황이다. &lt;디지털데일리&gt;는 메모리 가격 상승이 불러온 기업...</p>
-        <p class="news-meta">
-          <span class="press">ddaily.co.kr</span> ·
-          <span class="pubdate">2026-07-14 12:01</span> ·
-          <span class="region-tag">레이</span>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="http://www.4th.kr/news/articleView.html?idxno=2114724" target="_blank" rel="noopener">삼성SDI, UPS 배터리 화재 안전성 입증…AI 데이터센터 공략 강화</a>
-        <p class="news-summary">대규모 연산이 지속되는 AI 데이터센터의 안정적인 운영을 위해서는 전력 공급의 연속성과 배터리 안전성이 핵심 요건으로 꼽힌다. Indoor LSFT는 UPS 배터리 랙 내부의 모듈을 강제로 전소시킨 뒤 화재가 주변...</p>
-        <p class="news-meta">
-          <span class="press">4th.kr</span> ·
-          <span class="pubdate">2026-07-14 11:58</span> ·
-          <span class="region-tag">삼성SDI</span>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="http://www.wikileaks-kr.org/news/articleView.html?idxno=189727" target="_blank" rel="noopener">삼성SDI, UPS 배터리 세계 최초 글로벌 &#x27;옥내 화재 테스트&#x27; 통과로 자신...</a>
-        <p class="news-summary">삼성SDI 관계자는 &quot;이번 테스트 통과로 차별화된 안전성 기술을 인정받았다&quot;면서 &quot;AI 데이터센터용 ESS 등 다양한 시장에서 고객들이 가장 신뢰할 수 있는 솔루션을 제공할 것&quot;이라고 강조했다. 이번 테스트에서 불을...</p>
-        <p class="news-meta">
-          <span class="press">wikileaks-kr.org</span> ·
-          <span class="pubdate">2026-07-14 11:56</span> ·
-          <span class="region-tag">삼성SDI</span>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://www.mediapen.com/news/view/1110065" target="_blank" rel="noopener">[반도체 승부수②] &#x27;올인원&#x27; 삼성 vs &#x27;초연합&#x27; 하이닉스…HBM4 생존 방정...</a>
-        <p class="news-summary">최 회장은 단순한 반도체 칩 공급을 넘어 AI 데이터센터 가동에 필수적인 에너지 체계 등 복합적인 인프라 난제를 해결하기 위한 글로벌 리더들과의 협력을 핵심 경영 과제로 중요시하는 것으로 분석된다. 반도체...</p>
-        <p class="news-meta">
-          <span class="press">mediapen.com</span> ·
-          <span class="pubdate">2026-07-14 11:52</span> ·
-          <span class="region-tag">이닉스</span>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://n.news.naver.com/mnews/article/021/0002804562?sid=101" target="_blank" rel="noopener">최태원 “AI 아직 불완전… 향후 5년 충분한 투자 중요”</a>
-        <p class="news-summary">구체적 방안으로 더 효율적으로 토큰(AI 연산 최소 단위)을 생성할 수 있는 새로운 AI 데이터센터 건설과 AI향 고대역폭메모리(HBM) 패키징을 맡는 미국 인디애나 공장 확장 등을 제시했다. 최 회장은 “SK하이닉스는 단순한...</p>
-        <p class="news-meta">
-          <span class="press">munhwa.com</span> ·
-          <span class="pubdate">2026-07-14 11:52</span> ·
-          <span class="region-tag">SK하이닉스</span>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://www.businessplus.kr/news/articleView.html?idxno=114114" target="_blank" rel="noopener">[포스코, 리튬에 건다/中]양·음극재부터 희토류까지…비중국 공급망 구...</a>
-        <p class="news-summary">희토류는 전기차 구동모터와 로봇, AI 데이터센터, 방위산업 등에 필수적인 소재지만 채굴부터 정제, 영구자석 제조까지 대부분 중국이 주도하고 있다. 포스코인터내셔널은 해외 원료 조달부터 분리·정제, 영구자석...</p>
-        <p class="news-meta">
-          <span class="press">businessplus.kr</span> ·
-          <span class="pubdate">2026-07-14 11:52</span> ·
-          <span class="region-tag">포스코인터내셔널</span>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://n.news.naver.com/mnews/article/277/0005789724?sid=101" target="_blank" rel="noopener">반도체 외날개로 &#x27;3% 성장&#x27; 띄운 정부…중동전이 변수[하반기 성장전략...</a>
-        <p class="news-summary">쓰리메가·5극3특으로 잠재성장률 반등 노린다 정부는 반도체, AI 데이터센터, 피지컬 AI를 핵심축으로 3대 메가 프로젝트를 하반기 본격 추진한다. 용인·평택 수도권 반도체 팹을 조기 완공하고, 서남권에 총 800조원을...</p>
-        <p class="news-meta">
-          <span class="press">아시아경제</span> ·
-          <span class="pubdate">2026-07-14 11:51</span> ·
-          <span class="region-tag">서남</span>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://n.news.naver.com/mnews/article/047/0002522468?sid=101" target="_blank" rel="noopener">&quot;3% 성장·수출 4강·소득 5만 달러&quot;... 반도체 호황을 경제 대도약으로</a>
-        <p class="news-summary">정부는 반도체와 AI 데이터센터, 피지컬 AI를 국가 차원의 3대 메가프로젝트로 추진한다. 서남권에 반도체 생산시설 4기를 새로 짓는 800조 원 규모의 프로젝트와 550조 원 규모의 AI 데이터센터 구축 계획 등도 포함됐다....</p>
-        <p class="news-meta">
-          <span class="press">ohmynews.com</span> ·
-          <span class="pubdate">2026-07-14 11:51</span> ·
-          <span class="region-tag">서남</span>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://n.news.naver.com/mnews/article/081/0003661008?sid=100" target="_blank" rel="noopener">국립순천대학교 “의대 없는 대학병원만 우선 신설 반대”</a>
-        <p class="news-summary">국가 AI데이터센터와 삼성·SK 등 약 800조원 규모의 반도체·AI 투자도 사실상 서부권에 집중될 예정이다”고 했다. 학교 측은 “행정과 고등교육, 미래산업, 의료가 모두 서부권으로 쏠리는 상황에서 통합 대학본부와...</p>
-        <p class="news-meta">
-          <span class="press">서울신문</span> ·
-          <span class="pubdate">2026-07-14 11:49</span> ·
-          <span class="region-tag">미래산업</span>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://n.news.naver.com/mnews/article/016/0002670063?sid=101" target="_blank" rel="noopener">반도체·AI로 잠재성장률 3% 승부…초격차 성장·지방 강화에 ‘성패’</a>
-        <p class="news-summary">총 800조원이 투입되는 서남권 반도체 클러스터와 550조원 규모 AI 데이터센터를 구축하고 한국투자공사(KIC)를 종합형 국부펀드로 확대 개편해 미래 성장산업에 장기 투자 기반을 마련한다. 여기에 ‘5극3특’...</p>
-        <p class="news-meta">
-          <span class="press">헤럴드경제</span> ·
-          <span class="pubdate">2026-07-14 11:48</span> ·
-          <span class="region-tag">서남</span>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://n.news.naver.com/mnews/article/021/0002804544?sid=101" target="_blank" rel="noopener">삼성SDI가 개발한 UPS용 배터리… 글로벌 화재 안전 ‘세계 최초 인증’</a>
-        <p class="news-summary">UPS는 최근 전 세계적으로 증설 경쟁이 불붙고 있는 AI 데이터센터와 에너지저장장치(ESS)의 핵심 부품이다. 업계에서는 이번 인증을 두고 삼성SDS가 배터리 대형 화재 사고에 대한 우려를 상당 부분 덜어냈다는 평가가...</p>
-        <p class="news-meta">
-          <span class="press">munhwa.com</span> ·
-          <span class="pubdate">2026-07-14 11:46</span> ·
-          <span class="region-tag">삼성SDI</span>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://www.gukjenews.com/news/articleView.html?idxno=3635261" target="_blank" rel="noopener">삼성에스디에스 주가 상승...목표주가 17% 상향</a>
-        <p class="news-summary">선유진 LS증권 연구원은 &quot;최근 발표되는 초대형 AIDC 투자들에 비해 삼성에스디에스의 중장기 투자 로드맵은 규모가 작은 편이지만, 대상 고객이 관계사와 정부라는 점에서 불확실성은 제한적&quot;이라며 &quot;정부와...</p>
-        <p class="news-meta">
-          <span class="press">gukjenews.com</span> ·
-          <span class="pubdate">2026-07-14 11:46</span> ·
-          <span class="region-tag">삼성에스디에스</span>
         </p>
       </li></ul>
     </section>
