@@ -21,7 +21,7 @@ from html import escape
 from urllib.parse import urljoin
 
 import requests
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, NavigableString
 
 KST = timezone(timedelta(hours=9))
 TODAY = datetime.now(KST).date()
@@ -315,7 +315,53 @@ def fetch_generic_board(url: str, label: str):
 
 
 def fetch_kepco():
-    return fetch_generic_board(BOARD_URL["한국전력공사"], "KEPCO")
+    """카드형 목록(div.media-list-item). 상세는 JS(fn_Detail)로 폼 제출하는 방식이라
+    실제 상세 URL을 GET 파라미터로 구성해서 링크를 만든다."""
+    url = BOARD_URL["한국전력공사"]
+    resp = fetch(url, "KEPCO")
+    if resp is None:
+        return None
+
+    soup = BeautifulSoup(resp.text, "html.parser")
+    cards = soup.select("div.media-list-item")
+    log(f"[INFO] KEPCO: {len(cards)} candidate rows found")
+
+    pattern = re.compile(r"fn_Detail\('(\d+)','(\d+)'\)")
+    items = []
+    seen = set()
+    for card in cards:
+        a = card.find("a", href=True)
+        if a is None:
+            continue
+        m = pattern.search(a["href"])
+        if not m:
+            continue
+        board_mng_no, board_no = m.groups()
+        key = (board_mng_no, board_no)
+        if key in seen:
+            continue
+        seen.add(key)
+
+        title_el = card.find("strong", class_="tit")
+        title = title_el.get_text(strip=True) if title_el else ""
+        if not title:
+            continue
+
+        date_el = card.find("span", class_="date")
+        date_text = date_el.get_text(strip=True) if date_el else ""
+
+        detail_url = (
+            f"https://www.kepco.co.kr/home/media/newsroom/pr/boardView.do"
+            f"?boardMngNo={board_mng_no}&boardNo={board_no}"
+        )
+        items.append({
+            "title": title,
+            "link": detail_url,
+            "date": parse_date_flexible(date_text),
+            "date_raw": date_text,
+        })
+    log(f"[INFO] KEPCO: {len(items)} items parsed")
+    return items or None
 
 
 def fetch_kwater():
@@ -327,7 +373,60 @@ def fetch_nipa():
 
 
 def fetch_nia():
-    return fetch_generic_board(BOARD_URL["한국지능정보사회진흥원"], "NIA")
+    """div.board_type01 안의 li 목록. 상세는 JS(doBbsFView)로 폼 제출하는 방식이라
+    실제 View.do 상세 URL을 GET 파라미터로 구성해서 링크를 만든다."""
+    url = BOARD_URL["한국지능정보사회진흥원"]
+    resp = fetch(url, "NIA")
+    if resp is None:
+        return None
+
+    soup = BeautifulSoup(resp.text, "html.parser")
+    container = soup.find("div", class_="board_type01")
+    rows = container.find_all("li") if container else []
+    log(f"[INFO] NIA: {len(rows)} candidate rows found")
+
+    pattern = re.compile(r"doBbsFView\('(\d+)','(\d+)','(\d+)','(\d+)'\)")
+    items = []
+    seen = set()
+    for row in rows:
+        a = row.find("a", href=True)
+        if a is None:
+            continue
+        m = pattern.search(a.get("onclick", ""))
+        if not m:
+            continue
+        cb_idx, bc_idx, _gbn, parent_seq = m.groups()
+        key = (cb_idx, bc_idx)
+        if key in seen:
+            continue
+        seen.add(key)
+
+        subject = row.find("span", class_="subject")
+        title = ""
+        if subject:
+            title = "".join(
+                c for c in subject.contents if isinstance(c, NavigableString)
+            ).strip()
+        if not title:
+            continue
+
+        date_text = ""
+        src = row.find("span", class_="src")
+        if src:
+            date_text = extract_date_text(src.get_text(" ", strip=True))
+
+        detail_url = (
+            f"https://nia.or.kr/site/nia_kor/ex/bbs/View.do"
+            f"?cbIdx={cb_idx}&bcIdx={bc_idx}&parentSeq={parent_seq}"
+        )
+        items.append({
+            "title": title,
+            "link": detail_url,
+            "date": parse_date_flexible(date_text),
+            "date_raw": date_text,
+        })
+    log(f"[INFO] NIA: {len(items)} items parsed")
+    return items or None
 
 
 FETCHERS = {
