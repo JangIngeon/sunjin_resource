@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>기관별 오늘의 보도자료</title>
+<style>
+  :root { color-scheme: light dark; }
+  body { font-family: -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+          max-width: 760px; margin: 0 auto; padding: 32px 16px 60px;
+          background: #f7f7f5; color: #222; }
+  header h1 { font-size: 22px; margin-bottom: 4px; }
+  header p { color: #666; font-size: 14px; margin-top: 0; }
+  section.agency { background: #fff; border: 1px solid #e3e2dc; border-radius: 10px;
+                     margin-bottom: 20px; padding: 4px 20px 16px; }
+  section.agency h2 { font-size: 17px; padding: 10px 0; }
+  section.agency h2 a { color: #185fa5; text-decoration: none; }
+  section.agency h2 a:hover { text-decoration: underline; }
+  ul { list-style: none; margin: 0; padding: 0; }
+  li { padding: 8px 0; border-top: 1px solid #eee; }
+  li:first-child { border-top: none; }
+  li a { color: #222; text-decoration: none; font-size: 14px; line-height: 1.5; }
+  li a:hover { text-decoration: underline; color: #185fa5; }
+  .msg { font-size: 13px; padding: 12px 0; }
+  .msg.empty { color: #888; }
+  .msg.fail { color: #b3401f; }
+  footer { color: #999; font-size: 12px; text-align: center; margin-top: 32px; }
+  @media (prefers-color-scheme: dark) {
+    body { background: #17181a; color: #e8e8e6; }
+    section.agency { background: #232527; border-color: #33353a; }
+    li { border-top-color: #33353a; }
+    li a { color: #e8e8e6; }
+    .msg.empty { color: #9a9a9a; }
+  }
+</style>
+</head>
+<body>
+  <header>
+    <h1>기관별 오늘의 보도자료</h1>
+    <p>2026년 07월 14일 기준 · 매일 자동 업데이트</p>
+  </header>
+  
+    <section class="agency">
+      <h2><a href="https://www.msit.go.kr/bbs/list.do?sCode=user&amp;mPid=208&amp;mId=307" target="_blank" rel="noopener">과학기술정보통신부</a></h2>
+      <p class="msg empty">오늘 등록된 보도자료 없음</p>
+    </section>
+
+    <section class="agency">
+      <h2><a href="https://mcee.go.kr/home/web/index.do?menuId=10598" target="_blank" rel="noopener">기후에너지환경부</a></h2>
+      <p class="msg empty">오늘 등록된 보도자료 없음</p>
+    </section>
+
+    <section class="agency">
+      <h2><a href="https://www.motir.go.kr/kor/article/ATCL3f49a5a8c" target="_blank" rel="noopener">산업통상부</a></h2>
+      <p class="msg empty">오늘 등록된 보도자료 없음</p>
+    </section>
+  <footer>기관명을 클릭하면 해당 기관의 보도자료 게시판 전체 목록으로 이동합니다.</footer>
+</body>
+</html>
