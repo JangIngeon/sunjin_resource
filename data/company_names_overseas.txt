@@ -1,0 +1,35 @@
+envidia
+엔비디아
+Dell
+Microsoft
+마이크로소프트
+AWS
+아마존
+Google
+구글
+Hewlett Packard Enterprise
+HPE
+equinix
+Lambda
+Supermicro
+Cadence
+Dassault Systèmes
+Uptime Institute
+Eaton
+Jacobs
+NScale
+Phaidra
+Procore Technologies
+PTC
+Schneider Electric
+Siemens
+Switch
+Trane Technologies
+Enterprise Products Integration
+Vertiv
+Emerald AI
+GE Vernova
+Hitachi
+Siemens Energy
+Aginode 애지노드
+Digital Realty
