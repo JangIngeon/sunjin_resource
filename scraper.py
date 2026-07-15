@@ -1027,22 +1027,21 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
   header h1 {{ font-size: 22px; margin-bottom: 4px; }}
   header p {{ color: #666; font-size: 14px; margin-top: 0; }}
   .layout {{ display: flex; align-items: flex-start; gap: 20px; margin-top: 20px; }}
-  .sidebar {{ width: 260px; flex-shrink: 0; }}
-  .main {{ flex: 1; min-width: 0; }}
-  section.highlights {{ background: #fff; border: 1px solid #e3e2dc; border-radius: 10px;
-                         padding: 4px 16px 16px; position: sticky; top: 16px; }}
-  section.highlights h2 {{ font-size: 15px; padding: 10px 0; }}
+  .sidebar { width: 260px; flex-shrink: 0; position: sticky; top: 20px; height: max-content; }
+  .main { flex: 1; min-width: 0; }
+  section.highlights { background: #fff; border: 1px solid #e3e2dc; border-radius: 10px;
+                         padding: 4px 16px 16px; }
   ul.highlight-list {{ display: block; }}
   li.highlight-item {{ display: block; padding: 10px 0; border-top: 1px solid #eee; }}
   li.highlight-item:first-child {{ border-top: none; }}
   li.highlight-item a {{ display: block; color: #222; text-decoration: none; font-size: 13px;
                           line-height: 1.4; margin: 4px 0 2px; }}
   li.highlight-item a:hover {{ text-decoration: underline; color: #185fa5; }}
-  @media (max-width: 760px) {{
-    .layout {{ flex-direction: column; }}
-    .sidebar {{ width: 100%; }}
-    section.highlights {{ position: static; }}
-  }}
+  @media (max-width: 760px) {
+    .layout { flex-direction: column; }
+    .sidebar { width: 100%; position: static; }
+    section.highlights { position: static; }
+  }
   .cat-badge {{ font-size: 11px; font-weight: 700; color: #fff; padding: 2px 8px;
                 border-radius: 10px; white-space: nowrap; }}
   .cat-badge.cat-gov {{ background: #185fa5; }}
