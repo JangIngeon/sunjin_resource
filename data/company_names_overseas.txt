@@ -1,7 +1,6 @@
 NVIDIA
 엔비디아
 Dell
-델
 Microsoft
 마이크로소프트
 AWS
