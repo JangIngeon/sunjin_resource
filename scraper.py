@@ -589,7 +589,66 @@ def fetch_kepco():
 
 
 def fetch_aikorea():
-    return fetch_generic_board(BOARD_URL["국가인공지능전략위원회"], "AIKOREA")
+    url = BOARD_URL["국가인공지능전략위원회"]
+    resp = fetch(url, "AIKOREA")
+    if resp is None:
+        return None
+
+    soup = BeautifulSoup(resp.text, "html.parser")
+    # 'table-body' 아이디를 가진 tbody를 먼저 찾고, 없으면 클래스로 테이블을 찾음
+    tbody = soup.find("tbody", id="table-body")
+    if not tbody:
+        table = soup.find("table", class_="board_list")
+        if table:
+            tbody = table.find("tbody")
+    
+    rows = tbody.find_all("tr") if tbody else []
+    log(f"[INFO] AIKOREA: {len(rows)} candidate rows found")
+
+    pattern = re.compile(r"goToDetail\('?(\d+)'?\)")
+    items = []
+    seen = set()
+    for row in rows:
+        if row.find("td", class_="board_null"):
+            continue  # "등록된 게시물이 없습니다" 행 건너뛰기
+            
+        subject_td = row.find("td", class_="subject")
+        if not subject_td:
+            continue
+            
+        a = subject_td.find("a", href=True)
+        if not a:
+            continue
+            
+        # href 안의 javascript:goToDetail(숫자) 에서 숫자 추출
+        m = pattern.search(a["href"])
+        if not m:
+            continue
+            
+        num = m.group(1)
+        if num in seen:
+            continue
+        seen.add(num)
+
+        title = a.get_text(strip=True)
+        if not title:
+            continue
+
+        date_td = row.find("td", class_="date")
+        date_text = extract_date_text(date_td.get_text(" ", strip=True)) if date_td else ""
+
+        # 실제 상세페이지 URL 조합
+        detail_url = f"https://www.aikorea.go.kr/web/board/brdDetail.do?menu_cd=000012&num={num}"
+        
+        items.append({
+            "title": title,
+            "link": detail_url,
+            "date": parse_date_flexible(date_text),
+            "date_raw": date_text,
+        })
+        
+    log(f"[INFO] AIKOREA: {len(items)} items parsed")
+    return items or None
 
 
 def fetch_kwater():
