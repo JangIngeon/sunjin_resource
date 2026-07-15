@@ -69,7 +69,7 @@ BOARD_URL = {
 NAVER_CLIENT_ID = os.environ.get("NAVER_CLIENT_ID", "")
 NAVER_CLIENT_SECRET = os.environ.get("NAVER_CLIENT_SECRET", "")
 NAVER_NEWS_URL = "https://openapi.naver.com/v1/search/news.json"
-NAVER_NEWS_QUERIES = ["AI데이터센터", "AIDC"]
+NAVER_NEWS_QUERIES = ["AI데이터센터", "AIDC", "AI팩토리"]
 NAVER_DISPLAY = 100
 NAVER_MAX_PAGES = 3  # 쿼리당 최대 100 x 3 = 300건 후보 확보
 AIDC_TOP_N = 20
@@ -636,7 +636,9 @@ def fetch_aidc_news():
                 continue
 
             combined_norm = normalize_for_match(title + " " + desc)
-            if "ai데이터센터" not in combined_norm and "aidc" not in combined_norm:
+            if ("ai데이터센터" not in combined_norm
+                    and "aidc" not in combined_norm
+                    and "ai팩토리" not in combined_norm):
                 continue
 
             region = find_region_in_title(title)
@@ -697,7 +699,9 @@ def fetch_listed_company_news():
                 continue
 
             combined_norm = normalize_for_match(title + " " + desc)
-            if "ai데이터센터" not in combined_norm and "aidc" not in combined_norm:
+            if ("ai데이터센터" not in combined_norm
+                    and "aidc" not in combined_norm
+                    and "ai팩토리" not in combined_norm):
                 continue
 
             company = find_company_in_text(title) or find_company_in_text(desc)
