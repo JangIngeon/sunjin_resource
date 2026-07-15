@@ -74,7 +74,7 @@ NAVER_DISPLAY = 100
 NAVER_MAX_PAGES = 3  # 쿼리당 최대 100 x 3 = 300건 후보 확보
 AIDC_TOP_N = 20
 
-# --- "상장법인 관련 기사" (AI데이터센터/AIDC + 상장법인명) 배너용 설정 -----------------
+# --- "국내 기업 관련 기사" (AI데이터센터/AIDC + 국내 기업명) 배너용 설정 -----------------
 
 COMPANY_NAMES_PATH = os.path.join("data", "company_names.txt")
 COMPANY_TOP_N = 20
@@ -82,7 +82,7 @@ COMPANY_TOP_N = 20
 
 def load_company_names():
     if not os.path.exists(COMPANY_NAMES_PATH):
-        log(f"[WARN] {COMPANY_NAMES_PATH} not found - 상장법인 목록 없이 진행합니다")
+        log(f"[WARN] {COMPANY_NAMES_PATH} not found - 국내 기업 목록 없이 진행합니다")
         return []
     with open(COMPANY_NAMES_PATH, encoding="utf-8") as f:
         names = [line.strip() for line in f if line.strip()]
@@ -99,7 +99,7 @@ _company_names_norm_cache = None
 
 
 def find_company_in_text(text: str):
-    """대소문자·띄어쓰기 구분 없이 상장법인명을 찾는다."""
+    """대소문자·띄어쓰기 구분 없이 국내 기업명을 찾는다."""
     global _company_names_norm_cache
     if _company_names_norm_cache is None:
         _company_names_norm_cache = [(normalize_for_match(n), n) for n in COMPANY_NAMES]
@@ -789,7 +789,7 @@ def fetch_aidc_news():
 
 
 def fetch_listed_company_news():
-    """'AI데이터센터'/'AIDC' + 상장법인명이 함께 언급된 기사 상위 20건.
+    """'AI데이터센터'/'AIDC' + 국내 기업명이 함께 언급된 기사 상위 20건.
     반환값: (items, ok). ok=False면 API 호출 자체가 실패한 것(진짜로 0건인 것과 구분)."""
     seen_links = set()
     candidates = []
@@ -938,8 +938,8 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
             body = '<p class="msg empty">조건에 맞는 기사가 없습니다</p>'
         return f"""
     <section class="agency">
-      <h2>AI데이터센터(AIDC) · 상장법인 언급 기사</h2>
-      <p class="section-desc">네이버 뉴스에서 "AI데이터센터"/"AIDC"와 상장법인명이 함께 언급된 기사 중 최신 {COMPANY_TOP_N}건</p>
+      <h2>AI데이터센터(AIDC) · 국내 기업 언급 기사</h2>
+      <p class="section-desc">네이버 뉴스에서 "AI데이터센터"/"AIDC"와 국내 기업명이 함께 언급된 기사 중 최신 {COMPANY_TOP_N}건</p>
       {body}
     </section>"""
 
@@ -970,7 +970,7 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
                 rows.append(("지자체 관련 기사", "cat-local", it["region"], it))
         for it in listed_items:
             if it.get("pub_dt") and it["pub_dt"].date() == TODAY:
-                rows.append(("상장법인 관련 기사", "cat-listed", it["company"], it))
+                rows.append(("국내 기업 관련 기사", "cat-listed", it["company"], it))
         for it in overseas_items:
             if it.get("pub_dt") and it["pub_dt"].date() == TODAY:
                 rows.append(("해외 기업 관련 기사", "cat-overseas", it["company"], it))
@@ -1010,7 +1010,7 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
     tab_panels.append(f'<div id="tab-local" class="tab-panel">{aidc_panel()}\n    </div>')
 
     tab_buttons.append(
-        '<button class="tab-btn" data-tab="listed" onclick="showTab(\'listed\')">상장법인 관련 기사</button>'
+        '<button class="tab-btn" data-tab="listed" onclick="showTab(\'listed\')">국내 기업 관련 기사</button>'
     )
     tab_panels.append(f'<div id="tab-listed" class="tab-panel">{listed_panel()}\n    </div>')
 
