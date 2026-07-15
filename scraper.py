@@ -110,15 +110,9 @@ def find_company_in_text(text: str):
     return None
 
 
-# --- "해외 기업 관련 기사" (AI데이터센터/AIDC/AI팩토리 + 해외 기업명, 구글 검색) --------
+# --- "해외 기업 관련 기사" (AI데이터센터/AIDC/AI팩토리 + 해외 기업명, 네이버 검색) --------
 
-GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY", "")
-GOOGLE_CSE_ID = os.environ.get("GOOGLE_CSE_ID", "")
-GOOGLE_SEARCH_URL = "https://www.googleapis.com/customsearch/v1"
-# 5개 키워드를 OR 하나로 묶어 쿼리 수(=API 사용량)를 최소화한다 (무료 할당량 100건/일 보호).
-GOOGLE_QUERY = '"AI데이터센터" OR "AI DATA CENTER" OR AIDC OR "AI팩토리" OR "AI FACTORY"'
-GOOGLE_RESULTS_PER_PAGE = 10  # Custom Search JSON API 한 번 호출당 최대 10건
-GOOGLE_MAX_PAGES = 3  # 10 x 3 = 30건 후보 확보 (start=1,11,21 / 최대 91까지만 가능)
+OVERSEAS_NAVER_QUERIES = ["AI데이터센터", "AI DATA CENTER", "AIDC", "AI팩토리", "AI FACTORY"]
 OVERSEAS_TOP_N = 20
 
 # 키워드 정규화 매칭용(띄어쓰기/대소문자 무시)
@@ -131,20 +125,8 @@ def load_overseas_company_names():
     if not os.path.exists(OVERSEAS_COMPANY_NAMES_PATH):
         log(f"[WARN] {OVERSEAS_COMPANY_NAMES_PATH} not found - 해외 기업 목록 없이 진행합니다")
         return []
-    names = []
     with open(OVERSEAS_COMPANY_NAMES_PATH, encoding="utf-8") as f:
-        for line in f:
-            line = line.strip()
-            if not line:
-                continue
-            # 한 줄에 영문명과 한글명이 같이 붙어 있는 경우(예: "Aginode 애지노드")
-            # 두 개의 별도 이름으로 분리한다.
-            m = re.match(r"^([A-Za-z0-9&.,\-' ]+?)\s+([가-힣].*)$", line)
-            if m:
-                names.append(m.group(1).strip())
-                names.append(m.group(2).strip())
-            else:
-                names.append(line)
+        names = [line.strip() for line in f if line.strip()]
     # 짧은 이름이 긴 이름의 부분 문자열인 경우를 대비해 긴 이름을 먼저 매칭
     names.sort(key=len, reverse=True)
     return names
@@ -168,116 +150,60 @@ def find_overseas_company_in_text(text: str):
     return None
 
 
-def extract_google_pub_date(item: dict):
-    """Google Custom Search 결과의 pagemap 메타태그에서 발행일을 최대한 추출한다.
-    (일반 웹 검색 결과는 발행일이 구조화되어 있지 않아 못 찾을 수 있다.)"""
-    pagemap = item.get("pagemap", {})
-    metatags = pagemap.get("metatags", [{}])
-    meta = metatags[0] if metatags else {}
-    candidates = [
-        meta.get("article:published_time"),
-        meta.get("og:updated_time"),
-        meta.get("datepublished"),
-        meta.get("date"),
-    ]
-    for raw in candidates:
-        if not raw:
-            continue
-        try:
-            dt = datetime.fromisoformat(raw.replace("Z", "+00:00"))
-            if dt.tzinfo is None:
-                dt = dt.replace(tzinfo=KST)
-            return dt.astimezone(KST)
-        except (TypeError, ValueError):
-            continue
-    return None
-
-
-def fetch_google_search_raw(query: str):
-    """구글 커스텀 검색 API 호출. 실패하면 None, 성공하면 items 리스트(빈 리스트 가능)."""
-    if not GOOGLE_API_KEY or not GOOGLE_CSE_ID:
-        log("[ERROR] GOOGLE: GOOGLE_API_KEY/GOOGLE_CSE_ID 환경변수가 설정되지 않았습니다")
-        return None
-
-    all_items = []
-    for page in range(GOOGLE_MAX_PAGES):
-        start = page * GOOGLE_RESULTS_PER_PAGE + 1
-        params = {
-            "key": GOOGLE_API_KEY,
-            "cx": GOOGLE_CSE_ID,
-            "q": query,
-            "num": GOOGLE_RESULTS_PER_PAGE,
-            "start": start,
-            "sort": "date",
-        }
-
-        data = None
-        last_err = None
-        for attempt in range(1, RETRIES + 1):
-            try:
-                resp = requests.get(GOOGLE_SEARCH_URL, params=params, timeout=TIMEOUT)
-                resp.raise_for_status()
-                data = resp.json()
-                break
-            except requests.RequestException as e:
-                last_err = e
-                log(f"[WARN] GOOGLE page{page + 1} attempt {attempt} failed: {e}")
-                if attempt < RETRIES:
-                    time.sleep(RETRY_WAIT_SECONDS)
-
-        if data is None:
-            log(f"[ERROR] GOOGLE page{page + 1}: all attempts failed ({last_err})")
-            return all_items if all_items else None
-
-        items = data.get("items", [])
-        all_items.extend(items)
-        if len(items) < GOOGLE_RESULTS_PER_PAGE:
-            break
-
-    log(f"[INFO] GOOGLE: {len(all_items)} raw items fetched")
-    return all_items
-
-
 def fetch_overseas_company_news():
-    """'AI데이터센터/AI DATA CENTER/AIDC/AI팩토리/AI FACTORY' + 해외 기업명이 함께
-    언급된 기사 상위 20건 (구글 검색). 반환값: (items, ok)."""
-    raw_items = fetch_google_search_raw(GOOGLE_QUERY)
-    if raw_items is None:
-        log("[SUMMARY] OVERSEAS: FETCH FAILED")
-        return [], False
-
+    """'AI데이터센터'/'AI DATA CENTER'/'AIDC'/'AI팩토리'/'AI FACTORY' + 해외 기업명이
+    함께 언급된 기사 상위 20건 (네이버 뉴스 검색). 반환값: (items, ok)."""
     seen_links = set()
     candidates = []
-    for it in raw_items:
-        link = it.get("link") or ""
-        if not link or link in seen_links:
+    any_ok = False
+
+    for query in OVERSEAS_NAVER_QUERIES:
+        raw_items = fetch_naver_news_raw(query)
+        if raw_items is None:
             continue
-        seen_links.add(link)
+        any_ok = True
 
-        title = (it.get("title") or "").strip()
-        summary = (it.get("snippet") or "").strip()
-        if not title:
-            continue
+        for it in raw_items:
+            link = it.get("originallink") or it.get("link") or ""
+            if not link or link in seen_links:
+                continue
+            seen_links.add(link)
 
-        combined_norm = normalize_for_match(title + " " + summary)
-        if not any(k in combined_norm for k in OVERSEAS_KEYWORDS_NORM):
-            continue
+            title = clean_naver_text(it.get("title", ""))
+            desc = clean_naver_text(it.get("description", ""))
+            if not title:
+                continue
 
-        company = find_overseas_company_in_text(title) or find_overseas_company_in_text(summary)
-        if not company:
-            continue
+            combined_norm = normalize_for_match(title + " " + desc)
+            if not any(k in combined_norm for k in OVERSEAS_KEYWORDS_NORM):
+                continue
 
-        pub_dt = extract_google_pub_date(it)
-        press = press_name_from_link(link)
+            company = find_overseas_company_in_text(title) or find_overseas_company_in_text(desc)
+            if not company:
+                continue
 
-        candidates.append({
-            "title": title,
-            "summary": summary,
-            "link": link,
-            "press": press,
-            "pub_dt": pub_dt,
-            "company": company,
-        })
+            pub_dt = None
+            try:
+                pub_dt = parsedate_to_datetime(it.get("pubDate", ""))
+                if pub_dt.tzinfo is None:
+                    pub_dt = pub_dt.replace(tzinfo=KST)
+                pub_dt = pub_dt.astimezone(KST)
+            except (TypeError, ValueError):
+                pub_dt = None
+
+            display_link = it.get("link") or link
+            candidates.append({
+                "title": title,
+                "summary": desc,
+                "link": display_link,
+                "press": press_name_from_link(link),
+                "pub_dt": pub_dt,
+                "company": company,
+            })
+
+    if not any_ok:
+        log("[SUMMARY] OVERSEAS: FETCH FAILED")
+        return [], False
 
     candidates.sort(key=lambda x: x["pub_dt"] or datetime.min.replace(tzinfo=KST), reverse=True)
     top = candidates[:OVERSEAS_TOP_N]
@@ -1027,7 +953,7 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
         return f"""
     <section class="agency">
       <h2>AI데이터센터(AIDC) · 해외 기업 언급 기사</h2>
-      <p class="section-desc">구글 검색에서 "AI데이터센터"/"AI DATA CENTER"/"AIDC"/"AI팩토리"/"AI FACTORY"와 해외 기업명이 함께 언급된 기사 중 최신 {OVERSEAS_TOP_N}건</p>
+      <p class="section-desc">네이버 뉴스에서 "AI데이터센터"/"AI DATA CENTER"/"AIDC"/"AI팩토리"/"AI FACTORY"와 해외 기업명이 함께 언급된 기사 중 최신 {OVERSEAS_TOP_N}건</p>
       {body}
     </section>"""
 
