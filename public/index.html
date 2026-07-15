@@ -14,8 +14,14 @@
   .layout { display: flex; align-items: flex-start; gap: 20px; margin-top: 20px; }
   .sidebar { width: 260px; flex-shrink: 0; position: sticky; top: 20px; height: max-content; }
   .main { flex: 1; min-width: 0; }
-  section.highlights { background: #fff; border: 1px solid #e3e2dc; border-radius: 10px;
-                         padding: 4px 16px 16px; }
+  section.highlights { 
+    background: #fff; 
+    border: 1px solid #e3e2dc; 
+    border-radius: 10px;
+    padding: 4px 16px 16px; 
+    max-height: calc(100vh - 40px); 
+    overflow-y: auto; 
+  }
   ul.highlight-list { display: block; }
   li.highlight-item { display: block; padding: 10px 0; border-top: 1px solid #eee; }
   li.highlight-item:first-child { border-top: none; }
@@ -89,7 +95,7 @@
 <body>
   <header>
     <h1>정부기관·공기업 오늘의 보도자료</h1>
-    <p>2026년 07월 15일 기준 · 마지막 업데이트: 2026-07-15 16:40 (KST) · 매일 자동 업데이트(하루 6회)</p>
+    <p>2026년 07월 15일 기준 · 마지막 업데이트: 2026-07-15 16:47 (KST) · 매일 자동 업데이트(하루 6회)</p>
   </header>
   <div class="layout">
     <aside class="sidebar">
@@ -97,46 +103,6 @@
   <section class="highlights">
     <h2>오늘 올라온 자료들</h2>
     <ul class="highlight-list">
-      <li class="highlight-item">
-        <span class="cat-badge cat-gov">정부기관</span>
-        <a href="https://mcee.go.kr/home/web/board/read.do?menuId=10598&amp;boardMasterId=939&amp;boardId=1877590" target="_blank" rel="noopener">재생에너지-기업간 직접 전력거래 활성화, 전력구매계약(PPA) 중개 시범사업 시행</a>
-        <span class="highlight-sub">기후에너지환경부</span>
-      </li>
-      <li class="highlight-item">
-        <span class="cat-badge cat-gov">정부기관</span>
-        <a href="https://mcee.go.kr/home/web/board/read.do?menuId=10598&amp;boardMasterId=939&amp;boardId=1877580" target="_blank" rel="noopener">청년이 바꾸는 화학안전정책… 전문가 조언단과 정책 제안 첫걸음</a>
-        <span class="highlight-sub">기후에너지환경부</span>
-      </li>
-      <li class="highlight-item">
-        <span class="cat-badge cat-gov">정부기관</span>
-        <a href="https://mcee.go.kr/home/web/board/read.do?menuId=10598&amp;boardMasterId=939&amp;boardId=1877560" target="_blank" rel="noopener">유용 폐자원의 위장수출 막고 순환자원 수입 문턱 낮춘다</a>
-        <span class="highlight-sub">기후에너지환경부</span>
-      </li>
-      <li class="highlight-item">
-        <span class="cat-badge cat-gov">정부기관</span>
-        <a href="https://mcee.go.kr/home/web/board/read.do?menuId=10598&amp;boardMasterId=939&amp;boardId=1877550" target="_blank" rel="noopener">(참고) 낙동강권역 운문댐 가뭄 ‘심각’ 단계 진입</a>
-        <span class="highlight-sub">기후에너지환경부</span>
-      </li>
-      <li class="highlight-item">
-        <span class="cat-badge cat-gov">정부기관</span>
-        <a href="https://mcee.go.kr/home/web/board/read.do?menuId=10598&amp;boardMasterId=939&amp;boardId=1877470" target="_blank" rel="noopener">하천부터 바다까지… 미세플라스틱 분석 ‘연결고리’ 잇는다</a>
-        <span class="highlight-sub">기후에너지환경부</span>
-      </li>
-      <li class="highlight-item">
-        <span class="cat-badge cat-gov">정부기관</span>
-        <a href="https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172029/view" target="_blank" rel="noopener">『5극3특 全권역별 현장행보 ➏』“산업부, 기업·청년과 함께하는 제주 미래 성장방안 논의”</a>
-        <span class="highlight-sub">산업통상부</span>
-      </li>
-      <li class="highlight-item">
-        <span class="cat-badge cat-gov">정부기관</span>
-        <a href="https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172028/view" target="_blank" rel="noopener">2026년 6월 자동차산업 동향</a>
-        <span class="highlight-sub">산업통상부</span>
-      </li>
-      <li class="highlight-item">
-        <span class="cat-badge cat-gov">정부기관</span>
-        <a href="https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172027/view" target="_blank" rel="noopener">AI 시대, 대도약을 위한 기업 투자와 노동의 미래를 논하다</a>
-        <span class="highlight-sub">산업통상부</span>
-      </li>
       <li class="highlight-item">
         <span class="cat-badge cat-public">공기업</span>
         <a href="https://www.kepco.co.kr/home/media/newsroom/pr/boardView.do?boardMngNo=15&amp;boardNo=3113" target="_blank" rel="noopener">한전, ‘전기국가’ 비전 및 3대 메가프로젝트 성공 견인을 위한 2026년 전사 혁신 워크숍 개최</a>
@@ -165,35 +131,17 @@
       <div id="tab-gov" class="tab-panel active">
     <section class="agency">
       <h2><a href="https://www.msit.go.kr/bbs/list.do?sCode=user&amp;mPid=208&amp;mId=307" target="_blank" rel="noopener">과학기술정보통신부</a></h2>
-      <p class="msg empty">오늘 등록된 보도자료 없음</p>
-      <details class="more">
-        <summary>더보기 (최근 5건, 날짜 무관)</summary>
-        <ul><li><a href="https://www.msit.go.kr/bbs/view.do?sCode=user&amp;bbsSeqNo=94&amp;nttSeqNo=3187548" target="_blank" rel="noopener">2026년 제56회 국제물리올림피아드 한국대표단 전원 금메달(금 5) 획득</a><span class="date">2026-07-14</span></li><li><a href="https://www.msit.go.kr/bbs/view.do?sCode=user&amp;bbsSeqNo=94&amp;nttSeqNo=3187547" target="_blank" rel="noopener">인공지능 데이터 센터 초대형 사업(메가프로젝트)을 뒷받침할 범부처 종합 지원 전담반(TF) 본격 가동</a><span class="date">2026-07-14</span></li><li><a href="https://www.msit.go.kr/bbs/view.do?sCode=user&amp;bbsSeqNo=94&amp;nttSeqNo=3187549" target="_blank" rel="noopener">주한 외교단 대상 ‘국제 인공지능 거점(글로벌 AI 허브)’ 합동 설명회(브리핑) 개최</a><span class="date">2026-07-14</span></li><li><a href="https://www.msit.go.kr/bbs/view.do?sCode=user&amp;bbsSeqNo=94&amp;nttSeqNo=3187545" target="_blank" rel="noopener">구혁채 제1차관, 호주 수석 과학자와 면담</a><span class="date">2026-07-14</span></li><li><a href="https://www.msit.go.kr/bbs/view.do?sCode=user&amp;bbsSeqNo=94&amp;nttSeqNo=3187546" target="_blank" rel="noopener">K-블록체인, ‘팀 코리아’로 유럽 시장 진출 성과 거둬 「GITEX AI 유럽 2026」 후속 성과 창출 본격 지원</a><span class="date">2026-07-14</span></li></ul>
-      </details>
+      <p class="msg fail">사이트 접속에 실패하여 확인하지 못했습니다. 다음 자동 실행에서 다시 시도합니다.</p>
     </section>
 
     <section class="agency">
       <h2><a href="https://mcee.go.kr/home/web/index.do?menuId=10598" target="_blank" rel="noopener">기후에너지환경부</a></h2>
-      <ul><li><a href="https://mcee.go.kr/home/web/board/read.do?menuId=10598&amp;boardMasterId=939&amp;boardId=1877590" target="_blank" rel="noopener">재생에너지-기업간 직접 전력거래 활성화, 전력구매계약(PPA) 중개 시범사업 시행</a><span class="date">2026-07-15</span></li>
-<li><a href="https://mcee.go.kr/home/web/board/read.do?menuId=10598&amp;boardMasterId=939&amp;boardId=1877580" target="_blank" rel="noopener">청년이 바꾸는 화학안전정책… 전문가 조언단과 정책 제안 첫걸음</a><span class="date">2026-07-15</span></li>
-<li><a href="https://mcee.go.kr/home/web/board/read.do?menuId=10598&amp;boardMasterId=939&amp;boardId=1877560" target="_blank" rel="noopener">유용 폐자원의 위장수출 막고 순환자원 수입 문턱 낮춘다</a><span class="date">2026-07-15</span></li>
-<li><a href="https://mcee.go.kr/home/web/board/read.do?menuId=10598&amp;boardMasterId=939&amp;boardId=1877550" target="_blank" rel="noopener">(참고) 낙동강권역 운문댐 가뭄 ‘심각’ 단계 진입</a><span class="date">2026-07-15</span></li>
-<li><a href="https://mcee.go.kr/home/web/board/read.do?menuId=10598&amp;boardMasterId=939&amp;boardId=1877470" target="_blank" rel="noopener">하천부터 바다까지… 미세플라스틱 분석 ‘연결고리’ 잇는다</a><span class="date">2026-07-15</span></li></ul>
-      <details class="more">
-        <summary>더보기 (최근 5건, 날짜 무관)</summary>
-        <ul><li><a href="https://mcee.go.kr/home/web/board/read.do?menuId=10598&amp;boardMasterId=939&amp;boardId=1877590" target="_blank" rel="noopener">재생에너지-기업간 직접 전력거래 활성화, 전력구매계약(PPA) 중개 시범사업 시행</a><span class="date">2026-07-15</span></li><li><a href="https://mcee.go.kr/home/web/board/read.do?menuId=10598&amp;boardMasterId=939&amp;boardId=1877580" target="_blank" rel="noopener">청년이 바꾸는 화학안전정책… 전문가 조언단과 정책 제안 첫걸음</a><span class="date">2026-07-15</span></li><li><a href="https://mcee.go.kr/home/web/board/read.do?menuId=10598&amp;boardMasterId=939&amp;boardId=1877560" target="_blank" rel="noopener">유용 폐자원의 위장수출 막고 순환자원 수입 문턱 낮춘다</a><span class="date">2026-07-15</span></li><li><a href="https://mcee.go.kr/home/web/board/read.do?menuId=10598&amp;boardMasterId=939&amp;boardId=1877550" target="_blank" rel="noopener">(참고) 낙동강권역 운문댐 가뭄 ‘심각’ 단계 진입</a><span class="date">2026-07-15</span></li><li><a href="https://mcee.go.kr/home/web/board/read.do?menuId=10598&amp;boardMasterId=939&amp;boardId=1877470" target="_blank" rel="noopener">하천부터 바다까지… 미세플라스틱 분석 ‘연결고리’ 잇는다</a><span class="date">2026-07-15</span></li></ul>
-      </details>
+      <p class="msg fail">사이트 접속에 실패하여 확인하지 못했습니다. 다음 자동 실행에서 다시 시도합니다.</p>
     </section>
 
     <section class="agency">
       <h2><a href="https://www.motir.go.kr/kor/article/ATCL3f49a5a8c" target="_blank" rel="noopener">산업통상부</a></h2>
-      <ul><li><a href="https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172029/view" target="_blank" rel="noopener">『5극3특 全권역별 현장행보 ➏』“산업부, 기업·청년과 함께하는 제주 미래 성장방안 논의”</a><span class="date">2026-07-15</span></li>
-<li><a href="https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172028/view" target="_blank" rel="noopener">2026년 6월 자동차산업 동향</a><span class="date">2026-07-15</span></li>
-<li><a href="https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172027/view" target="_blank" rel="noopener">AI 시대, 대도약을 위한 기업 투자와 노동의 미래를 논하다</a><span class="date">2026-07-15</span></li></ul>
-      <details class="more">
-        <summary>더보기 (최근 5건, 날짜 무관)</summary>
-        <ul><li><a href="https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172029/view" target="_blank" rel="noopener">『5극3특 全권역별 현장행보 ➏』“산업부, 기업·청년과 함께하는 제주 미래 성장방안 논의”</a><span class="date">2026-07-15</span></li><li><a href="https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172028/view" target="_blank" rel="noopener">2026년 6월 자동차산업 동향</a><span class="date">2026-07-15</span></li><li><a href="https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172027/view" target="_blank" rel="noopener">AI 시대, 대도약을 위한 기업 투자와 노동의 미래를 논하다</a><span class="date">2026-07-15</span></li><li><a href="https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172025/view" target="_blank" rel="noopener">기업책임경영, AIㆍ공급망 시대  지속가능한 성장의 핵심</a><span class="date">2026-07-14</span></li><li><a href="https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172024/view" target="_blank" rel="noopener">2026년 첫 「찾아가는 FTA‧통상 데스크」 개최</a><span class="date">2026-07-14</span></li></ul>
-      </details>
+      <p class="msg fail">사이트 접속에 실패하여 확인하지 못했습니다. 다음 자동 실행에서 다시 시도합니다.</p>
     </section>
     </div>
   <div id="tab-public" class="tab-panel">
@@ -239,6 +187,24 @@
       <h2>AI데이터센터(AIDC) · 지자체 언급 기사</h2>
       <p class="section-desc">네이버 뉴스에서 "AI데이터센터"/"AIDC"와 국내 지역명이 함께 언급된 기사 중 최신 20건</p>
       <ul class="news-list">
+      <li class="news-item">
+        <a class="news-title" href="https://www.gukjenews.com/news/articleView.html?idxno=3636927" target="_blank" rel="noopener">2026 경상북도·포항 AI제조혁신포럼 개최…산학연 모여 미래 전략 논의</a>
+        <p class="news-summary">현재 오천읍 광명산업단지에 40MW 규모의 AI 데이터센터(AIDC)를 건립 중이며, 최근에는 국내 대기업의 대형 AI 데이터센터 유치를 위한 현장 실사도 진행했다. 이와 함께 AI 특화지구 지정, 철강산업 AI 융합 실증 기반...</p>
+        <p class="news-meta">
+          <span class="press">gukjenews.com</span> ·
+          <span class="pubdate">2026-07-15 16:50</span> ·
+          <span class="region-tag">경상북도</span>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://www.jjan.kr/article/20260715500269" target="_blank" rel="noopener">도의회는 특위 띄웠는데…전북도, 메가프로젝트 대응 더 속도 내야</a>
+        <p class="news-summary">도는 향후에 새만금 RE100 재생에너지와 첨단소재 산업, AI 데이터센터, 피지컬AI 등을 연계한 전북형 메가프로젝트를 구체화해 중앙정부와 기업을 상대로 유치 활동을 본격화할 계획이다. 김용일 반도체클러스터 범도민...</p>
+        <p class="news-meta">
+          <span class="press">jjan.kr</span> ·
+          <span class="pubdate">2026-07-15 16:46</span> ·
+          <span class="region-tag">전북</span>
+        </p>
+      </li>
       <li class="news-item">
         <a class="news-title" href="https://www.dynews.co.kr/news/articleView.html?idxno=858189" target="_blank" rel="noopener">&quot;&#x27;202조원 첨단산업 투자&#x27; 속도 높인다&quot; 충남도, 삼성·SKT와 지원협의체...</a>
         <p class="news-summary">분야별로 △반도체는 도 반도체팀과 천안·아산시, 삼성전자 △디스플레이는 도 디스플레이전자팀과 아산시, 삼성디스플레이 △이차전지는 도 탄소중립산업팀과 천안시, 삼성SDI △AI데이터센터는 도 기업유치팀과...</p>
@@ -339,84 +305,66 @@
         </p>
       </li>
       <li class="news-item">
-        <a class="news-title" href="http://www.snmnews.com/news/articleView.html?idxno=572128" target="_blank" rel="noopener">씨엔플러스, 전남대와 모듈형 AI데이터센터 구축협약</a>
-        <p class="news-summary">AI데이터센터(AIDC) 기반 교육·연구 증진 및 산학협력을 위한 업무협약을 체결했다고 15일 밝혔다. 이번 협약은 단순한 산학협력 체결에 그치지 않고, 전남대와 실증사업을 통해 모듈형 AIDC의 기술적 완성도를 검증하는 데...</p>
+        <a class="news-title" href="https://www.mhns.co.kr/news/articleView.html?idxno=753490" target="_blank" rel="noopener">경북도, 북극항로 시대 대비 AI·데이터 기반 전환과 산업생태계 조성</a>
+        <p class="news-summary">경북도는 이번 협약과 전문가 포럼을 발판 삼아 영일만항을 북극항로 거점항만이자 로봇·피지컬 AI 데이터센터 등 첨단산업에 필요한 소재를 공급하는 특화항만으로 육성하고, 동해안권을 중심으로 한 해양데이터...</p>
         <p class="news-meta">
-          <span class="press">snmnews.com</span> ·
-          <span class="pubdate">2026-07-15 14:30</span> ·
-          <span class="region-tag">전남</span>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://n.news.naver.com/mnews/article/003/0014067754?sid=101" target="_blank" rel="noopener">씨엔플러스, 전남대와 모듈형 AI데이터센터 구축 MOU</a>
-        <p class="news-summary">씨엔플러스는 전남대와 모듈형 인공지능 데이터센터(AIDC) 기반 교육·연구 증진 및 산학협력을 위한... 모듈형 AIDC 사업에 본격 나서는 것이다. 이번 협약은 단순 산학협력 체결에 그치지 않고, 전남대와 실증사업을 통해...</p>
-        <p class="news-meta">
-          <span class="press">뉴시스</span> ·
-          <span class="pubdate">2026-07-15 10:29</span> ·
-          <span class="region-tag">전남</span>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://n.news.naver.com/mnews/article/008/0005386303?sid=101" target="_blank" rel="noopener">씨엔플러스, 전남대와 모듈형 AI데이터센터 구축협약…호남권 AI거점으...</a>
-        <p class="news-summary">씨엔플러스는 전남대학교와 모듈형 AI데이터센터(AIDC) 기반 교육·연구 증진 및 산학협력을 위한... 모듈형 AIDC 사업에 본격 나서는 것이다. 이번 협약은 단순한 산학협력 체결에 그치지 않고, 전남대와 실증사업을 통해...</p>
-        <p class="news-meta">
-          <span class="press">mt.co.kr</span> ·
-          <span class="pubdate">2026-07-15 10:21</span> ·
-          <span class="region-tag">전남</span>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://n.news.naver.com/mnews/article/087/0001205161?sid=100" target="_blank" rel="noopener">[단독]강원에 AI데이터센터 건립 ‘리플렉션AI’는 어떤 기업?</a>
-        <p class="news-summary">정용진 신세계그룹 회장과 라스킨 리플렉션AI CEO는 지난 3월 미국 샌프란시스코 ‘내셔널 AI 센터’에서 하워드 러트닉 상무장관 등이 참석한 가운데 ‘한국 소버린(주권) AI 팩토리 건립을 위한 전략적 파트너십...</p>
-        <p class="news-meta">
-          <span class="press">kwnews.co.kr</span> ·
-          <span class="pubdate">2026-07-15 00:02</span> ·
-          <span class="region-tag">강원</span>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://n.news.naver.com/mnews/article/087/0001205151?sid=100" target="_blank" rel="noopener">[단독]제미나이 개발 美빅테크-신세계그룹, 강원도에 AI데이터센터 짓는...</a>
-        <p class="news-summary">또 단순히 연산과 저장을 담당하는 ‘창고형’이 아닌 자체 AI 모델이 내장된 ‘AI팩토리’로 규정될 정도로 압도적 성능을 지녀 상당한 파급효과가 기대된다. 정용진 신세계그룹 회장과 미국 AI 스타트업...</p>
-        <p class="news-meta">
-          <span class="press">kwnews.co.kr</span> ·
-          <span class="pubdate">2026-07-15 00:02</span> ·
-          <span class="region-tag">강원</span>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://n.news.naver.com/mnews/article/052/0002379531?sid=100" target="_blank" rel="noopener">김상욱 &quot;울산시정, 도움 없이는 식물시장 되기 쉬워...여소야대 상황 많...</a>
-        <p class="news-summary">◆ 김상욱 : 우리 울산에는 지금 AIDC AI 데이터센터 이거 지금 우리가 울산에서 40메가 짜리를 지금 완공을... AIDC를 그냥 데이터센터만 짓는 것이 아니라 울산에 있는 지역 대학들과 함께해서 계약학과 체결해서 인재...</p>
-        <p class="news-meta">
-          <span class="press">YTN</span> ·
-          <span class="pubdate">2026-07-14 20:01</span> ·
-          <span class="region-tag">울산</span>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://www.idaegu.com/news/articleView.html?idxno=664331" target="_blank" rel="noopener">송혜자 &quot;경북, 제조·에너지 강점 살린 AX 킬러프로젝트로 승부&quot;</a>
-        <p class="news-summary">또 포항 AI 데이터센터와 SK의 포항 블루밸리 국가산단 초대형 AIDC 검토, 삼성의 구미 AI 데이터센터 계획을 연계하면 경북만의 차별화된 AI 산업 생태계를 구축할 수 있다고 분석했다. 그는 &quot;경북 AX의 킬러 프로젝트는...</p>
-        <p class="news-meta">
-          <span class="press">idaegu.com</span> ·
-          <span class="pubdate">2026-07-14 15:00</span> ·
+          <span class="press">mhns.co.kr</span> ·
+          <span class="pubdate">2026-07-15 15:52</span> ·
           <span class="region-tag">경북</span>
         </p>
       </li>
       <li class="news-item">
-        <a class="news-title" href="https://www.ajunews.com/view/20260714075838541" target="_blank" rel="noopener">부산 명지녹산에 &#x27;국산 NPU&#x27; 기반 AI 데이터센터 들어선다</a>
-        <p class="news-summary">부산시는 산업통상부의 ‘2026년 산업단지 엣지 AIDC 실증 시범사업’ 공모에 ‘부산 조선·해양 엣지 AI 데이터센터 구축사업’이 최종 선정됐다고 밝혔다. 사업 기간은 2026년 7월부터 2027년 6월까지다. 국비 140억원과...</p>
+        <a class="news-title" href="https://www.kyongbuk.co.kr/news/articleView.html?idxno=4078400" target="_blank" rel="noopener">유승헌 구미시의원 &quot;AI 투자, 준비된 도시에 온다&quot;</a>
+        <p class="news-summary">그는 메가프로젝트의 성공을 위해 △삼성 AI 데이터센터와 피지컬 AI 제조거점 구축 지원 △LG그룹의 후속 투자와 피지컬 AI·로봇 제조산업 유치 △RE100 기반 에너지 경쟁력 확보 △대구경북신공항과 KTX 구미산단역 신설...</p>
         <p class="news-meta">
-          <span class="press">ajunews.com</span> ·
-          <span class="pubdate">2026-07-14 08:06</span> ·
-          <span class="region-tag">부산</span>
+          <span class="press">kyongbuk.co.kr</span> ·
+          <span class="pubdate">2026-07-15 15:42</span> ·
+          <span class="region-tag">구미시</span>
         </p>
       </li>
       <li class="news-item">
-        <a class="news-title" href="https://www.viva100.com/article/20260713501343" target="_blank" rel="noopener">배경훈 “AIDC 세종·동해·울산 확정… 2035년까지 18.4GW 구축”</a>
-        <p class="news-summary">정부가 오는 2035년까지 18.4GW(기가와트) 규모의 인공지능 데이터센터(AIDC) 구축에 나선 가운데 배경훈 부총리... 이날 배 부총리는 정부의 메가프로젝트의 핵심 요소로 AIDC와 피지컬 AI를 언급했다. 그는 “AIDC는 겉으로만...</p>
+        <a class="news-title" href="https://www.ajunews.com/view/20260715153036505" target="_blank" rel="noopener">전주시의회, 예산결산특별위원 선출</a>
+        <p class="news-summary">3대 메가 프로젝트는 반도체, 피지컬 AI, AI 데이터센터 분야에 대한 대규모 투자로, 총 4755조원이 투입된다. 하지만 호남권(광주·해남), 충청권(청주·천안·온영), 영남권(구미·부산)을 중심으로 진행되면서, ‘전북...</p>
         <p class="news-meta">
-          <span class="press">viva100.com</span> ·
-          <span class="pubdate">2026-07-13 21:08</span> ·
+          <span class="press">ajunews.com</span> ·
+          <span class="pubdate">2026-07-15 15:36</span> ·
+          <span class="region-tag">전주시</span>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://www.greened.kr/news/articleView.html?idxno=345153" target="_blank" rel="noopener">&#x27;202조 투자 실행체계 가동&#x27;… 충남, 첨단기업 전담 지원 본격화</a>
+        <p class="news-summary">반도체는 삼성전자와 천안·아산시, 디스플레이는 삼성디스플레이와 아산시, 이차전지는 삼성SDI와 천안시, AI 데이터센터는 SK텔레콤과 해당 지자체가 각각 도 담당 부서와 협력체계를 구축해 맞춤형 지원을 받게 된다. 첫...</p>
+        <p class="news-meta">
+          <span class="press">greened.kr</span> ·
+          <span class="pubdate">2026-07-15 15:30</span> ·
+          <span class="region-tag">충남</span>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://n.news.naver.com/mnews/article/658/0000149627?sid=101" target="_blank" rel="noopener">김상욱 울산시장 에쓰오일에 본사 울산 이전 제안</a>
+        <p class="news-summary">특히 울산 중소기업과 신생기업에 AI 데이터센터 자원공유 이용권(클라우드 크레딧)을 지원하고, 동남권 창업 벤처기업을 위한 산업 인공지능 전환 개방형 혁신 전략 거점을 울산에 구축하는 방안도 논의했다. 김 시장은...</p>
+        <p class="news-meta">
+          <span class="press">kookje.co.kr</span> ·
+          <span class="pubdate">2026-07-15 15:24</span> ·
           <span class="region-tag">울산</span>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://www.newsfreezone.co.kr/news/articleView.html?idxno=699653" target="_blank" rel="noopener">민선9기 충남, AI 수도·행정통합 등 201개 과제 제시</a>
+        <p class="news-summary">10대 약속으로는 충남·대전 행정통합과 권역별 AI 데이터센터 구축, AI 대전환 성장펀드 조성, 종축장 이전 부지 국가산업단지 조성, 정의로운 전환, 지역 응급의료 전달체계 구축 등을 내놨다. 공공기관 유치를 통한...</p>
+        <p class="news-meta">
+          <span class="press">newsfreezone.co.kr</span> ·
+          <span class="pubdate">2026-07-15 15:06</span> ·
+          <span class="region-tag">충남</span>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://n.news.naver.com/mnews/article/030/0003448153?sid=102" target="_blank" rel="noopener">충남, 삼성·SK 맞춤형 투자 지원 협의체 운영…제조 신·증설 인허가 패...</a>
+        <p class="news-summary">분야별로 △반도체는 도 반도체팀과 천안·아산시, 삼성전자 △디스플레이는 도 디스플레이전자팀과 아산시, 삼성디스플레이 △이차전지는 도 탄소중립산업팀과 천안시, 삼성SDI △AI데이터센터는 도 기업유치팀과...</p>
+        <p class="news-meta">
+          <span class="press">전자신문</span> ·
+          <span class="pubdate">2026-07-15 15:01</span> ·
+          <span class="region-tag">충남</span>
         </p>
       </li></ul>
     </section>
@@ -426,6 +374,51 @@
       <h2>AI데이터센터(AIDC) · 국내 기업 언급 기사</h2>
       <p class="section-desc">네이버 뉴스에서 "AI데이터센터"/"AIDC"와 국내 기업명이 함께 언급된 기사 중 최신 20건</p>
       <ul class="news-list">
+      <li class="news-item">
+        <a class="news-title" href="https://n.news.naver.com/mnews/article/215/0001258843?sid=101" target="_blank" rel="noopener">LG엔솔, 구글 미 태양광·ESS 프로젝트에 수천억대 배터리 공급</a>
+        <p class="news-summary">구글은 AI 데이터센터 확대에 따른 전력 수요 증가에 대응하기 위해 이번 프로젝트를 추진했다. 북미 생산 기반을 갖춘 LG에너지솔루션의 현지화 전략이 이번 프로젝트 수주에 긍정적으로 작용한 것으로...</p>
+        <p class="news-meta">
+          <span class="press">wowtv.co.kr</span> ·
+          <span class="pubdate">2026-07-15 16:46</span> ·
+          <span class="region-tag">태양</span>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://www.jjan.kr/article/20260715500269" target="_blank" rel="noopener">도의회는 특위 띄웠는데…전북도, 메가프로젝트 대응 더 속도 내야</a>
+        <p class="news-summary">도는 향후에 새만금 RE100 재생에너지와 첨단소재 산업, AI 데이터센터, 피지컬AI 등을 연계한 전북형 메가프로젝트를 구체화해 중앙정부와 기업을 상대로 유치 활동을 본격화할 계획이다. 김용일 반도체클러스터 범도민...</p>
+        <p class="news-meta">
+          <span class="press">jjan.kr</span> ·
+          <span class="pubdate">2026-07-15 16:46</span> ·
+          <span class="region-tag">E1</span>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://www.meconomynews.com/news/articleView.html?idxno=132714" target="_blank" rel="noopener">[데스크 칼럼] 공급 계획은 원전, 설명은 &#x27;탈탄소&#x27;... 메가 클러스터가...</a>
+        <p class="news-summary">서남권 반도체 팹 4기, AI데이터센터, 피지컬AI 클러스터를 구동할 전기를 어디서 어떻게 끌어올 것인가라는 질문이 정부 에너지 정책의 전환을 이끌고 있다. 팹 1기=인구 50만 도시 전력... 4기는 원전 15기 몫 반도체 팹을...</p>
+        <p class="news-meta">
+          <span class="press">meconomynews.com</span> ·
+          <span class="pubdate">2026-07-15 16:46</span> ·
+          <span class="region-tag">서남</span>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://byline.network/?p=9004111222612226" target="_blank" rel="noopener">다올티에스, 창립 6주년…”AI 에코시스템 오케스트레이터로”</a>
+        <p class="news-summary">AI 팩토리 PoC 센터를 구축해 지난 2년간 30여 건의 AI PoC를 수행하며 다양한 산업 분야에서 AI 도입과 운영 환경을 검증했다. 16개 국내 AI ISV와 글로벌 벤더들과의 연합 AI 생태계를 구축하고, 이를 기반으로 AI 올인원...</p>
+        <p class="news-meta">
+          <span class="press">byline.network</span> ·
+          <span class="pubdate">2026-07-15 16:44</span> ·
+          <span class="region-tag">레이</span>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://www.banronbodo.com/news/articleView.html?idxno=32649" target="_blank" rel="noopener">LG에너지솔루션, 구글 손잡고 美 전력시장 공략…수천억대 ESS 계약 수주</a>
+        <p class="news-summary">이번 사업은 구글이 AI 데이터센터 확대에 따른 전력 수요 증가에 대응하기 위해 추진하는 프로젝트로, 구글의 글로벌 재생에너지 포트폴리오 가운데 최대 규모의 태양광·ESS 사업이다. LG에너지솔루션은 지난 5월...</p>
+        <p class="news-meta">
+          <span class="press">banronbodo.com</span> ·
+          <span class="pubdate">2026-07-15 16:42</span> ·
+          <span class="region-tag">LG에너지솔루션</span>
+        </p>
+      </li>
       <li class="news-item">
         <a class="news-title" href="https://www.dnews.co.kr/uhtml/view.jsp?idxno=202607151416335770315" target="_blank" rel="noopener">한화 3형제 교통정리…오너 3세 3색 경영 시동</a>
         <p class="news-summary">한화시스템은 초저궤도 합성개구레이더(SAR) 위성과 우주 AI 데이터센터, 저궤도 위성통신망 구축에 20조원을 들인다. 여기에 한화에어로스페이스와 한화시스템이 경남 창원에 구축하는 국방AI 데이터센터에 10조원...</p>
@@ -526,15 +519,6 @@
         </p>
       </li>
       <li class="news-item">
-        <a class="news-title" href="https://n.news.naver.com/mnews/article/421/0009061705?sid=102" target="_blank" rel="noopener">충남서 기업·지자체 &#x27;첨단산업 기업투자 지원협의체&#x27; 첫 회의</a>
-        <p class="news-summary">또 반도체·디스플레이·이차전지·AI데이터센터 등 4개 투자 분야에 도 담당 부서와 해당 시군, 투자기업을 연계해 협의체를 운영할 계획이다. 이날 협의체 회의에서는 인허가, 기반, 재정 지원 등 기업이 필요로 하는...</p>
-        <p class="news-meta">
-          <span class="press">뉴스1</span> ·
-          <span class="pubdate">2026-07-15 16:14</span> ·
-          <span class="region-tag">레이</span>
-        </p>
-      </li>
-      <li class="news-item">
         <a class="news-title" href="https://n.news.naver.com/mnews/article/079/0004168807?sid=102" target="_blank" rel="noopener">김상욱 울산시장, SK·에쓰오일 본사 방문…투자 협력 논의</a>
         <p class="news-summary">이어 울산이 서남권과 대경권 등을 아우르는 AI 인재 양성의 중심축이 될 수 있도록 반도체와 AI 데이터센터 분야 계약학과 개설, AX 창업 생태계 구축 등 다양한 협력사업을 제안했다. 울산지역 중소기업과...</p>
         <p class="news-meta">
@@ -544,12 +528,12 @@
         </p>
       </li>
       <li class="news-item">
-        <a class="news-title" href="https://n.news.naver.com/mnews/article/052/0002379922?sid=104" target="_blank" rel="noopener">데이터센터 발 전기요금 폭탄...&quot;미 13개 주에서 9조 원 추가&quot;</a>
-        <p class="news-summary">AI 데이터센터의 막대한 전력 소비량 때문에 대중이 부담해야 할 전기요금 비용이 급등한다는 반발은 미국 전역에 빠르게 퍼지고 있습니다. 실제 뉴욕주는 14일 주 전역에 데이터센터 신규 건설을 1년 동안 금지하는...</p>
+        <a class="news-title" href="https://n.news.naver.com/mnews/article/421/0009061705?sid=102" target="_blank" rel="noopener">충남서 기업·지자체 &#x27;첨단산업 기업투자 지원협의체&#x27; 첫 회의</a>
+        <p class="news-summary">또 반도체·디스플레이·이차전지·AI데이터센터 등 4개 투자 분야에 도 담당 부서와 해당 시군, 투자기업을 연계해 협의체를 운영할 계획이다. 이날 협의체 회의에서는 인허가, 기반, 재정 지원 등 기업이 필요로 하는...</p>
         <p class="news-meta">
-          <span class="press">YTN</span> ·
-          <span class="pubdate">2026-07-15 16:13</span> ·
-          <span class="region-tag">국전</span>
+          <span class="press">뉴스1</span> ·
+          <span class="pubdate">2026-07-15 16:14</span> ·
+          <span class="region-tag">레이</span>
         </p>
       </li>
       <li class="news-item">
@@ -562,48 +546,12 @@
         </p>
       </li>
       <li class="news-item">
-        <a class="news-title" href="https://www.bzeronews.com/news/articleView.html?idxno=820120" target="_blank" rel="noopener">&#x27;202조 투자 실행모드&#x27;…충남, 기업 인허가부터 전담 지원체계 가동</a>
-        <p class="news-summary">이차전지는 도 탄소중립산업팀과 천안시, 삼성SDI가 맡으며, AI 데이터센터 분야는 도 기업유치팀과 해당 지자체, SK텔레콤이 공동 대응한다. 회의에서는 공장 신·증설 과정에서 가장 큰 부담으로 꼽히는 인허가 절차와...</p>
-        <p class="news-meta">
-          <span class="press">bzeronews.com</span> ·
-          <span class="pubdate">2026-07-15 16:12</span> ·
-          <span class="region-tag">SK텔레콤</span>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://n.news.naver.com/mnews/article/008/0005386557?sid=105" target="_blank" rel="noopener">&quot;한달도 안 남았네&quot;…2차전 선발 막 오른 독파모, 달라진 점은?</a>
-        <p class="news-summary">6개월 간 SK그룹의 AI 팩토리 운영 주체로 이미지 변신을 이룬 SKT는 이번 컨소시엄 추가를 통해 제조와 금융, 공공 등 산업 현장으로 독자 AI를 확산한다는 전략이다. SK AX(옛 SK C&amp;C)는 다양한 산업 분야에서 AX(AI 전환)...</p>
-        <p class="news-meta">
-          <span class="press">mt.co.kr</span> ·
-          <span class="pubdate">2026-07-15 16:10</span> ·
-          <span class="region-tag">SKC</span>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://n.news.naver.com/mnews/article/374/0000521915?sid=104" target="_blank" rel="noopener">&#x27;데이터센터發 전기료 폭탄&#x27;…美 13개주 9조원 추가 부담</a>
+        <a class="news-title" href="https://n.news.naver.com/mnews/article/052/0002379922?sid=104" target="_blank" rel="noopener">데이터센터 발 전기요금 폭탄...&quot;미 13개 주에서 9조 원 추가&quot;</a>
         <p class="news-summary">AI 데이터센터의 막대한 전력 소비량 때문에 대중이 부담해야 할 전기요금 비용이 급등한다는 반발은 미국 전역에 빠르게 퍼지고 있습니다. 실제 뉴욕주는 14일 주 전역에 데이터센터 신규 건설을 1년 동안 금지하는...</p>
         <p class="news-meta">
-          <span class="press">SBS</span> ·
-          <span class="pubdate">2026-07-15 16:09</span> ·
+          <span class="press">YTN</span> ·
+          <span class="pubdate">2026-07-15 16:13</span> ·
           <span class="region-tag">국전</span>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="http://www.newstomato.com/ReadNews.aspx?no=1307245&amp;inflow=N" target="_blank" rel="noopener">반도체 고점 우려에도 의연한 삼성·SK…자신감 배경은</a>
-        <p class="news-summary">AI 데이터센터(AI DC) 투자가 확대되면서 글로벌 빅테크들이 안정적인 메모리 물량 확보에 나서고 있기 때문입니다. 삼성전자가 최근 임금·단체협약 유효기간을 2028년까지로 정한 점도 업계 안팎에서 눈여겨보는...</p>
-        <p class="news-meta">
-          <span class="press">newstomato.com</span> ·
-          <span class="pubdate">2026-07-15 16:08</span> ·
-          <span class="region-tag">SK</span>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://www.pinpointnews.co.kr/news/articleView.html?idxno=468763" target="_blank" rel="noopener">[코스닥 외국인] 성장주 집중 매수…주성엔지니어링·에코프로·리가켐...</a>
-        <p class="news-summary">반도체 검사·장비·소재 기업들은 AI 데이터센터 확대와 고성능 메모리 수요 증가에 따른 중장기 성장 기대를 받고 있다. 바이오 업종에서도 외국인 수급이 집중됐다. 디앤디파마텍, 보로노이, 에이비엘바이오, 올릭스...</p>
-        <p class="news-meta">
-          <span class="press">pinpointnews.co.kr</span> ·
-          <span class="pubdate">2026-07-15 16:08</span> ·
-          <span class="region-tag">주성엔지니어링</span>
         </p>
       </li></ul>
     </section>
@@ -613,6 +561,24 @@
       <h2>AI데이터센터(AIDC) · 해외 기업 언급 기사</h2>
       <p class="section-desc">네이버 뉴스에서 "AI데이터센터"/"AI DATA CENTER"/"AIDC"/"AI팩토리"/"AI FACTORY"와 해외 기업명이 함께 언급된 기사 중 최신 20건</p>
       <ul class="news-list">
+      <li class="news-item">
+        <a class="news-title" href="https://n.news.naver.com/mnews/article/215/0001258843?sid=101" target="_blank" rel="noopener">LG엔솔, 구글 미 태양광·ESS 프로젝트에 수천억대 배터리 공급</a>
+        <p class="news-summary">구글은 AI 데이터센터 확대에 따른 전력 수요 증가에 대응하기 위해 이번 프로젝트를 추진했다. 북미 생산 기반을 갖춘 LG에너지솔루션의 현지화 전략이 이번 프로젝트 수주에 긍정적으로 작용한 것으로...</p>
+        <p class="news-meta">
+          <span class="press">wowtv.co.kr</span> ·
+          <span class="pubdate">2026-07-15 16:46</span> ·
+          <span class="region-tag">구글</span>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://www.banronbodo.com/news/articleView.html?idxno=32649" target="_blank" rel="noopener">LG에너지솔루션, 구글 손잡고 美 전력시장 공략…수천억대 ESS 계약 수주</a>
+        <p class="news-summary">이번 사업은 구글이 AI 데이터센터 확대에 따른 전력 수요 증가에 대응하기 위해 추진하는 프로젝트로, 구글의 글로벌 재생에너지 포트폴리오 가운데 최대 규모의 태양광·ESS 사업이다. LG에너지솔루션은 지난 5월...</p>
+        <p class="news-meta">
+          <span class="press">banronbodo.com</span> ·
+          <span class="pubdate">2026-07-15 16:42</span> ·
+          <span class="region-tag">구글</span>
+        </p>
+      </li>
       <li class="news-item">
         <a class="news-title" href="https://www.koreaittimes.com/news/articleView.html?idxno=155257" target="_blank" rel="noopener">LG에너지솔루션, 구글 초대형 ESS 프로젝트 수주… AI 전력시장 공략 가...</a>
         <p class="news-summary">구글은 생산되는 전력을 장기 구매하는 방식으로 AI 데이터센터 운영에 필요한 안정적인 친환경 전력을 확보할 계획이다. LG에너지솔루션은 북미에서 생산한 리튬인산철(LFP) 기반 컨테이너형 ESS 솔루션 &#x27;JF2 DC Link...</p>
@@ -722,19 +688,19 @@
         </p>
       </li>
       <li class="news-item">
-        <a class="news-title" href="https://www.g-enews.com/view.php?ud=202607151102429473084322ec9_1" target="_blank" rel="noopener">LG엔솔, 구글 최대 태양광·ESS에 배터리 공급…북미 현지화 통했다</a>
-        <p class="news-summary">구글은 AI 데이터센터 증설에 필요한 전력을 안정적으로 확보하기 위해 초기 발전량 전량을 구매하고, 재생에너지 공급 확대와 전력망 안정성을 동시에 강화한다는 방침이다. LG에너지솔루션은 북미에서 생산한...</p>
+        <a class="news-title" href="https://www.ngetnews.com/news/articleView.html?idxno=551553" target="_blank" rel="noopener">LG엔솔, 구글 최대 태양광·ESS 사업 수주…북미 현지화 통했다</a>
+        <p class="news-summary">구글은 AI 데이터센터 확대에 따른 전력 수요 증가에 대응하기 위해 이번 사업을 추진했다. 초기 발전량 전량을 구매하는 계약을 체결해 청정에너지 확보와 전력망 안정성을 동시에 추진할 계획이다. 프로젝트는...</p>
         <p class="news-meta">
-          <span class="press">g-enews.com</span> ·
+          <span class="press">ngetnews.com</span> ·
           <span class="pubdate">2026-07-15 14:38</span> ·
           <span class="region-tag">구글</span>
         </p>
       </li>
       <li class="news-item">
-        <a class="news-title" href="https://www.ngetnews.com/news/articleView.html?idxno=551553" target="_blank" rel="noopener">LG엔솔, 구글 최대 태양광·ESS 사업 수주…북미 현지화 통했다</a>
-        <p class="news-summary">구글은 AI 데이터센터 확대에 따른 전력 수요 증가에 대응하기 위해 이번 사업을 추진했다. 초기 발전량 전량을 구매하는 계약을 체결해 청정에너지 확보와 전력망 안정성을 동시에 추진할 계획이다. 프로젝트는...</p>
+        <a class="news-title" href="https://www.g-enews.com/view.php?ud=202607151102429473084322ec9_1" target="_blank" rel="noopener">LG엔솔, 구글 최대 태양광·ESS에 배터리 공급…북미 현지화 통했다</a>
+        <p class="news-summary">구글은 AI 데이터센터 증설에 필요한 전력을 안정적으로 확보하기 위해 초기 발전량 전량을 구매하고, 재생에너지 공급 확대와 전력망 안정성을 동시에 강화한다는 방침이다. LG에너지솔루션은 북미에서 생산한...</p>
         <p class="news-meta">
-          <span class="press">ngetnews.com</span> ·
+          <span class="press">g-enews.com</span> ·
           <span class="pubdate">2026-07-15 14:38</span> ·
           <span class="region-tag">구글</span>
         </p>
@@ -773,24 +739,6 @@
           <span class="press">industrynews.co.kr</span> ·
           <span class="pubdate">2026-07-15 09:06</span> ·
           <span class="region-tag">NVIDIA</span>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://it.chosun.com/news/articleView.html?idxno=2023092165804" target="_blank" rel="noopener">&quot;통신은 거들 뿐&quot;… 이통 3사, 2030년 AIDC 영업익 비중 20% 육박</a>
-        <p class="news-summary">2030년 이통 3사는 AI 데이터센터(AIDC) 사업에서만 최소 2000억원에서 조원대 영업이익을 낼 것이라는... 한편 3사는 AIDC 구축에 총력을 기울이고 있다. SKT는 AWS와 함께 2027년 하반기 가동을 목표로 울산에 첫 GW급...</p>
-        <p class="news-meta">
-          <span class="press">조선일보</span> ·
-          <span class="pubdate">2026-07-15 07:00</span> ·
-          <span class="region-tag">AWS</span>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://www.g-enews.com/view.php?ud=2026071504551182552bd56fbc3c_1" target="_blank" rel="noopener">소프트뱅크, 엔비디아와 손잡고 ‘말랑한 물체’ 집는 로봇 AI 개발</a>
-        <p class="news-summary">이 가상 시뮬레이션 환경에서 로봇은 무수한 학습 과정을 거치며, 실제 현장에 배치되기 전 발생할 수 있는 오류를 사전에 제거하는 ‘피지컬 AI 팩토리’ 전략을 구사하고 있다. 한국 로봇·제조업계, ‘피지컬 AI’ 도입...</p>
-        <p class="news-meta">
-          <span class="press">g-enews.com</span> ·
-          <span class="pubdate">2026-07-15 05:00</span> ·
-          <span class="region-tag">엔비디아</span>
         </p>
       </li></ul>
     </section>
