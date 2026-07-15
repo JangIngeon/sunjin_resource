@@ -894,19 +894,27 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
 <style>
   :root {{ color-scheme: light dark; }}
   body {{ font-family: -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
-          max-width: 760px; margin: 0 auto; padding: 32px 16px 60px;
+          max-width: 1080px; margin: 0 auto; padding: 32px 16px 60px;
           background: #f7f7f5; color: #222; }}
   header h1 {{ font-size: 22px; margin-bottom: 4px; }}
   header p {{ color: #666; font-size: 14px; margin-top: 0; }}
+  .layout {{ display: flex; align-items: flex-start; gap: 20px; margin-top: 20px; }}
+  .sidebar {{ width: 260px; flex-shrink: 0; }}
+  .main {{ flex: 1; min-width: 0; }}
   section.highlights {{ background: #fff; border: 1px solid #e3e2dc; border-radius: 10px;
-                         margin-top: 20px; padding: 4px 20px 16px; }}
-  section.highlights h2 {{ font-size: 17px; padding: 10px 0; }}
+                         padding: 4px 16px 16px; position: sticky; top: 16px; }}
+  section.highlights h2 {{ font-size: 15px; padding: 10px 0; }}
   ul.highlight-list {{ display: block; }}
-  li.highlight-item {{ display: flex; align-items: baseline; gap: 8px; padding: 8px 0;
-                        border-top: 1px solid #eee; flex-wrap: wrap; }}
+  li.highlight-item {{ display: block; padding: 10px 0; border-top: 1px solid #eee; }}
   li.highlight-item:first-child {{ border-top: none; }}
-  li.highlight-item a {{ color: #222; text-decoration: none; font-size: 14px; }}
+  li.highlight-item a {{ display: block; color: #222; text-decoration: none; font-size: 13px;
+                          line-height: 1.4; margin: 4px 0 2px; }}
   li.highlight-item a:hover {{ text-decoration: underline; color: #185fa5; }}
+  @media (max-width: 760px) {{
+    .layout {{ flex-direction: column; }}
+    .sidebar {{ width: 100%; }}
+    section.highlights {{ position: static; }}
+  }}
   .cat-badge {{ font-size: 11px; font-weight: 700; color: #fff; padding: 2px 8px;
                 border-radius: 10px; white-space: nowrap; }}
   .cat-badge.cat-gov {{ background: #185fa5; }}
@@ -970,11 +978,17 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
     <h1>정부기관·공기업 오늘의 보도자료</h1>
     <p>{TODAY_LABEL} 기준 · 마지막 업데이트: {GENERATED_AT_LABEL} (KST) · 매일 자동 업데이트(하루 6회)</p>
   </header>
-  {highlights_html()}
-  <div class="tab-banner">
-    {tab_buttons_html}
+  <div class="layout">
+    <aside class="sidebar">
+      {highlights_html()}
+    </aside>
+    <div class="main">
+      <div class="tab-banner">
+        {tab_buttons_html}
+      </div>
+      {tab_panels_html}
+    </div>
   </div>
-  {tab_panels_html}
   <footer>기관·기업명을 클릭하면 해당 보도자료 게시판 전체 목록으로 이동합니다.</footer>
   <script>
     function showTab(tab) {{
