@@ -965,15 +965,6 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
         for org in PUBLIC_ENTERPRISES:
             for it in today_items.get(org, []):
                 rows.append(("공기업", "cat-public", org, it))
-        for it in aidc_items:
-            if it.get("pub_dt") and it["pub_dt"].date() == TODAY:
-                rows.append(("지자체 관련 기사", "cat-local", it["region"], it))
-        for it in listed_items:
-            if it.get("pub_dt") and it["pub_dt"].date() == TODAY:
-                rows.append(("국내 기업 관련 기사", "cat-listed", it["company"], it))
-        for it in overseas_items:
-            if it.get("pub_dt") and it["pub_dt"].date() == TODAY:
-                rows.append(("해외 기업 관련 기사", "cat-overseas", it["company"], it))
 
         if not rows:
             body = '<p class="msg empty">오늘 등록된 자료가 아직 없습니다.</p>'
