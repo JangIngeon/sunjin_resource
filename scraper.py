@@ -95,9 +95,17 @@ def load_company_names():
 COMPANY_NAMES = load_company_names()
 
 
+_company_names_norm_cache = None
+
+
 def find_company_in_text(text: str):
-    for name in COMPANY_NAMES:
-        if name in text:
+    """대소문자·띄어쓰기 구분 없이 상장법인명을 찾는다."""
+    global _company_names_norm_cache
+    if _company_names_norm_cache is None:
+        _company_names_norm_cache = [(normalize_for_match(n), n) for n in COMPANY_NAMES]
+    norm_text = normalize_for_match(text)
+    for norm_name, name in _company_names_norm_cache:
+        if norm_name in norm_text:
             return name
     return None
 
@@ -145,10 +153,17 @@ def load_overseas_company_names():
 OVERSEAS_COMPANY_NAMES = load_overseas_company_names()
 
 
+_overseas_company_names_norm_cache = None
+
+
 def find_overseas_company_in_text(text: str):
-    text_lower = (text or "").lower()
-    for name in OVERSEAS_COMPANY_NAMES:
-        if name.lower() in text_lower:
+    """대소문자·띄어쓰기 구분 없이 해외 기업명을 찾는다."""
+    global _overseas_company_names_norm_cache
+    if _overseas_company_names_norm_cache is None:
+        _overseas_company_names_norm_cache = [(normalize_for_match(n), n) for n in OVERSEAS_COMPANY_NAMES]
+    norm_text = normalize_for_match(text)
+    for norm_name, name in _overseas_company_names_norm_cache:
+        if norm_name in norm_text:
             return name
     return None
 
