@@ -1029,8 +1029,14 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
   .layout {{ display: flex; align-items: flex-start; gap: 20px; margin-top: 20px; }}
   .sidebar {{ width: 260px; flex-shrink: 0; position: sticky; top: 20px; height: max-content; }}
   .main {{ flex: 1; min-width: 0; }}
-  section.highlights {{ background: #fff; border: 1px solid #e3e2dc; border-radius: 10px;
-                         padding: 4px 16px 16px; }}
+  section.highlights {{ 
+    background: #fff; 
+    border: 1px solid #e3e2dc; 
+    border-radius: 10px;
+    padding: 4px 16px 16px; 
+    max-height: calc(100vh - 40px); 
+    overflow-y: auto; 
+  }}
   ul.highlight-list {{ display: block; }}
   li.highlight-item {{ display: block; padding: 10px 0; border-top: 1px solid #eee; }}
   li.highlight-item:first-child {{ border-top: none; }}
