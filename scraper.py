@@ -1045,8 +1045,7 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
   li.highlight-item a:hover {{ text-decoration: underline; color: #185fa5; }}
   @media (max-width: 760px) {{
     .layout {{ flex-direction: column; }}
-    .sidebar {{ width: 100%; position: static; }}
-    section.highlights {{ position: static; }}
+    .sidebar {{ display: none; }}
   }}
   .cat-badge {{ font-size: 11px; font-weight: 700; color: #fff; padding: 2px 8px;
                 border-radius: 10px; white-space: nowrap; }}
