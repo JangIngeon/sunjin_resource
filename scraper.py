@@ -46,7 +46,7 @@ RETRIES = 3
 RETRY_WAIT_SECONDS = 5
 RECENT_LIMIT = 5
 
-GOV_AGENCIES = ["과학기술정보통신부", "기후에너지환경부", "산업통상부"]
+GOV_AGENCIES = ["과학기술정보통신부", "기후에너지환경부", "산업통상부", "국가인공지능전략위원회"]
 PUBLIC_ENTERPRISES = ["한국전력공사", "한국수자원공사", "정보통신산업진흥원", "한국지능정보사회진흥원"]
 
 CATEGORIES = [
@@ -58,6 +58,7 @@ BOARD_URL = {
     "과학기술정보통신부": "https://www.msit.go.kr/bbs/list.do?sCode=user&mPid=208&mId=307",
     "기후에너지환경부": "https://mcee.go.kr/home/web/index.do?menuId=10598",
     "산업통상부": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c",
+    "국가인공지능전략위원회": "https://www.aikorea.go.kr/web/board/brdList.do?menu_cd=000012",
     "한국전력공사": "https://www.kepco.co.kr/home/media/newsroom/pr/boardList.do",
     "한국수자원공사": "https://www.kwater.or.kr/news/repoList.do?brdId=KO26&s_mid=36",
     "정보통신산업진흥원": "https://www.nipa.kr/home/4-4-1",
@@ -587,6 +588,10 @@ def fetch_kepco():
     return items or None
 
 
+def fetch_aikorea():
+    return fetch_generic_board(BOARD_URL["국가인공지능전략위원회"], "AIKOREA")
+
+
 def fetch_kwater():
     return fetch_generic_board(BOARD_URL["한국수자원공사"], "K-water")
 
@@ -855,6 +860,7 @@ FETCHERS = {
     "과학기술정보통신부": fetch_msit,
     "기후에너지환경부": fetch_mcee,
     "산업통상부": fetch_motir,
+    "국가인공지능전략위원회": fetch_aikorea,
     "한국전력공사": fetch_kepco,
     "한국수자원공사": fetch_kwater,
     "정보통신산업진흥원": fetch_nipa,
@@ -1029,13 +1035,13 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
   .layout {{ display: flex; align-items: flex-start; gap: 20px; margin-top: 20px; }}
   .sidebar {{ width: 260px; flex-shrink: 0; position: sticky; top: 20px; height: max-content; }}
   .main {{ flex: 1; min-width: 0; }}
-  section.highlights {{ 
-    background: #fff; 
-    border: 1px solid #e3e2dc; 
+  section.highlights {{
+    background: #fff;
+    border: 1px solid #e3e2dc;
     border-radius: 10px;
-    padding: 4px 16px 16px; 
-    max-height: calc(100vh - 40px); 
-    overflow-y: auto; 
+    padding: 4px 16px 16px;
+    max-height: calc(100vh - 40px);
+    overflow-y: auto;
   }}
   ul.highlight-list {{ display: block; }}
   li.highlight-item {{ display: block; padding: 10px 0; border-top: 1px solid #eee; }}
@@ -1149,8 +1155,7 @@ def main() -> None:
             continue
         matched = [it for it in items if it["date"] == TODAY]
         today_items[org] = matched
-        non_today = [it for it in items if it["date"] != TODAY]
-        recent_items[org] = non_today[:RECENT_LIMIT]
+        recent_items[org] = items[:RECENT_LIMIT]
         log(f"[SUMMARY] {org}: {len(matched)} item(s) today (of {len(items)} total parsed)")
 
     aidc_items, aidc_ok = fetch_aidc_news()
