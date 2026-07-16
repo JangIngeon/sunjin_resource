@@ -943,6 +943,9 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
         <a href="{escape(BOARD_URL[org])}" target="_blank" rel="noopener">{escape(org)}</a>
       </h2>
       <p class="msg" style="color: #666; margin: 5px 0;">위 기관명을 클릭하여 공식 보도자료 게시판으로 이동해 주세요.</p>
+      <p style="text-align: center; font-size: 13px; color: #888; margin-top: 20px;">
+        기관명을 클릭하면 해당 보도자료 게시판 전체 목록으로 이동합니다.
+      </p>
     </section>"""
         
         # 공기업인 경우: 기존과 동일하게 목록 파싱
@@ -968,6 +971,9 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
     <section class="agency">
       <h2><a href="{escape(BOARD_URL[org])}" target="_blank" rel="noopener">{escape(org)}</a></h2>
       {body}{more_html}
+      <p style="text-align: center; font-size: 12px; color: #888; margin-top: 15px;">
+        기업명을 클릭하면 해당 보도자료 게시판 전체 목록으로 이동합니다.
+      </p>
     </section>"""
 
     def news_li(item: dict, tag_key: str) -> str:
@@ -995,6 +1001,9 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
       <h2>AI데이터센터(AIDC) · 지자체 언급 기사</h2>
       <p class="section-desc">네이버 뉴스에서 국내 지역명이 언급된 기사 중 최신 {AIDC_TOP_N}건</p>
       {body}
+      <p style="text-align: center; font-size: 12px; color: #888; margin-top: 15px;">
+        기사 제목을 클릭하면 해당 뉴스 원문 페이지로 이동합니다.
+      </p>
     </section>"""
 
     def listed_panel() -> str:
@@ -1009,6 +1018,9 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
       <h2>AI데이터센터(AIDC) · 국내 기업 언급 기사</h2>
       <p class="section-desc">네이버 뉴스에서 국내 기업명이 언급된 기사 중 최신 {COMPANY_TOP_N}건</p>
       {body}
+      <p style="text-align: center; font-size: 12px; color: #888; margin-top: 15px;">
+        기사 제목을 클릭하면 해당 뉴스 원문 페이지로 이동합니다.
+      </p>
     </section>"""
 
     def overseas_panel() -> str:
@@ -1023,6 +1035,9 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
       <h2>AI데이터센터(AIDC) · 해외 기업 언급 기사</h2>
       <p class="section-desc">네이버 뉴스에서 해외 기업명이 언급된 기사 중 최신 {OVERSEAS_TOP_N}건</p>
       {body}
+      <p style="text-align: center; font-size: 12px; color: #888; margin-top: 15px;">
+        기사 제목을 클릭하면 해당 뉴스 원문 페이지로 이동합니다.
+      </p>
     </section>"""
 
     def highlights_html() -> str:
@@ -1115,7 +1130,17 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
   }}
   .layout {{ display: flex; align-items: flex-start; gap: 20px; margin-top: 20px; }}
   .sidebar {{ width: 260px; flex-shrink: 0; position: sticky; top: 20px; height: max-content; }}
-  .main {{ flex: 1; min-width: 0; }}
+  .main { 
+  flex: 1; 
+  min-width: 0; 
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  }
+  section.agency, .tab-banner { 
+    width: 100%; 
+    max-width: 800px; 
+  }
   section.highlights {{
     background: #fff;
     border: 1px solid #e3e2dc;
@@ -1212,7 +1237,6 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
       {tab_panels_html}
     </div>
   </div>
-  <footer id="page-footer">기관명을 클릭하면 해당 보도자료 게시판 전체 목록으로 이동합니다.</footer>
   
   <script>
     function showTab(tab) {{
