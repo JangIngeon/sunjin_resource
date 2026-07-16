@@ -947,7 +947,7 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
         elif today:
             body = "<ul>" + "\n".join(item_li(it) for it in today) + "</ul>"
         else:
-            body = '<p class="msg empty">오늘 등록된 보도자료 없음</p>'
+            body = '<p class="msg empty">등록된 보도자료 없음</p>'
 
         more_html = ""
         if org not in fetch_failed and recent:
@@ -1028,7 +1028,7 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
                 rows.append(("공기업", "cat-public", org, it))
 
         if not rows:
-            body = '<p class="msg empty">오늘 등록된 자료가 아직 없습니다.</p>'
+            body = '<p class="msg empty">등록된 자료가 아직 없습니다.</p>'
         else:
             lis = []
             for cat_label, cat_class, sub_label, it in rows:
@@ -1042,7 +1042,7 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
 
         return f"""
   <section class="highlights">
-    <h2>오늘 올라온 자료들</h2>
+    <h2>올라온 자료들</h2>
     {body}
   </section>"""
 
