@@ -986,7 +986,7 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
         return f"""
     <section class="agency">
       <h2>AI데이터센터(AIDC) · 지자체 언급 기사</h2>
-      <p class="section-desc">네이버 뉴스에서 "AI데이터센터"/"AIDC"와 국내 지역명이 함께 언급된 기사 중 최신 {AIDC_TOP_N}건</p>
+      <p class="section-desc">네이버 뉴스에서 국내 지역명이 언급된 기사 중 최신 {AIDC_TOP_N}건</p>
       {body}
     </section>"""
 
@@ -1000,7 +1000,7 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
         return f"""
     <section class="agency">
       <h2>AI데이터센터(AIDC) · 국내 기업 언급 기사</h2>
-      <p class="section-desc">네이버 뉴스에서 "AI데이터센터"/"AIDC"와 국내 기업명이 함께 언급된 기사 중 최신 {COMPANY_TOP_N}건</p>
+      <p class="section-desc">네이버 뉴스에서 국내 기업명이 언급된 기사 중 최신 {COMPANY_TOP_N}건</p>
       {body}
     </section>"""
 
@@ -1014,7 +1014,7 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
         return f"""
     <section class="agency">
       <h2>AI데이터센터(AIDC) · 해외 기업 언급 기사</h2>
-      <p class="section-desc">네이버 뉴스에서 "AI데이터센터"/"AI DATA CENTER"/"AIDC"/"AI팩토리"/"AI FACTORY"와 해외 기업명이 함께 언급된 기사 중 최신 {OVERSEAS_TOP_N}건</p>
+      <p class="section-desc">네이버 뉴스에서 해외 기업명이 언급된 기사 중 최신 {OVERSEAS_TOP_N}건</p>
       {body}
     </section>"""
 
