@@ -912,10 +912,6 @@ def fetch_listed_company_news():
 
 
 FETCHERS = {
-    "과학기술정보통신부": fetch_msit,
-    "기후에너지환경부": fetch_mcee,
-    "산업통상부": fetch_motir,
-    "국가인공지능전략위원회": fetch_aikorea,
     "한국전력공사": fetch_kepco,
     "한국수자원공사": fetch_kwater,
     "정보통신산업진흥원": fetch_nipa,
@@ -939,6 +935,17 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
         )
 
     def org_section(org: str) -> str:
+        # 정부기관인 경우: 파싱 시도 없이 바로가기 안내만 표시
+        if org in GOV_AGENCIES:
+            return f"""
+    <section class="agency">
+      <h2 style="padding: 10px 0; margin: 0;">
+        <a href="{escape(BOARD_URL[org])}" target="_blank" rel="noopener">{escape(org)}</a>
+      </h2>
+      <p class="msg" style="color: #666; margin: 5px 0;">위 기관명을 클릭하여 공식 보도자료 게시판으로 이동해 주세요.</p>
+    </section>"""
+        
+        # 공기업인 경우: 기존과 동일하게 목록 파싱
         today = today_items.get(org, [])
         recent = recent_items.get(org, [])
 
@@ -1020,9 +1027,7 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
 
     def highlights_html() -> str:
         rows = []
-        for org in GOV_AGENCIES:
-            for it in today_items.get(org, []):
-                rows.append(("정부기관", "cat-gov", org, it))
+        # 정부기관 루프 삭제 (공기업만 표시)
         for org in PUBLIC_ENTERPRISES:
             for it in today_items.get(org, []):
                 rows.append(("공기업", "cat-public", org, it))
