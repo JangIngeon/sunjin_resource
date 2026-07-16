@@ -1085,8 +1085,28 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
   body {{ font-family: -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
           max-width: 1080px; margin: 0 auto; padding: 32px 16px 60px;
           background: #f7f7f5; color: #222; }}
-  header h1 {{ font-size: 22px; margin-bottom: 4px; }}
-  header p {{ color: #666; font-size: 14px; margin-top: 0; }}
+  header {{ 
+    background: #fff; 
+    border: 1px solid #e3e2dc; 
+    border-left: 6px solid #185fa5; 
+    border-radius: 10px; 
+    padding: 24px 30px; 
+    margin-bottom: 24px; 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05); 
+  }}
+  header h1 {{ 
+    font-size: 24px; 
+    font-weight: 800; 
+    color: #185fa5; 
+    margin: 0 0 8px 0; 
+    letter-spacing: -0.5px; 
+  }}
+  header p {{ 
+    color: #666; 
+    font-size: 14px; 
+    margin: 0; 
+    font-weight: 500; 
+  }}
   .layout {{ display: flex; align-items: flex-start; gap: 20px; margin-top: 20px; }}
   .sidebar {{ width: 260px; flex-shrink: 0; position: sticky; top: 20px; height: max-content; }}
   .main {{ flex: 1; min-width: 0; }}
@@ -1164,6 +1184,9 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
     li.highlight-item {{ border-top-color: #33353a; }}
     li.highlight-item a {{ color: #e8e8e6; }}
     .highlight-sub {{ color: #999; }}
+    header {{ background: #232527; border-color: #33353a; border-left-color: #3a82ce; box-shadow: none; }}
+    header h1 {{ color: #e8e8e6; }}
+    header p {{ color: #9a9a9a; }}
   }}
 </style>
 </head>
