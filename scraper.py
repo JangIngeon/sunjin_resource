@@ -968,9 +968,6 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
     <section class="agency">
       <h2><a href="{escape(BOARD_URL[org])}" target="_blank" rel="noopener">{escape(org)}</a></h2>
       {body}{more_html}
-      <p style="text-align: center; font-size: 13px; color: #888; margin-top: 20px;">
-      기업명을 클릭하면 해당 보도자료 게시판 전체 목록으로 이동합니다.
-      </p>
     </section>"""
 
     def news_li(item: dict, tag_key: str) -> str:
