@@ -1105,7 +1105,8 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
     color: #666; 
     font-size: 14px; 
     margin: 0; 
-    font-weight: 500; 
+    font-weight: 500;
+    line-height: 1.5;
   }}
   .layout {{ display: flex; align-items: flex-start; gap: 20px; margin-top: 20px; }}
   .sidebar {{ width: 260px; flex-shrink: 0; position: sticky; top: 20px; height: max-content; }}
