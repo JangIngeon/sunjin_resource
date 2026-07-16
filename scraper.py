@@ -270,6 +270,10 @@ GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions"
 GROQ_MODEL = "llama-3.3-70b-versatile"  # 무료 티어에서 요약 품질 괜찮은 모델
 SUMMARY_MAX_BODY_CHARS = 3000  # 본문이 너무 길면 이만큼만 잘라서 요약 요청
 
+# --- 웹페이지 우측 AI 채팅창 (Cloudflare Worker 프록시) 설정 ---------------------------
+# 사용자가 "AI 요약하기" 버튼을 누르거나 PDF를 첨부하면 이 Worker를 통해 즉석 요약한다.
+AI_CHAT_WORKER_URL = "https://ai-summary.wkddlsrjs.workers.dev"
+
 # 상세 페이지에서 본문을 찾을 때 우선 시도하는 CSS 선택자
 _BODY_SELECTORS = [
     "div.view_cont", "div.board_view", "div.bbs_view", "div.view-content",
@@ -1161,7 +1165,8 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
         <p class="news-meta">
           <span class="press">{escape(item['press'])}</span> ·
           <span class="pubdate">{escape(pub_label)}</span> ·
-          <span class="region-tag">{escape(item[tag_key])}</span>
+          <span class="region-tag">{escape(item[tag_key])}</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('{escape(item['link'])}')">AI 요약하기</button>
         </p>{ai_summary_html}
       </li>"""
 
@@ -1370,6 +1375,47 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
   li.news-item .news-meta {{ font-size: 12px; color: #888; margin: 0; }}
   li.news-item .region-tag {{ color: #185fa5; font-weight: 600; }}
   footer {{ color: #999; font-size: 12px; text-align: center; margin-top: 32px; }}
+  /* --- AI 채팅창 --- */
+  .ai-chat-btn {{ font-size: 11px; color: #fff; background: #185fa5; border: none;
+                   border-radius: 10px; padding: 2px 10px; cursor: pointer; vertical-align: middle; }}
+  .ai-chat-btn:hover {{ background: #124a80; }}
+  #aiChatToggle {{ position: fixed; right: 20px; bottom: 20px; z-index: 1000;
+                    background: #185fa5; color: #fff; border: none; border-radius: 50%;
+                    width: 56px; height: 56px; font-size: 22px; cursor: pointer;
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.25); }}
+  #aiChatPanel {{ position: fixed; right: 20px; bottom: 88px; z-index: 1000;
+                   width: 360px; max-width: calc(100vw - 40px); height: 480px;
+                   background: #fff; border: 1px solid #d8d6cf; border-radius: 14px;
+                   box-shadow: 0 8px 30px rgba(0,0,0,0.2); display: none;
+                   flex-direction: column; overflow: hidden; }}
+  #aiChatPanel.open {{ display: flex; }}
+  .ai-chat-header {{ background: #185fa5; color: #fff; padding: 12px 16px;
+                      font-size: 14px; font-weight: 700; display: flex;
+                      justify-content: space-between; align-items: center; }}
+  .ai-chat-header button {{ background: none; border: none; color: #fff;
+                             font-size: 16px; cursor: pointer; }}
+  #aiChatMessages {{ flex: 1; overflow-y: auto; padding: 12px; font-size: 13px; }}
+  .ai-msg {{ margin-bottom: 10px; line-height: 1.5; white-space: pre-wrap;
+              word-break: break-all; }}
+  .ai-msg.user {{ text-align: right; }}
+  .ai-msg.user .bubble {{ display: inline-block; background: #185fa5; color: #fff;
+                           border-radius: 12px 12px 2px 12px; padding: 8px 12px;
+                           max-width: 85%; text-align: left; }}
+  .ai-msg.bot .bubble {{ display: inline-block; background: #f0f0ee; color: #222;
+                          border-radius: 12px 12px 12px 2px; padding: 8px 12px;
+                          max-width: 85%; }}
+  .ai-chat-input {{ border-top: 1px solid #eee; padding: 10px; display: flex;
+                     gap: 6px; align-items: center; }}
+  .ai-chat-input input[type="text"] {{ flex: 1; border: 1px solid #d8d6cf;
+                                        border-radius: 8px; padding: 8px 10px;
+                                        font-size: 13px; min-width: 0; }}
+  .ai-chat-input button {{ background: #185fa5; color: #fff; border: none;
+                            border-radius: 8px; padding: 8px 12px; font-size: 13px;
+                            cursor: pointer; white-space: nowrap; }}
+  .ai-chat-input label {{ background: #f0f0ee; color: #444; border-radius: 8px;
+                           padding: 8px 10px; font-size: 13px; cursor: pointer;
+                           white-space: nowrap; }}
+  .ai-chat-input input[type="file"] {{ display: none; }}
   @media (prefers-color-scheme: dark) {{
     body {{ background: #17181a; color: #e8e8e6; }}
     .tab-btn {{ background: #232527; border-color: #33353a; color: #ccc; }}
@@ -1387,6 +1433,11 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
     header {{ background: #232527; border-color: #33353a; border-left-color: #3a82ce; box-shadow: none; }}
     header h1 {{ color: #e8e8e6; }}
     header p {{ color: #9a9a9a; }}
+    #aiChatPanel {{ background: #232527; border-color: #33353a; }}
+    .ai-msg.bot .bubble {{ background: #2e3033; color: #e8e8e6; }}
+    .ai-chat-input {{ border-top-color: #33353a; }}
+    .ai-chat-input input[type="text"] {{ background: #17181a; border-color: #33353a; color: #e8e8e6; }}
+    .ai-chat-input label {{ background: #2e3033; color: #ccc; }}
   }}
 </style>
 </head>
@@ -1417,6 +1468,127 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
       // 2. 선택한 탭/버튼 활성화
       document.getElementById('tab-' + tab).classList.add('active');
       document.querySelector('.tab-btn[data-tab="' + tab + '"]').classList.add('active');
+    }}
+  </script>
+
+  <!-- ===== AI 채팅창 ===== -->
+  <button id="aiChatToggle" onclick="toggleAiChat()" title="AI 요약 채팅">🤖</button>
+  <div id="aiChatPanel">
+    <div class="ai-chat-header">
+      <span>AI 요약 도우미</span>
+      <button type="button" onclick="toggleAiChat()">✕</button>
+    </div>
+    <div id="aiChatMessages">
+      <div class="ai-msg bot"><span class="bubble">안녕하세요! 기사 옆 "AI 요약하기" 버튼을 누르거나, 링크를 붙여넣거나, PDF 파일을 첨부하면 요약해드려요.</span></div>
+    </div>
+    <div class="ai-chat-input">
+      <label for="aiPdfInput">📎 PDF</label>
+      <input type="file" id="aiPdfInput" accept="application/pdf" onchange="aiHandlePdf(this)">
+      <input type="text" id="aiChatText" placeholder="기사 링크 붙여넣기" onkeydown="if(event.key==='Enter')aiSendText()">
+      <button type="button" onclick="aiSendText()">전송</button>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script>
+    const AI_WORKER_URL = "{AI_CHAT_WORKER_URL}";
+    if (window.pdfjsLib) {{
+      pdfjsLib.GlobalWorkerOptions.workerSrc =
+        "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+    }}
+
+    function toggleAiChat() {{
+      document.getElementById('aiChatPanel').classList.toggle('open');
+    }}
+
+    function aiAddMsg(role, text) {{
+      const box = document.getElementById('aiChatMessages');
+      const div = document.createElement('div');
+      div.className = 'ai-msg ' + role;
+      const bubble = document.createElement('span');
+      bubble.className = 'bubble';
+      bubble.textContent = text;
+      div.appendChild(bubble);
+      box.appendChild(div);
+      box.scrollTop = box.scrollHeight;
+      return bubble;
+    }}
+
+    async function aiCallWorker(payload, loadingBubble) {{
+      try {{
+        const resp = await fetch(AI_WORKER_URL, {{
+          method: 'POST',
+          headers: {{ 'Content-Type': 'application/json' }},
+          body: JSON.stringify(payload),
+        }});
+        const data = await resp.json();
+        if (data.summary) {{
+          loadingBubble.textContent = data.summary;
+        }} else {{
+          loadingBubble.textContent = '요약에 실패했어요. 잠시 후 다시 시도해주세요.';
+          console.error('AI worker error:', data);
+        }}
+      }} catch (e) {{
+        loadingBubble.textContent = '요약 서버에 연결하지 못했어요.';
+        console.error(e);
+      }}
+    }}
+
+    // 기사 옆 "AI 요약하기" 버튼 → 링크 자동 전송
+    function aiSummarizeUrl(url) {{
+      const panel = document.getElementById('aiChatPanel');
+      if (!panel.classList.contains('open')) panel.classList.add('open');
+      aiAddMsg('user', url);
+      const loading = aiAddMsg('bot', '기사를 읽고 요약하는 중...');
+      aiCallWorker({{ url: url }}, loading);
+    }}
+
+    // 입력창 전송 (링크 또는 일반 텍스트)
+    function aiSendText() {{
+      const input = document.getElementById('aiChatText');
+      const text = input.value.trim();
+      if (!text) return;
+      input.value = '';
+      aiAddMsg('user', text);
+      const loading = aiAddMsg('bot', '요약하는 중...');
+      if (/^https?:\\/\\//i.test(text)) {{
+        aiCallWorker({{ url: text }}, loading);
+      }} else {{
+        aiCallWorker({{ text: text }}, loading);
+      }}
+    }}
+
+    // PDF 첨부 → 브라우저 안에서 텍스트 추출(pdf.js) → Worker로 전송
+    async function aiHandlePdf(inputEl) {{
+      const file = inputEl.files && inputEl.files[0];
+      if (!file) return;
+      inputEl.value = '';
+      const panel = document.getElementById('aiChatPanel');
+      if (!panel.classList.contains('open')) panel.classList.add('open');
+      aiAddMsg('user', '📄 ' + file.name);
+      const loading = aiAddMsg('bot', 'PDF에서 텍스트를 추출하는 중...');
+      try {{
+        const buf = await file.arrayBuffer();
+        const pdf = await pdfjsLib.getDocument({{ data: buf }}).promise;
+        let fullText = '';
+        const maxPages = Math.min(pdf.numPages, 20);
+        for (let i = 1; i <= maxPages; i++) {{
+          const page = await pdf.getPage(i);
+          const content = await page.getTextContent();
+          fullText += content.items.map(it => it.str).join(' ') + '\\n';
+          if (fullText.length > 12000) break;
+        }}
+        fullText = fullText.replace(/\\s+/g, ' ').trim();
+        if (!fullText) {{
+          loading.textContent = 'PDF에서 텍스트를 찾지 못했어요. 스캔 이미지 PDF일 수 있어요.';
+          return;
+        }}
+        loading.textContent = '요약하는 중...';
+        aiCallWorker({{ text: fullText.slice(0, 12000) }}, loading);
+      }} catch (e) {{
+        loading.textContent = 'PDF를 읽는 데 실패했어요.';
+        console.error(e);
+      }}
     }}
   </script>
 </body>
