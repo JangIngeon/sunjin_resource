@@ -1193,7 +1193,7 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
 <body>
   <header>
     <h1>기관 및 업체별 AI Data Center 일일 동향</h1>
-    <p>{TODAY_LABEL} 기준 · 마지막 업데이트: {GENERATED_AT_LABEL} · 매일 자동 업데이트(오후 3시~4시)</p>
+    <p>{TODAY_LABEL} 기준 <br>· 마지막 업데이트: {GENERATED_AT_LABEL} <br>· 매일 자동 업데이트(오후 3시~4시)</p>
   </header>
   <div class="layout">
     <aside class="sidebar">
