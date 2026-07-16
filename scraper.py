@@ -10,6 +10,8 @@
   구분해서 표시한다. (실패를 "오늘 글 없음"으로 오인 표시하지 않는다.)
 - 오늘 글이 없더라도 각 기관/기업별로 "더보기"를 펼치면 날짜와 무관하게
   가장 최근 게시물 5건을 확인할 수 있다.
+- 오늘 등록된 공기업 글은 상세 페이지 본문을 가져와 Groq API로 2줄 요약해
+  사이드바("올라온 자료들")에 카드 형태로 보여준다.
 """
 
 import os
@@ -248,6 +250,79 @@ def load_press_domain_map():
 
 
 PRESS_DOMAIN_MAP = load_press_domain_map()
+
+# --- 오늘 등록된 공기업 글 AI 요약 (Groq API) 설정 -----------------------------------
+
+GROQ_API_KEY = os.environ.get("GROQ_API_KEY", "")
+GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions"
+GROQ_MODEL = "llama-3.3-70b-versatile"  # 무료 티어에서 요약 품질 괜찮은 모델
+SUMMARY_MAX_BODY_CHARS = 3000  # 본문이 너무 길면 이만큼만 잘라서 요약 요청
+
+# 상세 페이지에서 본문을 찾을 때 우선 시도하는 CSS 선택자
+_BODY_SELECTORS = [
+    "div.view_cont", "div.board_view", "div.bbs_view", "div.view-content",
+    "div.viewCont", "div.cont_view", "div.detail_cont", "article",
+    "div.content", "td.view_cont",
+]
+
+
+def fetch_detail_text(url: str, label: str) -> str:
+    """상세 페이지에서 본문 텍스트를 최대한 추출한다. 실패하면 빈 문자열 반환."""
+    resp = fetch(url, f"{label}-detail")
+    if resp is None:
+        return ""
+
+    soup = BeautifulSoup(resp.text, "html.parser")
+    for tag in soup(["script", "style", "nav", "header", "footer"]):
+        tag.decompose()
+
+    body_el = None
+    for sel in _BODY_SELECTORS:
+        el = soup.select_one(sel)
+        if el and len(el.get_text(strip=True)) > 50:
+            body_el = el
+            break
+
+    text = body_el.get_text(" ", strip=True) if body_el else soup.get_text(" ", strip=True)
+    text = re.sub(r"\s+", " ", text).strip()
+    return text[:SUMMARY_MAX_BODY_CHARS]
+
+
+def summarize_with_groq(title: str, body_text: str) -> str:
+    """제목+본문을 2줄 정도로 요약. 실패하면 빈 문자열 반환(빈 값이면 화면에서 제목만 표시)."""
+    if not GROQ_API_KEY:
+        return ""
+    if not body_text:
+        body_text = title  # 본문 추출 실패 시 제목만이라도 넘김
+
+    prompt = (
+        "다음은 보도자료 제목과 본문입니다. 핵심 내용을 한국어로 2줄 이내, "
+        "합쳐서 100자 내외로 간결하게 요약해줘. 불필요한 수식어나 설명 없이 "
+        "요약 문장만 출력해.\n\n"
+        f"제목: {title}\n\n본문: {body_text}"
+    )
+
+    try:
+        resp = requests.post(
+            GROQ_API_URL,
+            headers={
+                "Authorization": f"Bearer {GROQ_API_KEY}",
+                "Content-Type": "application/json",
+            },
+            json={
+                "model": GROQ_MODEL,
+                "max_tokens": 200,
+                "messages": [{"role": "user", "content": prompt}],
+            },
+            timeout=30,
+        )
+        resp.raise_for_status()
+        data = resp.json()
+        summary = data["choices"][0]["message"]["content"].strip()
+        return summary
+    except Exception as e:
+        log(f"[WARN] Groq summarize failed for '{title[:30]}...': {e}")
+        return ""
 
 
 def log(msg: str) -> None:
@@ -564,7 +639,7 @@ def fetch_aikorea():
         table = soup.find("table", class_="board_list")
         if table:
             tbody = table.find("tbody")
-    
+
     rows = tbody.find_all("tr") if tbody else []
     log(f"[INFO] AIKOREA: {len(rows)} candidate rows found")
 
@@ -574,20 +649,20 @@ def fetch_aikorea():
     for row in rows:
         if row.find("td", class_="board_null"):
             continue  # "등록된 게시물이 없습니다" 행 건너뛰기
-            
+
         subject_td = row.find("td", class_="subject")
         if not subject_td:
             continue
-            
+
         a = subject_td.find("a", href=True)
         if not a:
             continue
-            
+
         # href 안의 javascript:goToDetail(숫자) 에서 숫자 추출
         m = pattern.search(a["href"])
         if not m:
             continue
-            
+
         num = m.group(1)
         if num in seen:
             continue
@@ -602,14 +677,14 @@ def fetch_aikorea():
 
         # 실제 상세페이지 URL 조합
         detail_url = f"https://www.aikorea.go.kr/web/board/brdDetail.do?menu_cd=000012&num={num}"
-        
+
         items.append({
             "title": title,
             "link": detail_url,
             "date": parse_date_flexible(date_text),
             "date_raw": date_text,
         })
-        
+
     log(f"[INFO] AIKOREA: {len(items)} items parsed")
     return items or None
 
@@ -907,7 +982,7 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
       </h2>
       <p class="msg" style="color: #666; margin: 5px 0;">위 기관명을 클릭하여 공식 보도자료 게시판으로 이동해 주세요.</p>
     </section>"""
-        
+
         # 공기업인 경우: 기존과 동일하게 목록 파싱
         today = today_items.get(org, [])
         recent = recent_items.get(org, [])
@@ -990,23 +1065,22 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
 
     def highlights_html() -> str:
         rows = []
-        # 정부기관 루프 삭제 (공기업만 표시)
         for org in PUBLIC_ENTERPRISES:
             for it in today_items.get(org, []):
-                rows.append(("공기업", "cat-public", org, it))
+                rows.append((org, it))
 
         if not rows:
             body = '<p class="msg empty">등록된 자료가 아직 없습니다.</p>'
         else:
-            lis = []
-            for cat_label, cat_class, sub_label, it in rows:
-                lis.append(f"""
-      <li class="highlight-item">
-        <span class="cat-badge {cat_class}">{escape(cat_label)}</span>
-        <a href="{escape(it['link'])}" target="_blank" rel="noopener">{escape(it['title'])}</a>
-        <span class="highlight-sub">{escape(sub_label)}</span>
-      </li>""")
-            body = "<ul class=\"highlight-list\">" + "".join(lis) + "</ul>"
+            cards = []
+            for org, it in rows:
+                summary_text = it.get("summary") or it["title"]
+                cards.append(f"""
+      <a class="highlight-card" href="{escape(it['link'])}" target="_blank" rel="noopener">
+        <div class="highlight-company">{escape(org)}</div>
+        <div class="highlight-summary">{escape(summary_text)}</div>
+      </a>""")
+            body = "".join(cards)
 
         return f"""
   <section class="highlights">
@@ -1053,26 +1127,26 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
   body {{ font-family: -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
           max-width: 1080px; margin: 0 auto; padding: 32px 16px 60px;
           background: #f7f7f5; color: #222; }}
-  header {{ 
-    background: #fff; 
-    border: 1px solid #e3e2dc; 
-    border-left: 6px solid #185fa5; 
-    border-radius: 10px; 
-    padding: 24px 30px; 
-    margin-bottom: 24px; 
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05); 
+  header {{
+    background: #fff;
+    border: 1px solid #e3e2dc;
+    border-left: 6px solid #185fa5;
+    border-radius: 10px;
+    padding: 24px 30px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   }}
-  header h1 {{ 
-    font-size: 24px; 
-    font-weight: 800; 
-    color: #185fa5; 
-    margin: 0 0 8px 0; 
-    letter-spacing: -0.5px; 
+  header h1 {{
+    font-size: 24px;
+    font-weight: 800;
+    color: #185fa5;
+    margin: 0 0 8px 0;
+    letter-spacing: -0.5px;
   }}
-  header p {{ 
-    color: #666; 
-    font-size: 14px; 
-    margin: 0; 
+  header p {{
+    color: #666;
+    font-size: 14px;
+    margin: 0;
     font-weight: 500;
     line-height: 1.5;
   }}
@@ -1087,12 +1161,12 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
     max-height: calc(100vh - 40px);
     overflow-y: auto;
   }}
-  ul.highlight-list {{ display: block; }}
-  li.highlight-item {{ display: block; padding: 10px 0; border-top: 1px solid #eee; }}
-  li.highlight-item:first-child {{ border-top: none; }}
-  li.highlight-item a {{ display: block; color: #222; text-decoration: none; font-size: 13px;
-                          line-height: 1.4; margin: 4px 0 2px; }}
-  li.highlight-item a:hover {{ text-decoration: underline; color: #185fa5; }}
+  .highlight-card {{ display: block; border: 1px solid #e3e2dc; border-radius: 8px;
+                      padding: 12px 14px; margin-bottom: 10px; text-decoration: none; }}
+  .highlight-card:hover {{ border-color: #185fa5; }}
+  .highlight-card:last-child {{ margin-bottom: 0; }}
+  .highlight-company {{ font-size: 13px; font-weight: 700; color: #185fa5; margin-bottom: 6px; }}
+  .highlight-summary {{ font-size: 13px; color: #333; line-height: 1.5; }}
   @media (max-width: 760px) {{
     .layout {{ flex-direction: column; }}
     .sidebar {{ display: none; }}
@@ -1104,7 +1178,6 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
   .cat-badge.cat-local {{ background: #c2703d; }}
   .cat-badge.cat-listed {{ background: #7b4fa6; }}
   .cat-badge.cat-overseas {{ background: #0f8a8a; }}
-  .highlight-sub {{ font-size: 12px; color: #888; }}
   .tab-banner {{ display: flex; gap: 8px; margin: 20px 0 24px; }}
   .tab-btn {{ flex: 1; padding: 12px 0; border: 1px solid #d8d6cf; border-radius: 10px;
               background: #fff; color: #444; font-size: 15px; font-weight: 600;
@@ -1150,9 +1223,8 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
     li.news-item .news-summary {{ color: #aaa; }}
     li.news-item .news-meta {{ color: #999; }}
     section.highlights {{ background: #232527; border-color: #33353a; }}
-    li.highlight-item {{ border-top-color: #33353a; }}
-    li.highlight-item a {{ color: #e8e8e6; }}
-    .highlight-sub {{ color: #999; }}
+    .highlight-card {{ border-color: #33353a; }}
+    .highlight-summary {{ color: #ccc; }}
     header {{ background: #232527; border-color: #33353a; border-left-color: #3a82ce; box-shadow: none; }}
     header h1 {{ color: #e8e8e6; }}
     header p {{ color: #9a9a9a; }}
@@ -1176,13 +1248,13 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
     </div>
   </div>
 
-  
+
   <script>
     function showTab(tab) {{
       // 1. 기존 탭/버튼 활성 상태 초기화
       document.querySelectorAll('.tab-panel').forEach(function (el) {{ el.classList.remove('active'); }});
       document.querySelectorAll('.tab-btn').forEach(function (el) {{ el.classList.remove('active'); }});
-      
+
       // 2. 선택한 탭/버튼 활성화
       document.getElementById('tab-' + tab).classList.add('active');
       document.querySelector('.tab-btn[data-tab="' + tab + '"]').classList.add('active');
@@ -1205,6 +1277,10 @@ def main() -> None:
             log(f"[SUMMARY] {org}: FETCH FAILED")
             continue
         matched = [it for it in items if it["date"] == TODAY]
+        # 오늘 등록된 글만 상세 본문을 가져와 Groq API로 2줄 요약
+        for it in matched:
+            body_text = fetch_detail_text(it["link"], org)
+            it["summary"] = summarize_with_groq(it["title"], body_text)
         today_items[org] = matched
         matched_links = {it["link"] for it in matched}
         remaining = [it for it in items if it["link"] not in matched_links]
