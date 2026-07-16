@@ -1074,12 +1074,19 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
         else:
             cards = []
             for org, it in rows:
-                summary_text = it.get("summary") or it["title"]
+                summary_text = it.get("summary")
+                summary_html = ""
+                if summary_text:
+                    summary_html = f"""
+        <details class="ai-summary">
+          <summary>AI 요약보기</summary>
+          <p>{escape(summary_text)}</p>
+        </details>"""
                 cards.append(f"""
-      <a class="highlight-card" href="{escape(it['link'])}" target="_blank" rel="noopener">
+      <div class="highlight-card">
         <div class="highlight-company">{escape(org)}</div>
-        <div class="highlight-summary">{escape(summary_text)}</div>
-      </a>""")
+        <a class="highlight-title" href="{escape(it['link'])}" target="_blank" rel="noopener">{escape(it['title'])}</a>{summary_html}
+      </div>""")
             body = "".join(cards)
 
         return f"""
@@ -1161,12 +1168,19 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
     max-height: calc(100vh - 40px);
     overflow-y: auto;
   }}
-  .highlight-card {{ display: block; border: 1px solid #e3e2dc; border-radius: 8px;
-                      padding: 12px 14px; margin-bottom: 10px; text-decoration: none; }}
-  .highlight-card:hover {{ border-color: #185fa5; }}
+  .highlight-card {{ border: 1px solid #e3e2dc; border-radius: 8px;
+                      padding: 12px 14px; margin-bottom: 10px; }}
   .highlight-card:last-child {{ margin-bottom: 0; }}
   .highlight-company {{ font-size: 13px; font-weight: 700; color: #185fa5; margin-bottom: 6px; }}
-  .highlight-summary {{ font-size: 13px; color: #333; line-height: 1.5; }}
+  .highlight-title {{ display: block; color: #222; text-decoration: none; font-size: 13px;
+                       line-height: 1.4; }}
+  .highlight-title:hover {{ text-decoration: underline; color: #185fa5; }}
+  .ai-summary {{ margin-top: 8px; }}
+  .ai-summary summary {{ font-size: 12px; color: #185fa5; cursor: pointer; list-style: none; }}
+  .ai-summary summary::-webkit-details-marker {{ display: none; }}
+  .ai-summary summary::before {{ content: "▸ "; }}
+  .ai-summary[open] summary::before {{ content: "▾ "; }}
+  .ai-summary p {{ font-size: 13px; color: #333; line-height: 1.5; margin: 6px 0 0; }}
   @media (max-width: 760px) {{
     .layout {{ flex-direction: column; }}
     .sidebar {{ display: none; }}
@@ -1224,7 +1238,8 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
     li.news-item .news-meta {{ color: #999; }}
     section.highlights {{ background: #232527; border-color: #33353a; }}
     .highlight-card {{ border-color: #33353a; }}
-    .highlight-summary {{ color: #ccc; }}
+    .highlight-title {{ color: #e8e8e6; }}
+    .ai-summary p {{ color: #ccc; }}
     header {{ background: #232527; border-color: #33353a; border-left-color: #3a82ce; box-shadow: none; }}
     header h1 {{ color: #e8e8e6; }}
     header p {{ color: #9a9a9a; }}
