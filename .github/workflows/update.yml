@@ -2,7 +2,8 @@ name: Daily Press Release Update
 
 on:
   schedule:
-    - cron: "0 0,3,6,9,12,15 * * *"
+    # 한국 시간(KST) 매일 오후 3시 (UTC 06:00) 실행
+    - cron: "0 6 * * *"
   workflow_dispatch: {}
 
 permissions:
