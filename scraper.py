@@ -14,6 +14,7 @@
   사이드바("올라온 자료들")에 카드 형태로 보여준다.
 """
 
+import json
 import os
 import re
 import sys
@@ -153,7 +154,7 @@ def find_overseas_company_in_text(text: str):
     return None
 
 
-def fetch_overseas_company_news():
+def fetch_overseas_company_news(cache: dict):
     """'AI데이터센터'/'AI DATA CENTER'/'AIDC'/'AI팩토리'/'AI FACTORY' + 해외 기업명이
     함께 언급된 기사 상위 20건 (네이버 뉴스 검색). 반환값: (items, ok)."""
     seen_links = set()
@@ -210,7 +211,18 @@ def fetch_overseas_company_news():
 
     candidates.sort(key=lambda x: x["pub_dt"] or datetime.min.replace(tzinfo=KST), reverse=True)
     top = candidates[:OVERSEAS_TOP_N]
-    log(f"[SUMMARY] OVERSEAS: {len(candidates)}건 매칭, 상위 {len(top)}건 표시")
+    new_summaries = 0
+    for it in top:
+        cached = cache["long"].get(it["link"])
+        if cached:
+            it["ai_summary"] = cached
+            continue
+        article_text = fetch_article_text(it["link"], "OVERSEAS")
+        it["ai_summary"] = summarize_article_with_groq(it["title"], article_text)
+        if it["ai_summary"]:
+            cache["long"][it["link"]] = it["ai_summary"]
+            new_summaries += 1
+    log(f"[SUMMARY] OVERSEAS: {len(candidates)}건 매칭, 상위 {len(top)}건 표시 (신규 요약 {new_summaries}건)")
     return top, True
 
 
@@ -323,6 +335,108 @@ def summarize_with_groq(title: str, body_text: str) -> str:
     except Exception as e:
         log(f"[WARN] Groq summarize failed for '{title[:30]}...': {e}")
         return ""
+
+
+# 외부 뉴스 기사(지자체/국내 기업/해외 기업 탭) 본문 추출 시 우선 시도하는 CSS 선택자.
+# 언론사마다 마크업이 제각각이라 흔히 쓰이는 클래스/아이디 패턴을 폭넓게 시도한다.
+_ARTICLE_BODY_SELECTORS = [
+    "div#articleBody", "div#article-view-content-div", "div.article_body",
+    "div.article-body", "div.news_body", "div.article_txt", "div.article-txt",
+    "div#article_body", "div#news_body_area", "div.art_body", "article",
+    "div.view_cont", "div.content_view",
+]
+
+
+def fetch_article_text(url: str, label: str) -> str:
+    """뉴스 기사 상세 페이지에서 본문 텍스트를 최대한 추출한다. 실패하면 빈 문자열 반환."""
+    resp = fetch(url, f"{label}-article")
+    if resp is None:
+        return ""
+
+    soup = BeautifulSoup(resp.text, "html.parser")
+    for tag in soup(["script", "style", "nav", "header", "footer", "aside", "form", "iframe"]):
+        tag.decompose()
+
+    body_el = None
+    for sel in _ARTICLE_BODY_SELECTORS:
+        el = soup.select_one(sel)
+        if el and len(el.get_text(strip=True)) > 80:
+            body_el = el
+            break
+
+    text = body_el.get_text(" ", strip=True) if body_el else soup.get_text(" ", strip=True)
+    text = re.sub(r"\s+", " ", text).strip()
+    return text[:SUMMARY_MAX_BODY_CHARS]
+
+
+def summarize_article_with_groq(title: str, body_text: str) -> str:
+    """뉴스 기사 제목+본문을 3~4문장(150자 이상)으로 요약. 실패하면 빈 문자열 반환."""
+    if not GROQ_API_KEY:
+        return ""
+    if not body_text:
+        body_text = title  # 본문 추출 실패 시 제목만이라도 넘김
+
+    prompt = (
+        "다음은 뉴스 기사 제목과 본문입니다. 핵심 내용을 한국어로 3~4문장, "
+        "150자 이상 250자 이내로 요약해줘. 불필요한 수식어나 설명 없이 "
+        "요약 문장만 출력해.\n\n"
+        f"제목: {title}\n\n본문: {body_text}"
+    )
+
+    try:
+        resp = requests.post(
+            GROQ_API_URL,
+            headers={
+                "Authorization": f"Bearer {GROQ_API_KEY}",
+                "Content-Type": "application/json",
+            },
+            json={
+                "model": GROQ_MODEL,
+                "max_tokens": 300,
+                "messages": [{"role": "user", "content": prompt}],
+            },
+            timeout=30,
+        )
+        resp.raise_for_status()
+        data = resp.json()
+        summary = data["choices"][0]["message"]["content"].strip()
+        return summary
+    except Exception as e:
+        log(f"[WARN] Groq article summarize failed for '{title[:30]}...': {e}")
+        return ""
+
+
+# --- 요약 캐시: 한 번 생성한 AI 요약은 링크를 키로 저장해두고, 다음 실행부터는
+# 재사용한다(같은 기사가 여러 날 "최신 20건"에 계속 걸리는 경우 중복 요약/과금 방지).
+# "short"는 "올라온 자료들"(공기업 오늘 글) 2줄 요약, "long"은 지자체/국내·해외 기업
+# 기사 탭의 3~4문장 요약을 각각 따로 저장한다.
+SUMMARY_CACHE_PATH = os.path.join("data", "summary_cache.json")
+
+
+def load_summary_cache() -> dict:
+    if not os.path.exists(SUMMARY_CACHE_PATH):
+        log(f"[INFO] {SUMMARY_CACHE_PATH} 없음 - 빈 캐시로 시작합니다")
+        return {"short": {}, "long": {}}
+    try:
+        with open(SUMMARY_CACHE_PATH, encoding="utf-8") as f:
+            data = json.load(f)
+        data.setdefault("short", {})
+        data.setdefault("long", {})
+        log(f"[INFO] 요약 캐시 로드: short {len(data['short'])}건, long {len(data['long'])}건")
+        return data
+    except Exception as e:
+        log(f"[WARN] {SUMMARY_CACHE_PATH} 읽기 실패, 빈 캐시로 시작합니다: {e}")
+        return {"short": {}, "long": {}}
+
+
+def save_summary_cache(cache: dict) -> None:
+    os.makedirs("data", exist_ok=True)
+    try:
+        with open(SUMMARY_CACHE_PATH, "w", encoding="utf-8") as f:
+            json.dump(cache, f, ensure_ascii=False, indent=2, sort_keys=True)
+        log(f"[INFO] 요약 캐시 저장: short {len(cache['short'])}건, long {len(cache['long'])}건")
+    except Exception as e:
+        log(f"[WARN] {SUMMARY_CACHE_PATH} 저장 실패: {e}")
 
 
 def log(msg: str) -> None:
@@ -827,7 +941,7 @@ def fetch_naver_news_raw(query: str):
     return all_items
 
 
-def fetch_aidc_news():
+def fetch_aidc_news(cache: dict):
     """'AI데이터센터'/'AIDC' + 지자체 지역명이 제목에 함께 언급된 기사 상위 20건.
     반환값: (items, ok). ok=False면 API 호출 자체가 실패한 것(진짜로 0건인 것과 구분)."""
     seen_links = set()
@@ -884,11 +998,22 @@ def fetch_aidc_news():
 
     candidates.sort(key=lambda x: x["pub_dt"] or datetime.min.replace(tzinfo=KST), reverse=True)
     top = candidates[:AIDC_TOP_N]
-    log(f"[SUMMARY] AIDC: {len(candidates)}건 매칭, 상위 {len(top)}건 표시")
+    new_summaries = 0
+    for it in top:
+        cached = cache["long"].get(it["link"])
+        if cached:
+            it["ai_summary"] = cached
+            continue
+        article_text = fetch_article_text(it["link"], "AIDC")
+        it["ai_summary"] = summarize_article_with_groq(it["title"], article_text)
+        if it["ai_summary"]:
+            cache["long"][it["link"]] = it["ai_summary"]
+            new_summaries += 1
+    log(f"[SUMMARY] AIDC: {len(candidates)}건 매칭, 상위 {len(top)}건 표시 (신규 요약 {new_summaries}건)")
     return top, True
 
 
-def fetch_listed_company_news():
+def fetch_listed_company_news(cache: dict):
     """'AI데이터센터'/'AIDC' + 국내 기업명이 함께 언급된 기사 상위 20건.
     반환값: (items, ok). ok=False면 API 호출 자체가 실패한 것(진짜로 0건인 것과 구분)."""
     seen_links = set()
@@ -945,7 +1070,18 @@ def fetch_listed_company_news():
 
     candidates.sort(key=lambda x: x["pub_dt"] or datetime.min.replace(tzinfo=KST), reverse=True)
     top = candidates[:COMPANY_TOP_N]
-    log(f"[SUMMARY] LISTED: {len(candidates)}건 매칭, 상위 {len(top)}건 표시")
+    new_summaries = 0
+    for it in top:
+        cached = cache["long"].get(it["link"])
+        if cached:
+            it["ai_summary"] = cached
+            continue
+        article_text = fetch_article_text(it["link"], "LISTED")
+        it["ai_summary"] = summarize_article_with_groq(it["title"], article_text)
+        if it["ai_summary"]:
+            cache["long"][it["link"]] = it["ai_summary"]
+            new_summaries += 1
+    log(f"[SUMMARY] LISTED: {len(candidates)}건 매칭, 상위 {len(top)}건 표시 (신규 요약 {new_summaries}건)")
     return top, True
 
 
@@ -1010,6 +1146,14 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
 
     def news_li(item: dict, tag_key: str) -> str:
         pub_label = item["pub_dt"].strftime("%Y-%m-%d %H:%M") if item.get("pub_dt") else "-"
+        ai_summary = item.get("ai_summary")
+        ai_summary_html = ""
+        if ai_summary:
+            ai_summary_html = f"""
+        <details class="ai-summary">
+          <summary>AI 요약보기</summary>
+          <p>{escape(ai_summary)}</p>
+        </details>"""
         return f"""
       <li class="news-item">
         <a class="news-title" href="{escape(item['link'])}" target="_blank" rel="noopener">{escape(item['title'])}</a>
@@ -1018,7 +1162,7 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
           <span class="press">{escape(item['press'])}</span> ·
           <span class="pubdate">{escape(pub_label)}</span> ·
           <span class="region-tag">{escape(item[tag_key])}</span>
-        </p>
+        </p>{ai_summary_html}
       </li>"""
 
     def aidc_panel() -> str:
@@ -1281,6 +1425,8 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
 
 
 def main() -> None:
+    cache = load_summary_cache()
+
     today_items = {}
     recent_items = {}
     fetch_failed = set()
@@ -1292,19 +1438,27 @@ def main() -> None:
             log(f"[SUMMARY] {org}: FETCH FAILED")
             continue
         matched = [it for it in items if it["date"] == TODAY]
-        # 오늘 등록된 글만 상세 본문을 가져와 Groq API로 2줄 요약
+        # 오늘 등록된 글만 상세 본문을 가져와 Groq API로 2줄 요약 (이미 캐시에 있으면 재사용)
         for it in matched:
+            cached = cache["short"].get(it["link"])
+            if cached:
+                it["summary"] = cached
+                continue
             body_text = fetch_detail_text(it["link"], org)
             it["summary"] = summarize_with_groq(it["title"], body_text)
+            if it["summary"]:
+                cache["short"][it["link"]] = it["summary"]
         today_items[org] = matched
         matched_links = {it["link"] for it in matched}
         remaining = [it for it in items if it["link"] not in matched_links]
         recent_items[org] = remaining[:RECENT_LIMIT]
         log(f"[SUMMARY] {org}: {len(matched)} item(s) today (of {len(items)} total parsed)")
 
-    aidc_items, aidc_ok = fetch_aidc_news()
-    listed_items, listed_ok = fetch_listed_company_news()
-    overseas_items, overseas_ok = fetch_overseas_company_news()
+    aidc_items, aidc_ok = fetch_aidc_news(cache)
+    listed_items, listed_ok = fetch_listed_company_news(cache)
+    overseas_items, overseas_ok = fetch_overseas_company_news(cache)
+
+    save_summary_cache(cache)
 
     html = render_html(today_items, recent_items, fetch_failed,
                         aidc_items, aidc_ok, listed_items, listed_ok,
