@@ -1130,17 +1130,17 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
   }}
   .layout {{ display: flex; align-items: flex-start; gap: 20px; margin-top: 20px; }}
   .sidebar {{ width: 260px; flex-shrink: 0; position: sticky; top: 20px; height: max-content; }}
-  .main { 
+  .main {{ 
   flex: 1; 
   min-width: 0; 
   display: flex; 
   flex-direction: column; 
   align-items: center; 
-  }
-  section.agency, .tab-banner { 
+  }}
+  section.agency, .tab-banner {{ 
     width: 100%; 
     max-width: 800px; 
-  }
+  }}
   section.highlights {{
     background: #fff;
     border: 1px solid #e3e2dc;
