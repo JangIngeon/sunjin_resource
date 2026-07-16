@@ -101,6 +101,47 @@
   li.news-item .news-meta { font-size: 12px; color: #888; margin: 0; }
   li.news-item .region-tag { color: #185fa5; font-weight: 600; }
   footer { color: #999; font-size: 12px; text-align: center; margin-top: 32px; }
+  /* --- AI 채팅창 --- */
+  .ai-chat-btn { font-size: 11px; color: #fff; background: #185fa5; border: none;
+                   border-radius: 10px; padding: 2px 10px; cursor: pointer; vertical-align: middle; }
+  .ai-chat-btn:hover { background: #124a80; }
+  #aiChatToggle { position: fixed; right: 20px; bottom: 20px; z-index: 1000;
+                    background: #185fa5; color: #fff; border: none; border-radius: 50%;
+                    width: 56px; height: 56px; font-size: 22px; cursor: pointer;
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.25); }
+  #aiChatPanel { position: fixed; right: 20px; bottom: 88px; z-index: 1000;
+                   width: 360px; max-width: calc(100vw - 40px); height: 480px;
+                   background: #fff; border: 1px solid #d8d6cf; border-radius: 14px;
+                   box-shadow: 0 8px 30px rgba(0,0,0,0.2); display: none;
+                   flex-direction: column; overflow: hidden; }
+  #aiChatPanel.open { display: flex; }
+  .ai-chat-header { background: #185fa5; color: #fff; padding: 12px 16px;
+                      font-size: 14px; font-weight: 700; display: flex;
+                      justify-content: space-between; align-items: center; }
+  .ai-chat-header button { background: none; border: none; color: #fff;
+                             font-size: 16px; cursor: pointer; }
+  #aiChatMessages { flex: 1; overflow-y: auto; padding: 12px; font-size: 13px; }
+  .ai-msg { margin-bottom: 10px; line-height: 1.5; white-space: pre-wrap;
+              word-break: break-all; }
+  .ai-msg.user { text-align: right; }
+  .ai-msg.user .bubble { display: inline-block; background: #185fa5; color: #fff;
+                           border-radius: 12px 12px 2px 12px; padding: 8px 12px;
+                           max-width: 85%; text-align: left; }
+  .ai-msg.bot .bubble { display: inline-block; background: #f0f0ee; color: #222;
+                          border-radius: 12px 12px 12px 2px; padding: 8px 12px;
+                          max-width: 85%; }
+  .ai-chat-input { border-top: 1px solid #eee; padding: 10px; display: flex;
+                     gap: 6px; align-items: center; }
+  .ai-chat-input input[type="text"] { flex: 1; border: 1px solid #d8d6cf;
+                                        border-radius: 8px; padding: 8px 10px;
+                                        font-size: 13px; min-width: 0; }
+  .ai-chat-input button { background: #185fa5; color: #fff; border: none;
+                            border-radius: 8px; padding: 8px 12px; font-size: 13px;
+                            cursor: pointer; white-space: nowrap; }
+  .ai-chat-input label { background: #f0f0ee; color: #444; border-radius: 8px;
+                           padding: 8px 10px; font-size: 13px; cursor: pointer;
+                           white-space: nowrap; }
+  .ai-chat-input input[type="file"] { display: none; }
   @media (prefers-color-scheme: dark) {
     body { background: #17181a; color: #e8e8e6; }
     .tab-btn { background: #232527; border-color: #33353a; color: #ccc; }
@@ -118,13 +159,18 @@
     header { background: #232527; border-color: #33353a; border-left-color: #3a82ce; box-shadow: none; }
     header h1 { color: #e8e8e6; }
     header p { color: #9a9a9a; }
+    #aiChatPanel { background: #232527; border-color: #33353a; }
+    .ai-msg.bot .bubble { background: #2e3033; color: #e8e8e6; }
+    .ai-chat-input { border-top-color: #33353a; }
+    .ai-chat-input input[type="text"] { background: #17181a; border-color: #33353a; color: #e8e8e6; }
+    .ai-chat-input label { background: #2e3033; color: #ccc; }
   }
 </style>
 </head>
 <body>
   <header>
     <h1>기관 및 업체별 AI Data Center 일일 동향</h1>
-    <p>2026년 07월 16일 기준 <br>· 마지막 업데이트: 2026-07-16 14:17 <br>· 매일 자동 업데이트(오후 3시~4시)</p>
+    <p>2026년 07월 16일 기준 <br>· 마지막 업데이트: 2026-07-16 15:07 <br>· 매일 자동 업데이트(오후 3시~4시)</p>
   </header>
   <div class="layout">
     <aside class="sidebar">
@@ -231,12 +277,97 @@ AI 산업 활성화 위해 규제개선 기업 의견 수렴.</p>
       <p class="section-desc">네이버 뉴스에서 국내 지역명이 언급된 기사 중 최신 20건</p>
       <ul class="news-list">
       <li class="news-item">
+        <a class="news-title" href="https://n.news.naver.com/mnews/article/015/0005310788?sid=102" target="_blank" rel="noopener">북극항로 시대 대비 AI 기반 해양기술 개발하는 포항시</a>
+        <p class="news-summary">포항시는 영일만항을 북극항로 맞춤형 거점항만이자 로봇, AI 데이터센터 등 첨단산업에 필요한 소재를 공급하는 특화항만으로 개발하고 동해안권을 중심으로 해양 데이터 산업 육성에도 속도를 낼 계획이다. 또...</p>
+        <p class="news-meta">
+          <span class="press">한국경제</span> ·
+          <span class="pubdate">2026-07-16 15:03</span> ·
+          <span class="region-tag">포항시</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://n.news.naver.com/mnews/article/015/0005310788?sid=102')">AI 요약하기</button>
+        </p>
+        <details class="ai-summary">
+          <summary>AI 요약보기</summary>
+          <p>포항시는 경북도, 포스텍, KT 등과 업무협약을 체결하고 북극항로 대비 AI 해양기술 개발에 나선다. 이를 통해 원팀을 이뤄 북극항로 시대 해양산업의 AI·데이터 대전환을 선도하고자 한다. 포항시는 AI 기반 해양 기술개발, 북극항로 대비 해양산업 생태계 조성, 위성·해양 데이터 기반 미래 기술 개발 등에 협력할 예정이다. 이를 통해 영일만항을 북극항로 맞춤형 거점항만으로 개발하고 해양 데이터 산업을 육성할 계획이다.</p>
+        </details>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://www.viva100.com/article/20260716500584" target="_blank" rel="noopener">김상욱 울산시장, 기업·정부 연쇄 방문… 메가프로젝트 실행력 높인다</a>
+        <p class="news-summary">김 시장은 SK그룹과의 면담에서 울산 미포국가산업단지에 추진 중인 900MW 규모 AI 데이터센터(AIDC)가 차질 없이 조성될 수 있도록 협력을 요청했다. 양측은 안정적인 전력망 구축과 부지 확보, AI 전문인력 양성, 정주여건...</p>
+        <p class="news-meta">
+          <span class="press">viva100.com</span> ·
+          <span class="pubdate">2026-07-16 14:46</span> ·
+          <span class="region-tag">울산</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.viva100.com/article/20260716500584')">AI 요약하기</button>
+        </p>
+        <details class="ai-summary">
+          <summary>AI 요약보기</summary>
+          <p>김상욱 울산시장이 주요 대기업과 정부부처를 방문해 지역 핵심 투자사업의 실행력 확보에 나섰다. 그는 SK, 삼성SDI, S-OIL, HD현대와의 면담에서 AI 데이터센터, 전고체 배터리, 제조업 AI 전환 등 울산의 미래산업 프로젝트를 구체화하기 위한 협력 방안을 논의했다. 또한 정부에 지역별 차등 전기요금제 조기 도입과 에너지 정책 지원을 건의했다. 울산시는 앞으로도 기업 투자계획이 조기에 현실화될 수 있도록 행정 지원을 지속할 계획이다.</p>
+        </details>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://www.viva100.com/article/20260716500608" target="_blank" rel="noopener">대우건설, ‘울산 북항 LNG 터미널 3단계 건설공사’ 준공</a>
+        <p class="news-summary">정원주 대우건설 회장은 지난 7일부터 11일까지 인도네시아 자카르타를 방문해 현지 정·관계 인사와 주요 개발사를 만나 소형모듈원전(SMR), LNG 터미널 등 발전 인프라와 기가와트(GW)급 AI 데이터센터를 결합한...</p>
+        <p class="news-meta">
+          <span class="press">viva100.com</span> ·
+          <span class="pubdate">2026-07-16 14:42</span> ·
+          <span class="region-tag">울산</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.viva100.com/article/20260716500608')">AI 요약하기</button>
+        </p>
+        <details class="ai-summary">
+          <summary>AI 요약보기</summary>
+          <p>대우건설은 울산 북항 액화가스 및 석유제품 터미널 3단계 건설공사를 준공하고 후속 인수인계 절차를 거쳐 사업을 최종 완료했다. 이 사업은한국석유공사와 SK가스가 공동 설립한 코리아에너지터미널㈜이 발주한 프로젝트로, 울산 북항에 21만5000㎘ 규모의 액화천연가스 저장탱크 1기와 시간당 180톤 규모의 기화송출설비, 부대시설 등을 건설하는 내용이다. 대우건설은 SK에코엔지니어링과 공동으로 사업을 수행했으며, 계약금액은약 2235억원이다. 대우건설은 이번 준공으로 국내 LNG 터미널 분야의 시공 역량을 입증했다.</p>
+        </details>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://n.news.naver.com/mnews/article/003/0014071372?sid=102" target="_blank" rel="noopener">전남광주시의회, 군 공항 반도체 부지 등 현장 점검</a>
+        <p class="news-summary">전남광주통합특별시의회 미래산업위원회가 16일 호남권 반도체 클러스터 조성예정지와 국가 AI데이터센터를 잇따라 방문해 미래산업 추진 현황을 점검하고 현장목소리를 청취했다. 이번 방문은 미래산업위 소관 주요...</p>
+        <p class="news-meta">
+          <span class="press">뉴시스</span> ·
+          <span class="pubdate">2026-07-16 14:35</span> ·
+          <span class="region-tag">광주시</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://n.news.naver.com/mnews/article/003/0014071372?sid=102')">AI 요약하기</button>
+        </p>
+        <details class="ai-summary">
+          <summary>AI 요약보기</summary>
+          <p>전남광주시의회 미래산업위원회는 호남권 반도체 클러스터 조성 예정지와 국가 AI데이터센터를 방문했다. 이번 방문은 미래산업 사업의 추진 상황을 점검하고 애로사항을 파악하기 위해 마련됐다. 위원회는 공항 부지와 데이터센터를 방문해 사업 계획과 운영 현황을 보고받았다. 위원장은 반도체와 AI가 광주의 미래를 이끌 핵심 산업이라고 강조했다.</p>
+        </details>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="http://www.weeklytoday.com/news/articleView.html?idxno=785724" target="_blank" rel="noopener">[위클리오늘] 동해시, &#x27;당선인에게 바란다&#x27; 시민 제안 34건 민선9기 정책...</a>
+        <p class="news-summary">특히 묵호항 재개발과 망상 경제자유구역 활성화, 한섬 개발, AI 데이터센터 연계 전략, 청년 일자리와 자산형성, 노후 공동주택 재건축, 보행환경 개선 등 동해시의 미래 성장과 시민 생활환경 개선을 위한 제안이 다수...</p>
+        <p class="news-meta">
+          <span class="press">weeklytoday.com</span> ·
+          <span class="pubdate">2026-07-16 14:32</span> ·
+          <span class="region-tag">동해시</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('http://www.weeklytoday.com/news/articleView.html?idxno=785724')">AI 요약하기</button>
+        </p>
+        <details class="ai-summary">
+          <summary>AI 요약보기</summary>
+          <p>동해시는 민선9기 출범을 앞두고 &#x27;당선인에게 바란다&#x27;를 통해 시민 제안을 접수받았다. 총 34건의 제안이 접수됐으며, 관련 부서와 인수위원회의 검토를 거쳐 결과를 공개했다. 접수된 제안은 관광, 미래산업, 도시개발, 청년정책, 복지, 교통안전 등 다양하게 이뤄졌다. 시는 제안 내용을 추진 중인 사업과 연계 가능한 과제, 중장기 검토 과제, 법제도 개선이 필요한 과제 등으로 구분해 검토했다.</p>
+        </details>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://www.viva100.com/article/20260716500582" target="_blank" rel="noopener">신안 바람이 반도체를 돌린다…3조4천억 해상풍력, 전남광주 미래산업의...</a>
+        <p class="news-summary">특히 AI 데이터센터 역시 안정적인 전력 공급 없이는 운영 자체가 어렵다. 전남광주통합특별시가 신안 해상풍력을 미래 성장 전략의 핵심으로 내세우는 이유도 여기에 있다. 신안에서 생산되는 대규모 친환경 전력이...</p>
+        <p class="news-meta">
+          <span class="press">viva100.com</span> ·
+          <span class="pubdate">2026-07-16 14:30</span> ·
+          <span class="region-tag">광주</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.viva100.com/article/20260716500582')">AI 요약하기</button>
+        </p>
+        <details class="ai-summary">
+          <summary>AI 요약보기</summary>
+          <p>신안 앞바다에서 해상풍력을 조성하여 전남광주통합특별시의 미래 산업 지형을 바꿀 핵심 동력으로 주목받고 있다. 신안우이 해상풍력 발전단지는 총사업비 3조4천억 원이 투입되며 390MW의 전력을 생산할 예정이다. 이를 통해 친환경 에너지와 첨단산업을 하나의 성장축으로 연결하는 첫 대형 실증사업을 추진하며, 반도체와 AI 산업을 위한 친환경 전력 공급 기반을 확보할 수 있을 것이다. 또한 국내 해상풍력 산업 생태계를 육성하여 지역 기업과 주민이 함께 성장하는 새로운 경제 모델을 구축할 것으로 기대된다.</p>
+        </details>
+      </li>
+      <li class="news-item">
         <a class="news-title" href="https://n.news.naver.com/mnews/article/016/0002671322?sid=102" target="_blank" rel="noopener">이정학 동해시장 “시민제안은 자산, 34건 시정 반영”</a>
         <p class="news-summary">GS그룹과 글로벌빅테크기업이 진행할 AI데이터센터와 관광자원 개발, 체류형 관광 확대, 망상지구 개발 등 동해시의 새로운 성장동력 확보를 위한 다양한 정책 제안이 이어져 민선9기 정책 추진 과정에서 활용 가치가 높은...</p>
         <p class="news-meta">
           <span class="press">헤럴드경제</span> ·
           <span class="pubdate">2026-07-16 14:16</span> ·
-          <span class="region-tag">동해시</span>
+          <span class="region-tag">동해시</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://n.news.naver.com/mnews/article/016/0002671322?sid=102')">AI 요약하기</button>
         </p>
         <details class="ai-summary">
           <summary>AI 요약보기</summary>
@@ -249,7 +380,8 @@ AI 산업 활성화 위해 규제개선 기업 의견 수렴.</p>
         <p class="news-meta">
           <span class="press">nocutnews.co.kr</span> ·
           <span class="pubdate">2026-07-16 14:09</span> ·
-          <span class="region-tag">구미시</span>
+          <span class="region-tag">구미시</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://n.news.naver.com/mnews/article/079/0004169134?sid=102')">AI 요약하기</button>
         </p>
         <details class="ai-summary">
           <summary>AI 요약보기</summary>
@@ -262,7 +394,8 @@ AI 산업 활성화 위해 규제개선 기업 의견 수렴.</p>
         <p class="news-meta">
           <span class="press">getnews.co.kr</span> ·
           <span class="pubdate">2026-07-16 14:02</span> ·
-          <span class="region-tag">광주</span>
+          <span class="region-tag">광주</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.getnews.co.kr/news/articleView.html?idxno=875308')">AI 요약하기</button>
         </p>
         <details class="ai-summary">
           <summary>AI 요약보기</summary>
@@ -275,7 +408,8 @@ AI 산업 활성화 위해 규제개선 기업 의견 수렴.</p>
         <p class="news-meta">
           <span class="press">한국경제</span> ·
           <span class="pubdate">2026-07-16 13:49</span> ·
-          <span class="region-tag">울산</span>
+          <span class="region-tag">울산</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://n.news.naver.com/mnews/article/015/0005310748?sid=102')">AI 요약하기</button>
         </p>
         <details class="ai-summary">
           <summary>AI 요약보기</summary>
@@ -288,7 +422,8 @@ AI 산업 활성화 위해 규제개선 기업 의견 수렴.</p>
         <p class="news-meta">
           <span class="press">newsian.co.kr</span> ·
           <span class="pubdate">2026-07-16 13:40</span> ·
-          <span class="region-tag">대전</span>
+          <span class="region-tag">대전</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('http://www.newsian.co.kr/news/articleView.html?idxno=92363')">AI 요약하기</button>
         </p>
         <details class="ai-summary">
           <summary>AI 요약보기</summary>
@@ -301,7 +436,8 @@ AI 산업 활성화 위해 규제개선 기업 의견 수렴.</p>
         <p class="news-meta">
           <span class="press">에너지경제</span> ·
           <span class="pubdate">2026-07-16 13:30</span> ·
-          <span class="region-tag">울산</span>
+          <span class="region-tag">울산</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.ekn.kr/web/view.php?key=20260716024203111')">AI 요약하기</button>
         </p>
         <details class="ai-summary">
           <summary>AI 요약보기</summary>
@@ -314,7 +450,8 @@ AI 산업 활성화 위해 규제개선 기업 의견 수렴.</p>
         <p class="news-meta">
           <span class="press">ichannela.com</span> ·
           <span class="pubdate">2026-07-16 13:30</span> ·
-          <span class="region-tag">동해시</span>
+          <span class="region-tag">동해시</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://n.news.naver.com/mnews/article/449/0000353109?sid=115')">AI 요약하기</button>
         </p>
         <details class="ai-summary">
           <summary>AI 요약보기</summary>
@@ -327,7 +464,8 @@ AI 산업 활성화 위해 규제개선 기업 의견 수렴.</p>
         <p class="news-meta">
           <span class="press">ajunews.com</span> ·
           <span class="pubdate">2026-07-16 13:22</span> ·
-          <span class="region-tag">동해시</span>
+          <span class="region-tag">동해시</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.ajunews.com/view/20260716131859762')">AI 요약하기</button>
         </p>
         <details class="ai-summary">
           <summary>AI 요약보기</summary>
@@ -336,11 +474,12 @@ AI 산업 활성화 위해 규제개선 기업 의견 수렴.</p>
       </li>
       <li class="news-item">
         <a class="news-title" href="https://n.news.naver.com/mnews/article/277/0005790974?sid=102" target="_blank" rel="noopener">“투자보다 중요한 실행력”… 울산시, 대기업과 미래산업 속도 낸다</a>
-        <p class="news-summary">특히 울산과학기술원(UNIST), 울산대학교, 울산과학대학교 등 지역 대학과 협력 중인 AI 전문인력 양성 과정에 기업 수요를 반영하고, 계약학과 개설과 AI 데이터센터 연관 산업 생태계 조성, 지역 기업 참여 확대 방안도...</p>
+        <p class="news-summary">특히 계약학과 개설과 AI 데이터센터 연관 산업 생태계 조성, 지역 기업 참여 확대 방안도 함께 논의했다. SK 측은 울산시가 제안한 AI 전문인력 육성과 산업 생태계 조성 필요성에 공감하고 관련 사업 추진을 위한 실무...</p>
         <p class="news-meta">
           <span class="press">아시아경제</span> ·
           <span class="pubdate">2026-07-16 13:18</span> ·
-          <span class="region-tag">울산</span>
+          <span class="region-tag">울산</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://n.news.naver.com/mnews/article/277/0005790974?sid=102')">AI 요약하기</button>
         </p>
         <details class="ai-summary">
           <summary>AI 요약보기</summary>
@@ -353,8 +492,13 @@ AI 산업 활성화 위해 규제개선 기업 의견 수렴.</p>
         <p class="news-meta">
           <span class="press">newspim.com</span> ·
           <span class="pubdate">2026-07-16 12:05</span> ·
-          <span class="region-tag">동해시</span>
+          <span class="region-tag">동해시</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.newspim.com/news/view/20260716000633')">AI 요약하기</button>
         </p>
+        <details class="ai-summary">
+          <summary>AI 요약보기</summary>
+          <p>동해시는 &#x27;당선인에게 바란다&#x27; 시민제안 34건을 접수했다. 접수된 제안은 관광, 미래산업, 도시개발, 청년정책, 복지, 교통안전 등 다양한 분야에 걸쳐 있었다. 동해시는 제안을 사업 연계와 중장기 과제로 나눠 단계적 실행을 검토 중이다. 또한, 시민제안을 민원에 그치지 않고 향후 주요 정책 수립에 적극 반영할 계획이다.</p>
+        </details>
       </li>
       <li class="news-item">
         <a class="news-title" href="https://www.jnilbo.com/news/articleView.html?idxno=90000050277" target="_blank" rel="noopener">2040년 대한민국 성장축 대전환…전남광주 초광역 특별시의 도전</a>
@@ -362,8 +506,13 @@ AI 산업 활성화 위해 규제개선 기업 의견 수렴.</p>
         <p class="news-meta">
           <span class="press">전남일보</span> ·
           <span class="pubdate">2026-07-16 12:01</span> ·
-          <span class="region-tag">광주</span>
+          <span class="region-tag">광주</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.jnilbo.com/news/articleView.html?idxno=90000050277')">AI 요약하기</button>
         </p>
+        <details class="ai-summary">
+          <summary>AI 요약보기</summary>
+          <p>이재명 대통령은 29일 청와대에서 열린 3대 메가프로젝트 국민보고회에서 전남광주 초광역 특별시의 도전을 언급했다. 전남광주통합특별시의 출범으로 서남권을 중심으로 한 산업 지도에 대전환이 찾아올 것으로 예상된다. 반도체 클러스터 조성과 미래차 산업 기반을 함께 다잡으며 차량용 반도체와의 상호 연계 효과를 기대한다. 2040년 대한민국의 성장축이 이 지역에서 새로 그려질 것이란 전망이 나온다. 인구 감소 문제를 겪었던地域에서 반도체산업으로 양질의 일자리를 만들고 청년 유출 악순환을 차단할 수 있을지가 관건으로 떠올랐다.</p>
+        </details>
       </li>
       <li class="news-item">
         <a class="news-title" href="https://n.news.naver.com/mnews/article/021/0002805112?sid=102" target="_blank" rel="noopener">행정통합·산단 조성… 베일 벗은 ‘충남 미래 청사진’</a>
@@ -371,7 +520,8 @@ AI 산업 활성화 위해 규제개선 기업 의견 수렴.</p>
         <p class="news-meta">
           <span class="press">문화일보</span> ·
           <span class="pubdate">2026-07-16 11:38</span> ·
-          <span class="region-tag">충남</span>
+          <span class="region-tag">충남</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://n.news.naver.com/mnews/article/021/0002805112?sid=102')">AI 요약하기</button>
         </p>
         <details class="ai-summary">
           <summary>AI 요약보기</summary>
@@ -384,74 +534,9 @@ AI 산업 활성화 위해 규제개선 기업 의견 수렴.</p>
         <p class="news-meta">
           <span class="press">헤럴드경제</span> ·
           <span class="pubdate">2026-07-16 11:14</span> ·
-          <span class="region-tag">대전</span>
+          <span class="region-tag">대전</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://n.news.naver.com/mnews/article/016/0002671150?sid=100')">AI 요약하기</button>
         </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://n.news.naver.com/mnews/article/469/0000942583?sid=102" target="_blank" rel="noopener">전남대-씨엔플러스, AI 데이터센터 기반 산학 협력 맞손</a>
-        <p class="news-summary">양 기관은 협약에 따라 △대학 내 모듈형 AI 데이터센터 구축 및 운영 △지역 산업의 인공 지능 전환(AX)·디지털 전환(DX) 지원 △AI 실무형 인재 양성 교육 프로그램 개발·운영 △첨단 산업 분야 공동 연구 및 실증 △정부...</p>
-        <p class="news-meta">
-          <span class="press">한국일보</span> ·
-          <span class="pubdate">2026-07-16 10:52</span> ·
-          <span class="region-tag">전남</span>
-        </p>
-        <details class="ai-summary">
-          <summary>AI 요약보기</summary>
-          <p>전남대와 씨엔플러스는 인공 지능 데이터센터 기반 산학 협력 활성화를 위한 업무 협약을 체결했다. 양 기관은 대학 내 모듈형 AI 데이터센터 구축 및 운영, 지역 산업의 디지털 전환 지원, AI 실무형 인재 양성 교육 개발 등을 위해 협력할 계획이다. 특히 단순한 데이터센터 구축을 넘어 대학의 교육 nghiên 역량과 산업체의 기술 전문성을 결합한 협력을 통해 첨단 산업 인재 양성과 기술 실증에 활용했다. 이를 통해 미래 산업 발전을 선도할 실무형 인재를 양성하고 지역 산업의 경쟁력 강화를 지원할 계획이다.</p>
-        </details>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://www.cnbnews.com/news/articleView.html?idxno=1008294" target="_blank" rel="noopener">울산경자청, 민선 9기 정책 맞춤형 미래 발전 방향 모색</a>
-        <p class="news-summary">이에 따라 이번 강의에서는 AI 데이터센터의 적극적인 활용과 확충을 통해 경제자유구역의 다각적인 미래 전략을 다뤘다. 본 교육은 산업연구원 지역균형발전센터의 김선배 선임연구위원이 강사로 나서 진행했다. 주요...</p>
-        <p class="news-meta">
-          <span class="press">cnbnews.com</span> ·
-          <span class="pubdate">2026-07-16 10:52</span> ·
-          <span class="region-tag">울산</span>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="http://www.metroseoul.co.kr/article/20260715500509" target="_blank" rel="noopener">경남도 박완수 지사, 재선 이후 첫 ‘노사합동 세미나’ 참석</a>
-        <p class="news-summary">경남도는 지역 주도형 AI 대전환과 AX 실증산단 구축을 추진하고 있으며 오는 9월에는 중소벤처기업부, 중소벤처기업진흥공단과 함께 경남 제조 AI 데이터 센터를 개소할 계획이다.</p>
-        <p class="news-meta">
-          <span class="press">메트로신문</span> ·
-          <span class="pubdate">2026-07-16 10:46</span> ·
-          <span class="region-tag">경남</span>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="http://www.newsprime.co.kr/news/article.html?no=740527" target="_blank" rel="noopener">주낙영 경주시장 &quot;포스트 APEC 기반 위에서 &#x27;미래차·K-원자력&#x27; 중심 글...</a>
-        <p class="news-summary">&#x27;지역대학 내 미래자동차 계약학과 신설&#x27;을 통해 맞춤형 전문 인력을 양성하고, &#x27;AI데이터센터 유치&#x27;로 첨단 기술 인프라를 구축한다. 또한 기업들의 애로사항을 신속히 해결하기 위한 &#x27;기업지원 원스톱 종합서비스 창구...</p>
-        <p class="news-meta">
-          <span class="press">newsprime.co.kr</span> ·
-          <span class="pubdate">2026-07-16 10:22</span> ·
-          <span class="region-tag">경주시</span>
-        </p>
-        <details class="ai-summary">
-          <summary>AI 요약보기</summary>
-          <p>경주시는 민선 9기 출범을 맞아 &#x27;포스트 APEC&#x27; 시대를 주도할 미래 성장 전략과 향후 4년간의 구체적인 시정 청사진을 발표했다. 주낙영 경주시장은 &#x27;변화를 넘어 미래로, 중단 없는 경주 발전&#x27;이라는 민선 9기 비전을 선포하고, 분야별 핵심 공약을 설명했다. 주요 전략으로는 관광 분야에서 국가상징숲과 APEC 기념관을 건립하며, 미래 먹거리 산업으로 원자력과 미래형 자동차를 양대 축으로 설정했다. 또한 주민 생활 밀착형 정책과 지역 균형 발전안을 대대적으로 추진할 계획이다.</p>
-        </details>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://n.news.naver.com/mnews/article/001/0016197918?sid=102" target="_blank" rel="noopener">동해시, 시민 제안 34건 민선 9기 정책에 적극 녹인다</a>
-        <p class="news-summary">특히, 묵호항 재개발과 망상 경제자유구역 활성화, 한섬 개발, AI 데이터센터 연계 전략, 청년 일자리와 자산형성, 노후 공동주택 재건축, 보행환경 개선 등 동해시의 미래 성장과 시민 생활환경 개선을 위한 제안이 다수...</p>
-        <p class="news-meta">
-          <span class="press">연합뉴스</span> ·
-          <span class="pubdate">2026-07-16 10:06</span> ·
-          <span class="region-tag">동해시</span>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://n.news.naver.com/mnews/article/056/0012219359?sid=103" target="_blank" rel="noopener">KBS울산 시청자위 열려…“폭염·정책 검증 보도 강화”</a>
-        <p class="news-summary">위원들은 연일 이어지는 폭염과 기후위기에 대한 예방 중심 보도를 강화하고 공업탑 교통개선과 트램 재검토, AI 데이터센터 등 주요 정책의 추진 과정을 지속적으로 검증해 줄 것을 요청했습니다. 또 교통·교육·관광 등...</p>
-        <p class="news-meta">
-          <span class="press">KBS</span> ·
-          <span class="pubdate">2026-07-16 10:04</span> ·
-          <span class="region-tag">울산</span>
-        </p>
-        <details class="ai-summary">
-          <summary>AI 요약보기</summary>
-          <p>KBS울산 시청자위원회가 열렸습니다. 주요 정책檢證과 폭염 등 재난·안전, 시민 생활과 밀접한 지역 현안 보도를 강화해야한다고 의견을 나눴습니다. 연일 이어지는 폭염과 기후위기에 대한 예방 중심 보도를 강화하라고 요청했습니다. 지역 현안이 시민 생활에 미치는 영향을 쉽고 균형 있게 전달하는 심층 보도를 이어가야한다고 당부했습니다.</p>
-        </details>
       </li>
       <li class="news-item">
         <a class="news-title" href="https://www.gukjenews.com/news/articleView.html?idxno=3637637" target="_blank" rel="noopener">경북연구원, AI 성능 평가체계 구축 논의…지역 맞춤 전략 제시</a>
@@ -459,7 +544,8 @@ AI 산업 활성화 위해 규제개선 기업 의견 수렴.</p>
         <p class="news-meta">
           <span class="press">gukjenews.com</span> ·
           <span class="pubdate">2026-07-16 09:46</span> ·
-          <span class="region-tag">경북</span>
+          <span class="region-tag">경북</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.gukjenews.com/news/articleView.html?idxno=3637637')">AI 요약하기</button>
         </p>
       </li></ul>
     </section>
@@ -470,227 +556,247 @@ AI 산업 활성화 위해 규제개선 기업 의견 수렴.</p>
       <p class="section-desc">네이버 뉴스에서 국내 기업명이 언급된 기사 중 최신 20건</p>
       <ul class="news-list">
       <li class="news-item">
-        <a class="news-title" href="https://n.news.naver.com/mnews/article/016/0002671322?sid=102" target="_blank" rel="noopener">이정학 동해시장 “시민제안은 자산, 34건 시정 반영”</a>
-        <p class="news-summary">GS그룹과 글로벌빅테크기업이 진행할 AI데이터센터와 관광자원 개발, 체류형 관광 확대, 망상지구 개발 등 동해시의 새로운 성장동력 확보를 위한 다양한 정책 제안이 이어져 민선9기 정책 추진 과정에서 활용 가치가 높은...</p>
+        <a class="news-title" href="http://www.koreatimes.com/article/1621617" target="_blank" rel="noopener">AI발 수요까지 겹치며 여름 전기세 역대 최고</a>
+        <p class="news-summary">AI 데이터센터의 막대한 전력 소비량 때문에 대중이 부담해야 할 전기요금 비용이 급등한다는 반발은 미 전역에 빠르게 퍼지고 있다. 실제 뉴욕주는 14일 주 전역에 데이터센터 신규 건설을 1년 동안 금지하는...</p>
         <p class="news-meta">
-          <span class="press">헤럴드경제</span> ·
-          <span class="pubdate">2026-07-16 14:16</span> ·
-          <span class="region-tag">GS</span>
+          <span class="press">koreatimes.com</span> ·
+          <span class="pubdate">2026-07-16 15:06</span> ·
+          <span class="region-tag">금비</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('http://www.koreatimes.com/article/1621617')">AI 요약하기</button>
         </p>
         <details class="ai-summary">
           <summary>AI 요약보기</summary>
-          <p>이정학 동해시장은 민선9기 출범을 앞두고 시민 제안을 통해 접수된 34건의 제안을 시정 운영에 반영할 예정이다. 시민 제안에는 관광산업과 미래산업 육성에 대한 관심이 높게 나타났으며, 묵호항 재개발과 망상 경제자유구역 활성화 등 동해시의 미래 성장과 시민 생활환경 개선을 위한 제안이 다수 접수됐다. 시는 접수된 제안을 관련 부서와 인수위원회에서 검토하여生活과 밀접한 도로와 보행환경 개선, 관광 활성화와 미래산업 육성을 연계해 추진할计划이다.</p>
+          <p>여름季에 전기세가 역대 최고로 증가했으며, 이는 AI의 발전과 함께 전력 수요가 증가한 결과이다. 전기세의 상승은 다양한行业에影響을 미치고 있다. 이러한 상황에서 전력 수요를 관리하고節約하는 노력이 필요하다. 또한, 에너지 효율을 높이고 신재생에너지의 사용을 늘리는 것이 важ하다.</p>
         </details>
       </li>
       <li class="news-item">
-        <a class="news-title" href="https://www.job-post.co.kr/news/articleView.html?idxno=221403" target="_blank" rel="noopener">두산에너빌리티, 4%대 하락…차익실현에 7만원선 아래로</a>
-        <p class="news-summary">회사는 최근 오만 두큼 가스복합발전소 건설공사를 수주하는 등 중동 발전 프로젝트를 확대하고 있으며, AI 데이터센터 전력 수요 증가에 따른 가스터빈 사업 성장도 기대되고 있다. 업계에서는 원전과 가스터빈을...</p>
+        <a class="news-title" href="https://www.newspost.kr/news/articleView.html?idxno=224260" target="_blank" rel="noopener">국회 첨단산업법 개정 추진, SK하이닉스 중장기 투자 부담 덜까</a>
+        <p class="news-summary">1단계 사업에서는 0.5~1GW급 AI데이터센터를 각지에 건설해 합계 5GW 수준(대경·강원권 2GW, 호남권 1GW, 중부 1GW, 울산 1GW 등)의 인프라를 조성한다. 통상 1GW급 AI 데이터센터 구축에는 약 70조원이 필요하다. 이 사업의 경우...</p>
         <p class="news-meta">
-          <span class="press">job-post.co.kr</span> ·
-          <span class="pubdate">2026-07-16 14:16</span> ·
-          <span class="region-tag">두산에너빌리티</span>
+          <span class="press">newspost.kr</span> ·
+          <span class="pubdate">2026-07-16 14:58</span> ·
+          <span class="region-tag">SK하이닉스</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.newspost.kr/news/articleView.html?idxno=224260')">AI 요약하기</button>
         </p>
         <details class="ai-summary">
           <summary>AI 요약보기</summary>
-          <p>두산에너빌리티의 주가가 4% 넘게 하락했다. 최근 원전과 가스터빈 사업 성장 기대감으로 강세를 보인 이후 단기 차익실현 매물이出现하면서 하락했다. 중장기 성장 전망은 여전히 긍정적이며, 업계에서는 원전과 가스터빈을 양축으로 올해 영업이익이 1조 클럽에 복귀할 가능성을 제시하고 있다. 투자자들은 향후 해외 원전 프로젝트 수주와 2분기 실적 발표를 주가의 핵심 변수로 주목하고 있다.</p>
+          <p>국회가 반도체 등 첨단산업을 영위하는 손자회사의 증손회사 지분 규제를 완화하는 법 개정안을 발의했다. 이는 SK하이닉스가 1100조원 규모의 중장기 투자 부담을 덜 수 있도록 할 수 있다. 증손회사 규제 완화는 메모리 반도체 공장 건립에 필요한 막대한 자금을 홀로 감당하기 어렵기 때문이다. 법 개정안이 통과되면 손자회사가 외부 투자를 받아 증손회사를 설립할 수 있고, 해당 합작법인은 금산분리 규제 예외로 취급받아 금융리스 사업이 가능해진다.</p>
         </details>
       </li>
       <li class="news-item">
-        <a class="news-title" href="https://www.kgnews.co.kr/news/article.html?no=904174" target="_blank" rel="noopener">전 국민 1인 1 AI 에이전트 시대 연다…정부, AI 기본사회 본격 추진</a>
-        <p class="news-summary">정부는 SK, GS, 네이버 등 민간이 추진하는 총 550조 원 규모의 초거대 AI 데이터센터 구축을 지원하고, 제조·국방·농업 등에 활용될 피지컬 AI 기술 개발에 나선다. 또한 AI 반도체 칩부터 소프트웨어까지 국산 기술...</p>
+        <a class="news-title" href="https://n.news.naver.com/mnews/article/018/0006331763?sid=101" target="_blank" rel="noopener">피플바이오, 2분기 매출 128% 증가…영업손실 절반 이상 축소</a>
+        <p class="news-summary">회사는 오는 20일 예정된 주주총회에서 사명을 ‘타임엑스AI(TimeX AI)’로 변경하고 AI 데이터센터와 반도체 장비 사업을 중심으로 한 미래 성장 전략을 추진할 계획이다. 기존 바이오 사업을 유지하는 동시에 AI와...</p>
         <p class="news-meta">
-          <span class="press">kgnews.co.kr</span> ·
-          <span class="pubdate">2026-07-16 14:16</span> ·
-          <span class="region-tag">SK</span>
+          <span class="press">이데일리</span> ·
+          <span class="pubdate">2026-07-16 14:57</span> ·
+          <span class="region-tag">피플바이오</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://n.news.naver.com/mnews/article/018/0006331763?sid=101')">AI 요약하기</button>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://www.cstimes.com/news/articleView.html?idxno=713779" target="_blank" rel="noopener">피플바이오, 2분기 매출 전년比 128% 증가</a>
+        <p class="news-summary">회사는 오는 20일 개최 예정인 주주총회를 통해 사명을 &#x27;타임엑스AI(TimeX AI)&#x27;로 변경하고, AI 데이터센터 및 반도체 장비 사업을 중심으로 한 미래 성장 전략을 본격화할 계획이다. 기존 바이오 사업 경쟁력을 유지하는...</p>
+        <p class="news-meta">
+          <span class="press">cstimes.com</span> ·
+          <span class="pubdate">2026-07-16 14:54</span> ·
+          <span class="region-tag">피플바이오</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.cstimes.com/news/articleView.html?idxno=713779')">AI 요약하기</button>
         </p>
         <details class="ai-summary">
           <summary>AI 요약보기</summary>
-          <p>정부는 모든 국민이 인공지능(AI)을 활용할 수 있는 시대를 본격 추진한다. 국내 AI 모델 기반의 범용 AI 서비스를 연내 무료 제공하고, 개인 맞춤형 업무를 수행하는 AI 에이전트 형태로 발전시킬 계획이다. 이를 통해 &#x27;전 국민 1인 1 AI 에이전트 시대&#x27;를 열어 국민 누구나 자신만의 AI 비서를 활용할 수 있도록 할 예정이다. 또한 AI 산업 경쟁력 강화를 위해 대규모 프로젝트를 추진하고, 과학기술 분야에서 미래 전략 기술 확보에 집중할 계획이다.</p>
+          <p>피플바이오는 2분기 매출액이 16.7억원으로 전년 동기 대비 128%, 전분기 대비 160% 증가했다. 상반기 누적 매출액은 23억원으로 전년 동기 대비 53% 증가했다.바이오 사업 부문 매출이 전분기 대비 50% 이상 증가하며 실적 개선을 견인했다. 하반기부터 반도체 부문 매출이 가시화되고 건강검진 성수기에 따른 판매 확대가 예상됨에 따라 분기별 실적 개선 흐름이 이어질 것으로 기대된다.</p>
         </details>
       </li>
       <li class="news-item">
-        <a class="news-title" href="https://www.job-post.co.kr/news/articleView.html?idxno=221401" target="_blank" rel="noopener">LG전자, 6%대 하락…차익실현에 18만원선으로 밀려</a>
-        <p class="news-summary">AI 데이터센터 냉각(쿨링) 시스템, 로보틱스, 차량용 전장사업 등 신성장 사업이 본격화되면서 기업가치 재평가가 이어질 수 있다는 분석이다. 최근 주요 증권사들은 목표주가를 26만~28만원 수준으로 상향 조정하며...</p>
+        <a class="news-title" href="https://www.ksilbo.co.kr/news/articleView.html?idxno=1062345" target="_blank" rel="noopener">코세스, 블룸에너지와 연료전지 자동화 장비 공급 계약</a>
+        <p class="news-summary">AI 데이터센터 확대로 안정적인 전력 공급 수요가 증가하면서 연료전지 생산시설 투자도 확대되는 추세다. 이에 따라 관련 자동화 장비 시장에도 관심이 이어지고 있다. 회사 측에 따르면 블룸에너지의 전극셀은...</p>
         <p class="news-meta">
-          <span class="press">job-post.co.kr</span> ·
-          <span class="pubdate">2026-07-16 14:16</span> ·
-          <span class="region-tag">LG전자</span>
+          <span class="press">ksilbo.co.kr</span> ·
+          <span class="pubdate">2026-07-16 14:52</span> ·
+          <span class="region-tag">코세스</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.ksilbo.co.kr/news/articleView.html?idxno=1062345')">AI 요약하기</button>
         </p>
         <details class="ai-summary">
           <summary>AI 요약보기</summary>
-          <p>LG전자 주가가 6% 넘게 하락하며 약세를 나타냈다. 최근 상승세가 차익실현 매물의 영향을 받으며 숨 고르기에 들어간 모습이다. LG전자는 2분기 최대 실적을 기록했지만 단기 주가가 큰 폭으로 오른 이후 단기 수익을 실현하려는 매도세가 유입된 것으로 보인다. 증권가는 LG전자의 중장기 성장성에는 여전히 긍정적인 시각을 유지하고 있다.</p>
+          <p>코세스와 블룸에너지는 연료전지 자동화 장비 공급 계약을 체결했다. 계약 규모는 1500억원이며, 이번 계약을 포함해 지난 4개월간 확보한 계약 규모는 총 2000억원이다. 이 계약은 고체산화물연료전지 생산라인에 투입되는 자동화 장비를 공급하는 것으로, 설계와 제작, 판매, 설치를 포함한 턴키 방식으로 진행된다. 코세스는 반도체 패키지 공정에서 축적한 자동화 기술과 설계 역량을 기반으로 이번 계약을 체결했다.</p>
         </details>
       </li>
       <li class="news-item">
-        <a class="news-title" href="https://n.news.naver.com/mnews/article/001/0016198892?sid=102" target="_blank" rel="noopener">동신대 이주희 총장 연임…&quot;시대변화에 책임지는 대학 만들 터&quot;</a>
-        <p class="news-summary">이 총장은 전남광주통합특별시 출범과 삼성전자·SK하이닉스 반도체 클러스터 조성, 초대형 AI 데이터센터 구축 등 지역의 대변화를 언급하며 &quot;지역의 대전환을 대한민국의 새로운 성장동력으로 연결하는 혁신대학으로...</p>
+        <a class="news-title" href="https://www.aitimes.com/news/articleView.html?idxno=212833" target="_blank" rel="noopener">과기부 &quot;독자 AI로 보안 특화·프론티어급 모델 개발...세계 2위 목표&quot;</a>
+        <p class="news-summary">SK·GS·네이버 등과 총 550조 원 규모의 기가와트(GW)급 AI 데이터센터를 구축하기 위한 범부처 TF를 가동하고, 내년부터 전력·냉각 솔루션 국산화를 추진한다. 국산 신경망처리장치(NPU)와 인프라·소프트웨어를 결합한...</p>
         <p class="news-meta">
-          <span class="press">연합뉴스</span> ·
-          <span class="pubdate">2026-07-16 14:14</span> ·
-          <span class="region-tag">SK하이닉스</span>
+          <span class="press">AI타임스</span> ·
+          <span class="pubdate">2026-07-16 14:48</span> ·
+          <span class="region-tag">SK</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.aitimes.com/news/articleView.html?idxno=212833')">AI 요약하기</button>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://www.viva100.com/article/20260716500584" target="_blank" rel="noopener">김상욱 울산시장, 기업·정부 연쇄 방문… 메가프로젝트 실행력 높인다</a>
+        <p class="news-summary">김 시장은 SK그룹과의 면담에서 울산 미포국가산업단지에 추진 중인 900MW 규모 AI 데이터센터(AIDC)가 차질 없이 조성될 수 있도록 협력을 요청했다. 양측은 안정적인 전력망 구축과 부지 확보, AI 전문인력 양성, 정주여건...</p>
+        <p class="news-meta">
+          <span class="press">viva100.com</span> ·
+          <span class="pubdate">2026-07-16 14:46</span> ·
+          <span class="region-tag">SK</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.viva100.com/article/20260716500584')">AI 요약하기</button>
         </p>
         <details class="ai-summary">
           <summary>AI 요약보기</summary>
-          <p>동신대학교 이주희 총장은 제10대 총장에 연임했다. 그는 취임사에서 &quot;학생이 행복한 대학, 지역과 함께 미래를 만드는 대학을 만들겠다&quot;라고 말했다. 그는 앞으로 4년 동안 동신대학교만의 경쟁력을 세우고, 지역의 대전환을 대한민국의 새로운 성장동력으로 연결하는 혁신대학으로 도약하겠다고 강조했다. 그는 구성원들에게 감사를 표하고, 학생을 가장 잘 성장시키는 대학으로 만들겠다고 약속했다.</p>
+          <p>김상욱 울산시장이 주요 대기업과 정부부처를 방문해 지역 핵심 투자사업의 실행력 확보에 나섰다. 그는 SK, 삼성SDI, S-OIL, HD현대와의 면담에서 AI 데이터센터, 전고체 배터리, 제조업 AI 전환 등 울산의 미래산업 프로젝트를 구체화하기 위한 협력 방안을 논의했다. 또한 정부에 지역별 차등 전기요금제 조기 도입과 에너지 정책 지원을 건의했다. 울산시는 앞으로도 기업 투자계획이 조기에 현실화될 수 있도록 행정 지원을 지속할 계획이다.</p>
         </details>
       </li>
       <li class="news-item">
-        <a class="news-title" href="https://www.todayenergy.kr/news/articleView.html?idxno=300511" target="_blank" rel="noopener">K-일렉트릭 솔루션 베트남 시장에 선보여</a>
-        <p class="news-summary">한국의 대표 전력·에너지 기업인 LS ELECTRIC, HD현대일렉트릭 등 국내 대표 기업들이 참가해 친환경 에너지 전환에 필요한 초고압직류송전(HVDC) 및 AI 데이터센터 고효율 직류 공급 시스템, 신재생에너지 연계용...</p>
+        <a class="news-title" href="https://www.cbci.co.kr/news/articleView.html?idxno=589590" target="_blank" rel="noopener">[기업家] SK그룹 ⑭ㅣ하이닉스 ADR·AI 인프라 투자…&#x27;AI 중심 그룹&#x27; 전환...</a>
+        <p class="news-summary">● 2026-07-12 SK텔레콤, 15GW AI 데이터센터 구축 총괄…2030년까지 전국 확장 &#x27;SK AI 데이터센터 울산&#x27; 기공식 세리머니 (사진=연합뉴스) SK텔레콤이 SK그룹의 15GW 규모 AI 데이터센터 구축에 참여하며, 국내 AI 인프라...</p>
         <p class="news-meta">
-          <span class="press">todayenergy.kr</span> ·
-          <span class="pubdate">2026-07-16 14:12</span> ·
-          <span class="region-tag">HD현대일렉트릭</span>
+          <span class="press">cbci.co.kr</span> ·
+          <span class="pubdate">2026-07-16 14:44</span> ·
+          <span class="region-tag">이닉스</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.cbci.co.kr/news/articleView.html?idxno=589590')">AI 요약하기</button>
         </p>
       </li>
       <li class="news-item">
-        <a class="news-title" href="https://n.news.naver.com/mnews/article/079/0004169134?sid=102" target="_blank" rel="noopener">김장호 구미시장 &quot;삼성 투자, &#x27;제2의 애니콜&#x27; 기대…반도체 팹 포기 않아...</a>
-        <p class="news-summary">앞서 삼성전자와 삼성SDS는 정부가 개최한 영남권 참단산업 발전비전 국민보고회에서 피지컬 AI, 로봇 등 혁신 제조 공정과 AI데이터센터 마련 등 19조 원을 투자하겠다고 밝힌 바 있다. 이 중 일부 투자는 올해 초...</p>
+        <a class="news-title" href="https://www.newscj.com/news/articleView.html?idxno=3417581" target="_blank" rel="noopener">정부, 550조 AI 인프라 승부수… 연내 전 국민 무료 &#x27;모두의 AI&#x27; 출시</a>
+        <p class="news-summary">정부는 기가와트(GW)급 AI 데이터센터(AIDC) 구축을 통해 해외 투자를 포함해 총 550조원 규모의 민간 투자를 견인할 계획이다. 이를 위해 SK(5GW), GS(2.4GW), 네이버(1GW) 등 주요 기업의 초대형 데이터센터 구축을 전폭...</p>
         <p class="news-meta">
-          <span class="press">nocutnews.co.kr</span> ·
-          <span class="pubdate">2026-07-16 14:09</span> ·
-          <span class="region-tag">삼성전자</span>
+          <span class="press">newscj.com</span> ·
+          <span class="pubdate">2026-07-16 14:42</span> ·
+          <span class="region-tag">SK</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.newscj.com/news/articleView.html?idxno=3417581')">AI 요약하기</button>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://www.viva100.com/article/20260716500608" target="_blank" rel="noopener">대우건설, ‘울산 북항 LNG 터미널 3단계 건설공사’ 준공</a>
+        <p class="news-summary">정원주 대우건설 회장은 지난 7일부터 11일까지 인도네시아 자카르타를 방문해 현지 정·관계 인사와 주요 개발사를 만나 소형모듈원전(SMR), LNG 터미널 등 발전 인프라와 기가와트(GW)급 AI 데이터센터를 결합한...</p>
+        <p class="news-meta">
+          <span class="press">viva100.com</span> ·
+          <span class="pubdate">2026-07-16 14:42</span> ·
+          <span class="region-tag">대우건설</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.viva100.com/article/20260716500608')">AI 요약하기</button>
         </p>
         <details class="ai-summary">
           <summary>AI 요약보기</summary>
-          <p>김장호 구미시장은 삼성의 19조원 투자와 관련해 &#x27;제2의 애니콜 신화&#x27;를 기대한다. 삼성은 정부가 개최한 영남권 참단산업 발전비전 국민보고회에서 피지컬 AI, 로봇 등 혁신 제조 공정과 AI데이터센터 마련 등 19조 원을 투자하겠다고 밝힌 바 있다. 구미시장은 데이터를 집적하는 것이 경쟁력이라고 강조하며, AI데이터센터 옆에 로봇 양산 라인이 들어오면 데이터와 연계돼 로봇이 지능형으로 바뀔 것으로 생각된다. 또한 구미국가산단 제5단지 2단계 부지를 평당 천 원에 제공하겠다는 파격적 제안을 내놓을 정도로 반도체 팹 유치에 적극적이었다.</p>
+          <p>대우건설은 울산 북항 액화가스 및 석유제품 터미널 3단계 건설공사를 준공하고 후속 인수인계 절차를 거쳐 사업을 최종 완료했다. 이 사업은한국석유공사와 SK가스가 공동 설립한 코리아에너지터미널㈜이 발주한 프로젝트로, 울산 북항에 21만5000㎘ 규모의 액화천연가스 저장탱크 1기와 시간당 180톤 규모의 기화송출설비, 부대시설 등을 건설하는 내용이다. 대우건설은 SK에코엔지니어링과 공동으로 사업을 수행했으며, 계약금액은약 2235억원이다. 대우건설은 이번 준공으로 국내 LNG 터미널 분야의 시공 역량을 입증했다.</p>
         </details>
       </li>
       <li class="news-item">
-        <a class="news-title" href="https://n.news.naver.com/mnews/article/015/0005310762?sid=101" target="_blank" rel="noopener">나노씨엠에스, 중국 DR그룹과 전략적 협력…실리콘 음극재 중국 시장 진...</a>
-        <p class="news-summary">전력반도체 소재는 전기차와 AI 데이터센터 확대에 따라 수요가 증가하고 있는 분야다. DR그룹은 연매출 5000억 원 규모의 중국 종합상사로, 한국의 주요 배터리 및 반도체 장비 기업들과 협력해 중국 내 주요 배터리...</p>
+        <a class="news-title" href="https://n.news.naver.com/mnews/article/044/0000286968?sid=104" target="_blank" rel="noopener">LG Electronics maps H2 strategy around AI, robotics</a>
+        <p class="news-summary">LG Electronics convened about 300 executives from Korea and overseas on Thursday to review its second-half strategy and accelerate growth in robotics, AI data center cooling and other future...</p>
         <p class="news-meta">
-          <span class="press">한국경제</span> ·
-          <span class="pubdate">2026-07-16 14:08</span> ·
-          <span class="region-tag">나노씨엠에스</span>
+          <span class="press">koreaherald.com</span> ·
+          <span class="pubdate">2026-07-16 14:40</span> ·
+          <span class="region-tag">APS</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://n.news.naver.com/mnews/article/044/0000286968?sid=104')">AI 요약하기</button>
         </p>
         <details class="ai-summary">
           <summary>AI 요약보기</summary>
-          <p>나노씨엠에스와 중국 종합상사 DR그룹은 전략적 협력을 체결하였다. 이 협력으로 나노씨엠에스는 중국 시장에서 실리콘 음극재를 공급하고, 현지 생산기지를 구축할 계획이다. 또한, 양사는 전력반도체 소재 사업에서도 협력을 추진하고, 공동 투자 방안을 검토할 예정이다. 나노씨엠에스는 이 협력을 통해 중국 시장에서 경쟁력을 강화하고, 성장 기반을 구축할 계획이다.</p>
+          <p>LG 전자는 최근 임원 300여 명을 모여 하반기 전략을 논의했다. LG 전자는 로봇틱스, AI 데이터 센터 냉각 솔루션, 스마트 팩토리, AI 기반 홈 구축에 중점을 두고 있다. 이러한 분야가 의미 있는 성장 기회를 제공할 것으로 전망된다. 로봇틱스 부문의 경우 최근에 로봇틱스 사업부를 신설하였으며, 자체 로봇 액추에이터의 초기 생산을 시작했고, 데이터 팩토리를 구축 중이다.</p>
         </details>
       </li>
       <li class="news-item">
-        <a class="news-title" href="https://n.news.naver.com/mnews/article/025/0003538054?sid=105" target="_blank" rel="noopener">배경훈 “보안 특화 AI 연내 출시…미토스급 모델 개발도 지원할 것”</a>
-        <p class="news-summary">배 부총리는 앞서 정부가 발표한 대규모 투자사업인 AI 데이터센터·피지컬AI·K-반도체 분야 3대 메가프로젝트의 차질 없는 추진을 하반기 핵심 과제로 내세웠다. 우선 총 550조원을 투입해 SK·GS·네이버 등 민간 기업과...</p>
+        <a class="news-title" href="https://www.gokorea.kr/news/articleView.html?idxno=872198" target="_blank" rel="noopener">LS일렉트릭, 전 직원 주식보상 확대…RSU·자사주 지급으로 &#x27;비전 2030&#x27; 속...</a>
+        <p class="news-summary">회사는 오는 2030년 해외 매출 비중 70% 달성과 미국 내 톱4 전력기업 진입을 목표로 글로벌 전력 인프라와 AI 데이터센터 시장 공략을 확대하고 있다. 최규태 LS일렉트릭 최고인사책임자(CHO)는 &quot;글로벌 사업 확대와 미래...</p>
         <p class="news-meta">
-          <span class="press">중앙일보</span> ·
-          <span class="pubdate">2026-07-16 14:07</span> ·
-          <span class="region-tag">SK</span>
+          <span class="press">gokorea.kr</span> ·
+          <span class="pubdate">2026-07-16 14:36</span> ·
+          <span class="region-tag">LS</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.gokorea.kr/news/articleView.html?idxno=872198')">AI 요약하기</button>
         </p>
       </li>
       <li class="news-item">
-        <a class="news-title" href="https://n.news.naver.com/mnews/article/031/0001042745?sid=105" target="_blank" rel="noopener">[차세대 반도체, 원천기술 전쟁-중] 공공팹 필요하다</a>
-        <p class="news-summary">배종호 연세대 교수(이하 배 교수)는 “AI 데이터센터가 들어서면서 소비 전력이 많아지면 초저전력이 핵심 키워드가 될 것”이라며 “차세대 반도체의 원천기술에서부터 여기에 맞춰 개발해야 한다”고 지적했다....</p>
+        <a class="news-title" href="https://n.news.naver.com/mnews/article/003/0014071372?sid=102" target="_blank" rel="noopener">전남광주시의회, 군 공항 반도체 부지 등 현장 점검</a>
+        <p class="news-summary">전남광주통합특별시의회 미래산업위원회가 16일 호남권 반도체 클러스터 조성예정지와 국가 AI데이터센터를 잇따라 방문해 미래산업 추진 현황을 점검하고 현장목소리를 청취했다. 이번 방문은 미래산업위 소관 주요...</p>
         <p class="news-meta">
-          <span class="press">inews24.com</span> ·
-          <span class="pubdate">2026-07-16 14:05</span> ·
-          <span class="region-tag">대교</span>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://www.ebn.co.kr/news/articleView.html?idxno=1716674" target="_blank" rel="noopener">中, 상반기 철강 생산 1500만t 줄어…국내 철강사 훈풍</a>
-        <p class="news-summary">미국 내 AI 데이터센터 건설이 본격화하며 철근 등 기초 자재 수요가 늘어난 영향으로, 4월에는 한 달 수출량이 미국 전체 철근 수입량의 83%에 달하기도 했다. 미국이 지난해 6월부터 한국산 철강에 고율 관세를...</p>
-        <p class="news-meta">
-          <span class="press">ebn.co.kr</span> ·
-          <span class="pubdate">2026-07-16 14:04</span> ·
-          <span class="region-tag">국전</span>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://www.getnews.co.kr/news/articleView.html?idxno=875308" target="_blank" rel="noopener">전남광주특별시의회, 호남권 반도체 클러스터·국가 AI데이터센터 현장...</a>
-        <p class="news-summary">전남광주통합특별시의회가 호남권 반도체 클러스터 조성 예정지와 국가 AI데이터센터를 잇달아 방문해 미래산업 핵심 사업의 추진 상황을 점검하는 등 정책 지원 방안을 모색했다. 전남광주통합특별시의회...</p>
-        <p class="news-meta">
-          <span class="press">getnews.co.kr</span> ·
-          <span class="pubdate">2026-07-16 14:02</span> ·
-          <span class="region-tag">미래산업</span>
+          <span class="press">뉴시스</span> ·
+          <span class="pubdate">2026-07-16 14:35</span> ·
+          <span class="region-tag">미래산업</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://n.news.naver.com/mnews/article/003/0014071372?sid=102')">AI 요약하기</button>
         </p>
         <details class="ai-summary">
           <summary>AI 요약보기</summary>
-          <p>전남광주통합특별시의회 미래산업위원회는 호남권 반도체 클러스터 조성 예정지와 국가 AI데이터센터를 방문했다. 이곳에서 반도체와 인공지능 산업 육성 현황을 점검하고 사업 과정에서의 애로사항과 정책 지원 필요성을 파악했다. 이러한 현장 방문은 미래산업위원회가 의정활동에 반영하고 정책 지원 방안을 모색하기 위해 마련됐다. 또한 반도체 클러스터 조성과 국가 AI데이터센터 운영이 미래산업 생태계 구축의 기반이 될 수 있도록 중장기 전략을 마련하고 속도를 내줄 것을 주문했다.</p>
+          <p>전남광주시의회 미래산업위원회는 호남권 반도체 클러스터 조성 예정지와 국가 AI데이터센터를 방문했다. 이번 방문은 미래산업 사업의 추진 상황을 점검하고 애로사항을 파악하기 위해 마련됐다. 위원회는 공항 부지와 데이터센터를 방문해 사업 계획과 운영 현황을 보고받았다. 위원장은 반도체와 AI가 광주의 미래를 이끌 핵심 산업이라고 강조했다.</p>
         </details>
       </li>
       <li class="news-item">
-        <a class="news-title" href="https://www.ajunews.com/view/20260716135032818" target="_blank" rel="noopener">LG전자, 국내외 임원 300명 한자리에…하반기 전략 점검</a>
-        <p class="news-summary">이와 함께 로봇과 AI 데이터센터(AIDC) 냉각 솔루션, 스마트팩토리, AI홈 등 LG전자가 미래 성장동력으로 육성하는 4대 사업의 중장기 전략과 경쟁력 강화 방안도 주요 안건으로 다뤄질 것으로 알려졌다. 업계에서는 AI...</p>
+        <a class="news-title" href="http://www.sisacast.kr/news/articleView.html?idxno=97870" target="_blank" rel="noopener">LS ELECTRIC, 성과 기반 보상 확대해 &#x27;비전 2030&#x27; 추구하며 조직 경쟁력 ...</a>
+        <p class="news-summary">최근 북미를 중심으로 AI 데이터센터와 전력 인프라 시장이 빠르게 성장하면서 글로벌 인재 확보 경쟁도 치열해지는 만큼, 성과와 성장에 기반한 선진형 인사 체계를 강화해 조직 경쟁력을 높인다는 전략이다....</p>
         <p class="news-meta">
-          <span class="press">ajunews.com</span> ·
-          <span class="pubdate">2026-07-16 13:56</span> ·
-          <span class="region-tag">LG전자</span>
+          <span class="press">sisacast.kr</span> ·
+          <span class="pubdate">2026-07-16 14:32</span> ·
+          <span class="region-tag">LS</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('http://www.sisacast.kr/news/articleView.html?idxno=97870')">AI 요약하기</button>
         </p>
         <details class="ai-summary">
           <summary>AI 요약보기</summary>
-          <p>LG전자는 국내외 임원 300명이 참석하는 확대경영회의를 열고 하반기 사업 전략을 점검한다. 이번 회의에서는 상반기 경영 성과를 점검하고 하반기 사업 전략을 논의하며, 조직 경쟁력을 높이기 위한 사업 부문별 현안을 공유한다. 또한 로봇과 AI 데이터센터, 스마트팩토리, AI홈 등 미래 성장동력을 육성하는 4대 사업의 중장기 전략과 경쟁력 강화 방안을 다룬다. LG전자는 지속적인 투자를 통해 사업 성장과 경쟁력을 강화해 나갈 계획이다.</p>
+          <p>LS일렉트릭은 &#x27;비전 2030&#x27; 달성을위한 구성원 동기부여 강화와 근로자 및 경영진 간 신뢰와 상생의 문화를 공고히 하기 위해 주식 보상 제도를 확대 시행한다. LS일렉트릭은 전 직원 대상 성과 보상으로 양도제한조건부주식과 스톡그랜트를 지급한다. 주식 보상 제도는 회사 성장과 기업가치 상승이 개인 보상과 직접 연동되는 구조로 운영된다. LS일렉트릭은 오는 2030년 해외 매출 비중 70% 달성과 미국 내 빅4 전력기업 도약을 목표로 하는 전략 아래 글로벌 사업 확대에 속도를 내고 있다.</p>
         </details>
       </li>
       <li class="news-item">
-        <a class="news-title" href="https://www.abcn.kr/news/articleView.html?idxno=89494" target="_blank" rel="noopener">코세스, 블룸에너지로부터 수주…AI 데이터센터 연료전지 사업 확대</a>
-        <p class="news-summary">코세스는 지난 13일 블룸에너지로부터 1500억 원 규모의 인공지능(AI) 서버용 전극셀(Cell) 자동화 장비를 수주했다고 15일 밝혔다. 지난 4월에는 500억 원 규모의 수주에 이어 네 달여 만에 총 2000억 원 규모의 일감을...</p>
+        <a class="news-title" href="http://www.weeklytoday.com/news/articleView.html?idxno=785724" target="_blank" rel="noopener">[위클리오늘] 동해시, &#x27;당선인에게 바란다&#x27; 시민 제안 34건 민선9기 정책...</a>
+        <p class="news-summary">특히 묵호항 재개발과 망상 경제자유구역 활성화, 한섬 개발, AI 데이터센터 연계 전략, 청년 일자리와 자산형성, 노후 공동주택 재건축, 보행환경 개선 등 동해시의 미래 성장과 시민 생활환경 개선을 위한 제안이 다수...</p>
         <p class="news-meta">
-          <span class="press">abcn.kr</span> ·
-          <span class="pubdate">2026-07-16 13:56</span> ·
-          <span class="region-tag">코세스</span>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://www.newsclaim.co.kr/news/articleView.html?idxno=3069605" target="_blank" rel="noopener">KB증권 &quot;LG이노텍 급락은 과도한 우려&quot;</a>
-        <p class="news-summary">그러면서 &quot;향후 공급이 현실화될 경우 AI 데이터센터를 넘어 글로벌 우주항공 영역까지 확장되며 새로운 성장 동력 확보와 함께 밸류에이션 상승 요인으로 작용할 것&quot;이라고 내다봤다. [알림] 본 기사는 투자판단의...</p>
-        <p class="news-meta">
-          <span class="press">newsclaim.co.kr</span> ·
-          <span class="pubdate">2026-07-16 13:54</span> ·
-          <span class="region-tag">LG이노텍</span>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://www.womentimes.co.kr/news/articleView.html?idxno=104437" target="_blank" rel="noopener">삼성전자, 반도체·스마트폰·TV 3대 사업으로 글로벌 선두체제 굳혀</a>
-        <p class="news-summary">무엇보다 폭증하는 AI 데이터센터 수요에 따라 반도체 부문에서 매보리 반도체 1위인 삼성전자의 국내외 시장 지배력은 갈수록 확대되고 있다. 올해 1분기 매출 기준 D램은 38%를 기록했는데 29%로 2위인 SK하이닉스와의...</p>
-        <p class="news-meta">
-          <span class="press">womentimes.co.kr</span> ·
-          <span class="pubdate">2026-07-16 13:52</span> ·
-          <span class="region-tag">삼성전자</span>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="http://www.newsprime.co.kr/news/article.html?no=740606" target="_blank" rel="noopener">과기정통부, 모두의 AI 연내 출시…&#x27;독자 AI 모델&#x27; 승부수</a>
-        <p class="news-summary">먼저 AI 데이터센터를 국가전략산업으로 육성한다. SK·GS·네이버 등 총 550조원 규모의 민간투자로 구축될 기가와트(GW)급 초거대 AI 데이터센터를 구축해 2029년부터 단계적으로 운영한다. 범부처 TF, 민·관 얼라이언스...</p>
-        <p class="news-meta">
-          <span class="press">newsprime.co.kr</span> ·
-          <span class="pubdate">2026-07-16 13:52</span> ·
-          <span class="region-tag">SK</span>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://n.news.naver.com/mnews/article/031/0001042728?sid=105" target="_blank" rel="noopener">&quot;반도체·AI에 발전량 58% 더 필요&quot;…전문가들 &quot;전력대책 시급&quot;</a>
-        <p class="news-summary">발제를 맡은 정용훈 한국과학기술원(KAIST) 원자력·양자공학과 교수는 용인·서남권 반도체 클러스터와 AI 데이터센터에 필요한 전력을 총 39.7기가와트(GW), 연간 348TWh로 추산했다. 이는 지난해 국내 총발전량(595.6TWh)의...</p>
-        <p class="news-meta">
-          <span class="press">inews24.com</span> ·
-          <span class="pubdate">2026-07-16 13:50</span> ·
-          <span class="region-tag">서남</span>
+          <span class="press">weeklytoday.com</span> ·
+          <span class="pubdate">2026-07-16 14:32</span> ·
+          <span class="region-tag">클리오</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('http://www.weeklytoday.com/news/articleView.html?idxno=785724')">AI 요약하기</button>
         </p>
         <details class="ai-summary">
           <summary>AI 요약보기</summary>
-          <p>전문가들은 정부가 추진하는 용인·서남권 반도체 클러스터와 전국 AI 데이터센터 구축을 제대로 하려면 총발전량의 58.4%에 해당하는 전력이 추가로 필요하다고 분석했다. 이는 발전설비와 송전망 등 인프라를 먼저 갖춰야 한다는 지적이다. 전문가들은 재생에너지의 간헐성 때문에 24시간 가동되는 반도체 공장에 필요한 전력을 재생에너지로 충당하기는 어렵다고 덧붙였다. 이종호 서울대 교수는 광주의 기존 산업 기반을 활용하는 전략이 현실적이라고 제안했다.</p>
+          <p>동해시는 민선9기 출범을 앞두고 &#x27;당선인에게 바란다&#x27;를 통해 시민 제안을 접수받았다. 총 34건의 제안이 접수됐으며, 관련 부서와 인수위원회의 검토를 거쳐 결과를 공개했다. 접수된 제안은 관광, 미래산업, 도시개발, 청년정책, 복지, 교통안전 등 다양하게 이뤄졌다. 시는 제안 내용을 추진 중인 사업과 연계 가능한 과제, 중장기 검토 과제, 법제도 개선이 필요한 과제 등으로 구분해 검토했다.</p>
         </details>
       </li>
       <li class="news-item">
-        <a class="news-title" href="https://n.news.naver.com/mnews/article/015/0005310748?sid=102" target="_blank" rel="noopener">김상욱 울산시장, 기업·중앙부처 연쇄 방문 “메가프로젝트 실행력 높...</a>
-        <p class="news-summary">SK는 울산시가 제안한 계약학과 개설, 인공지능(AI) 전문인력 양성 프로그램 운영, AI 데이터센터 연관 산업 생태계 조성, 지역 건설사 참여 확대 등에 대해서도 필요성에 공감하며 실무 검토에 나서기로 했다....</p>
+        <a class="news-title" href="https://www.viva100.com/article/20260716500582" target="_blank" rel="noopener">신안 바람이 반도체를 돌린다…3조4천억 해상풍력, 전남광주 미래산업의...</a>
+        <p class="news-summary">특히 AI 데이터센터 역시 안정적인 전력 공급 없이는 운영 자체가 어렵다. 전남광주통합특별시가 신안 해상풍력을 미래 성장 전략의 핵심으로 내세우는 이유도 여기에 있다. 신안에서 생산되는 대규모 친환경 전력이...</p>
         <p class="news-meta">
-          <span class="press">한국경제</span> ·
-          <span class="pubdate">2026-07-16 13:49</span> ·
-          <span class="region-tag">SK</span>
+          <span class="press">viva100.com</span> ·
+          <span class="pubdate">2026-07-16 14:30</span> ·
+          <span class="region-tag">미래산업</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.viva100.com/article/20260716500582')">AI 요약하기</button>
         </p>
         <details class="ai-summary">
           <summary>AI 요약보기</summary>
-          <p>김상욱 울산시장은 14~15일 SK, 삼성SDI, S-OIL, HD현대 등 주요 기업을 방문해 투자 실행력을 높이기 위한 협력 방안을 논의했다. SK와는 900㎿ 규모의 인공지능 데이터센터 조성 사업을 차질 없이 추진하기 위해 협력을 요청했다. 삼성SDI와는 세계 최초 전고체 배터리 공장의 울산 신설 방안을 구체적으로 협의했다. S-OIL과는 샤힌 프로젝트 이후 후속 투자แผน과 본사 이전을 타진했다.</p>
+          <p>신안 앞바다에서 해상풍력을 조성하여 전남광주통합특별시의 미래 산업 지형을 바꿀 핵심 동력으로 주목받고 있다. 신안우이 해상풍력 발전단지는 총사업비 3조4천억 원이 투입되며 390MW의 전력을 생산할 예정이다. 이를 통해 친환경 에너지와 첨단산업을 하나의 성장축으로 연결하는 첫 대형 실증사업을 추진하며, 반도체와 AI 산업을 위한 친환경 전력 공급 기반을 확보할 수 있을 것이다. 또한 국내 해상풍력 산업 생태계를 육성하여 지역 기업과 주민이 함께 성장하는 새로운 경제 모델을 구축할 것으로 기대된다.</p>
         </details>
       </li>
       <li class="news-item">
-        <a class="news-title" href="https://n.news.naver.com/mnews/article/366/0001179692?sid=105" target="_blank" rel="noopener">“피지컬 AI는 한국에 큰 기회”… 정부, 월드모델·AI반도체 묶어 수출...</a>
-        <p class="news-summary">3년 내 범용 피지컬 AI 모델 확보 외국 기업 참여 허용하되 “우리 기술로 국산화가 최우선” 550조원 AI 데이터센터 민간투자 지원 전력·냉각 장비 패키지 수출 1나노 소자·이종 적층 HBM 개발… 성능·효율 10배 목표...</p>
+        <a class="news-title" href="https://www.electimes.com/news/articleView.html?idxno=370384" target="_blank" rel="noopener">[2026 전력전자학술대회] 산업계 최대 화두 AI 데이터센터, 전기차·우주...</a>
+        <p class="news-summary">현대모비스 김영도 그룹장은 &#x27;AI데이터센터 전력공급시스템과 EV충전시스템의 기술수렴과 이전 가능성&#x27;을 통해 가능성을 엿보게 했다. 김 그룹장은 전기차와 AI 데이터센터가 같은 800V를 쓰긴 하지만 근본적으로 개발...</p>
         <p class="news-meta">
-          <span class="press">조선일보</span> ·
-          <span class="pubdate">2026-07-16 13:46</span> ·
-          <span class="region-tag">우리기술</span>
+          <span class="press">전기신문</span> ·
+          <span class="pubdate">2026-07-16 14:30</span> ·
+          <span class="region-tag">현대모비스</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.electimes.com/news/articleView.html?idxno=370384')">AI 요약하기</button>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://www.apnews.kr/news/articleView.html?idxno=3049823" target="_blank" rel="noopener">美 자본시장도 인정한 최태원 &#x27;AI 드라이브&#x27;…SK㈜ 몸값까지 높인다</a>
+        <p class="news-summary">AI 데이터센터와 반도체 공장이 막대한 전력을 사용하는 만큼 메모리와 생산시설뿐 아니라 이를 안정적으로 가동할 에너지 공급능력까지 확보해야 완성된 AI 사업구조를 구축할 수 있다는 판단이다. 최 회장은...</p>
+        <p class="news-meta">
+          <span class="press">apnews.kr</span> ·
+          <span class="pubdate">2026-07-16 14:28</span> ·
+          <span class="region-tag">SK</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.apnews.kr/news/articleView.html?idxno=3049823')">AI 요약하기</button>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://www.shinailbo.co.kr/news/articleView.html?idxno=5041605" target="_blank" rel="noopener">[하반기 경제전략] 과기정통부 배경훈 &quot;연내 &#x27;모두의 AI&#x27; 출시…550조 AI...</a>
+        <p class="news-summary">우선 AI 데이터센터를 국가전략산업으로 육성한다. SK와 GS, 네이버 등이 추진하는 총 550조원 규모의 GW(기가와트)급 AI 데이터센터가 차질 없이 구축될 수 있도록 범부처 TF(태스크포스)와 민관 협의체를 통해 전력과...</p>
+        <p class="news-meta">
+          <span class="press">shinailbo.co.kr</span> ·
+          <span class="pubdate">2026-07-16 14:28</span> ·
+          <span class="region-tag">SK</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.shinailbo.co.kr/news/articleView.html?idxno=5041605')">AI 요약하기</button>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="http://www.newslock.co.kr/news/articleView.html?idxno=133096" target="_blank" rel="noopener">류재철 LG전자 CEO, 미래신사업으로 &#x27;로봇&#x27; 낙점…액추에이터 인재 확보...</a>
+        <p class="news-summary">회의에서는 AI 데이터센터(AIDC), 스마트팩토리, AI 홈과 함께 로봇 사업이 핵심 미래 성장축으로 다뤄진 것으로 알려졌다. 사업부별 하반기 실행 전략을 점검하는 동시에 AI 기반 신사업의 경쟁력 확보 방안도 집중...</p>
+        <p class="news-meta">
+          <span class="press">newslock.co.kr</span> ·
+          <span class="pubdate">2026-07-16 14:26</span> ·
+          <span class="region-tag">LG전자</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('http://www.newslock.co.kr/news/articleView.html?idxno=133096')">AI 요약하기</button>
         </p>
       </li></ul>
     </section>
@@ -701,12 +807,27 @@ AI 산업 활성화 위해 규제개선 기업 의견 수렴.</p>
       <p class="section-desc">네이버 뉴스에서 해외 기업명이 언급된 기사 중 최신 20건</p>
       <ul class="news-list">
       <li class="news-item">
+        <a class="news-title" href="https://n.news.naver.com/mnews/article/025/0003538073?sid=104" target="_blank" rel="noopener">도요타부터 미쓰비시까지…젠슨 황, 日 제조업을 엔비디아로 묶는다</a>
+        <p class="news-summary">미쓰비시중공업과는 차세대 데이터센터 ‘AI 팩토리’용 냉각시스템 협력을 발표했다. AI 반도체의 발열·전력 소비를 감당할 모듈형 인프라를 개발할 방침이다. 일본 로봇·제조업계도 엔비디아의 개방형 세계모델...</p>
+        <p class="news-meta">
+          <span class="press">중앙일보</span> ·
+          <span class="pubdate">2026-07-16 14:46</span> ·
+          <span class="region-tag">엔비디아</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://n.news.naver.com/mnews/article/025/0003538073?sid=104')">AI 요약하기</button>
+        </p>
+        <details class="ai-summary">
+          <summary>AI 요약보기</summary>
+          <p>엔비디아의 젠슨 황 최고경영자는 일본에서 기자 설명회를 열고 도요타, 미쓰비시 등 일본 제조업의 전반을 자사 인공지능 기술로 묶어 나갈 계획을 밝혔다. 특히 도요타자동차, 미쓰비시중공업, 후지쓰, 히타치제작소, 가와사키중공업, 야스카와전기 등과 협력을 발표했다. 이러한 협력은 엔비디아의 인공지능 기술을 일본 산업 계열에 적용하여 새로운 기술을 개발하고, 산업 전반의 효율성을 높이기 위한 것으로 보인다. 엔비디아는 일본의 자동차와 로봇 산업에서 자사의 기술을 적용하여 새로운 제품과 서비스를 개발하겠다는 계획이다. 또한 엔비디아의 개방형 세계모델 &#x27;코스모스 연합&#x27;에 일본 로봇과 제조업계가 대거 합류했다.</p>
+        </details>
+      </li>
+      <li class="news-item">
         <a class="news-title" href="http://www.ifs.or.kr/bbs/board.php?bo_table=News&amp;wr_id=55918" target="_blank" rel="noopener">산업 AX, 예술(Art)에서 공학(Engineering)으로: 자율 기업을 향한 성숙도...</a>
         <p class="news-summary">엔비디아(NVIDIA)는 하드웨어를 외부 클라우드에 외주를 주기보다 기업 내부에 온프레미스 형태로 안착 시키는 AI 팩토리 개념을 강조하며, 현장의 실시간 데이터를 피드백 삼아 자체 AI 성능을 스스로...</p>
         <p class="news-meta">
           <span class="press">ifs.or.kr</span> ·
           <span class="pubdate">2026-07-16 12:50</span> ·
-          <span class="region-tag">NVIDIA</span>
+          <span class="region-tag">NVIDIA</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('http://www.ifs.or.kr/bbs/board.php?bo_table=News&amp;wr_id=55918')">AI 요약하기</button>
         </p>
         <details class="ai-summary">
           <summary>AI 요약보기</summary>
@@ -719,7 +840,8 @@ AI 산업 활성화 위해 규제개선 기업 의견 수렴.</p>
         <p class="news-meta">
           <span class="press">헤럴드경제</span> ·
           <span class="pubdate">2026-07-16 12:34</span> ·
-          <span class="region-tag">구글</span>
+          <span class="region-tag">구글</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://n.news.naver.com/mnews/article/016/0002671265?sid=101')">AI 요약하기</button>
         </p>
         <details class="ai-summary">
           <summary>AI 요약보기</summary>
@@ -732,7 +854,8 @@ AI 산업 활성화 위해 규제개선 기업 의견 수렴.</p>
         <p class="news-meta">
           <span class="press">뉴시스</span> ·
           <span class="pubdate">2026-07-16 12:00</span> ·
-          <span class="region-tag">구글</span>
+          <span class="region-tag">구글</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://n.news.naver.com/mnews/article/003/0014070880?sid=101')">AI 요약하기</button>
         </p>
         <details class="ai-summary">
           <summary>AI 요약보기</summary>
@@ -745,7 +868,8 @@ AI 산업 활성화 위해 규제개선 기업 의견 수렴.</p>
         <p class="news-meta">
           <span class="press">조선일보</span> ·
           <span class="pubdate">2026-07-16 11:56</span> ·
-          <span class="region-tag">엔비디아</span>
+          <span class="region-tag">엔비디아</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://n.news.naver.com/mnews/article/023/0003987976?sid=104')">AI 요약하기</button>
         </p>
         <details class="ai-summary">
           <summary>AI 요약보기</summary>
@@ -758,7 +882,8 @@ AI 산업 활성화 위해 규제개선 기업 의견 수렴.</p>
         <p class="news-meta">
           <span class="press">mstoday.co.kr</span> ·
           <span class="pubdate">2026-07-16 11:28</span> ·
-          <span class="region-tag">엔비디아</span>
+          <span class="region-tag">엔비디아</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.mstoday.co.kr/news/articleView.html?idxno=102118')">AI 요약하기</button>
         </p>
         <details class="ai-summary">
           <summary>AI 요약보기</summary>
@@ -771,7 +896,8 @@ AI 산업 활성화 위해 규제개선 기업 의견 수렴.</p>
         <p class="news-meta">
           <span class="press">impacton.net</span> ·
           <span class="pubdate">2026-07-16 11:26</span> ·
-          <span class="region-tag">구글</span>
+          <span class="region-tag">구글</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('http://www.impacton.net/news/articleView.html?idxno=19628')">AI 요약하기</button>
         </p>
         <details class="ai-summary">
           <summary>AI 요약보기</summary>
@@ -784,8 +910,13 @@ AI 산업 활성화 위해 규제개선 기업 의견 수렴.</p>
         <p class="news-meta">
           <span class="press">파이낸셜뉴스</span> ·
           <span class="pubdate">2026-07-16 11:04</span> ·
-          <span class="region-tag">엔비디아</span>
+          <span class="region-tag">엔비디아</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://n.news.naver.com/mnews/article/014/0005548998?sid=101')">AI 요약하기</button>
         </p>
+        <details class="ai-summary">
+          <summary>AI 요약보기</summary>
+          <p>엔비디아는 일본 도요타자동차와合作하여 미래형 도시인 우븐시티의 모빌리티 서비스를 고도화하고 차세대 차량 개발을 추진할 계획이다. 이에 따라 엔비디아는 도요타자동차에 그래픽처리장치와 인공지능 개발 플랫폼을 공급할 예정이며, 일본의.AI 인프라 구축 파트너로 입지를 강화할 예정이다. 또한 엔비디아는 일본 기업들의 AI 개발 지원을 확대하며, 로봇용 AI 반도체 시리즈에 신규 모델을 추가했다.</p>
+        </details>
       </li>
       <li class="news-item">
         <a class="news-title" href="https://www.datanet.co.kr/news/articleView.html?idxno=213112" target="_blank" rel="noopener">아카마이, 엔비디아 AI 팩토리 핵심 보안 문제 해결 지원</a>
@@ -793,8 +924,13 @@ AI 산업 활성화 위해 규제개선 기업 의견 수렴.</p>
         <p class="news-meta">
           <span class="press">datanet.co.kr</span> ·
           <span class="pubdate">2026-07-16 08:56</span> ·
-          <span class="region-tag">엔비디아</span>
+          <span class="region-tag">엔비디아</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.datanet.co.kr/news/articleView.html?idxno=213112')">AI 요약하기</button>
         </p>
+        <details class="ai-summary">
+          <summary>AI 요약보기</summary>
+          <p>아카마이와 월드와이드테크놀로지(WWT)는 AI 보안 프레임워크인 ARMOR를 공동으로 구축하고 있다. ARMOR는 empresas가 AI 기술을 안전하게 도입하고 운영할 수 있도록 하는 보안 프레임워크로, 보안, 규제 준수, 운영 회복탄력성 등을 포함하는 6대 핵심 보안 영역을 제공한다. 아카마이는 ARMOR 프레임워크를 통해 엔비디아 블루필드 데이터 처리 장치(DPU)에 보안 기능을 직접 구현함으로써, 기존의 보안 에이전트가 핵심 컴퓨팅 자원을 두고 AI 워크로드와 경쟁해 성능 저하를 일으키는 문제를 해결할 수 있다. 이를 통해 랜섬웨어 확산을 차단하고, 대규모 분산서비스거부(DDoS) 공격에도 대응할 수 있는 보안 체계를 제공한다.</p>
+        </details>
       </li>
       <li class="news-item">
         <a class="news-title" href="https://n.news.naver.com/mnews/article/081/0003661671?sid=101" target="_blank" rel="noopener">AX시대 속도가 경쟁력… LG, 빅테크 손잡고 미래시장 선점</a>
@@ -802,7 +938,8 @@ AI 산업 활성화 위해 규제개선 기업 의견 수렴.</p>
         <p class="news-meta">
           <span class="press">서울신문</span> ·
           <span class="pubdate">2026-07-16 05:05</span> ·
-          <span class="region-tag">엔비디아</span>
+          <span class="region-tag">엔비디아</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://n.news.naver.com/mnews/article/081/0003661671?sid=101')">AI 요약하기</button>
         </p>
       </li>
       <li class="news-item">
@@ -811,8 +948,13 @@ AI 산업 활성화 위해 규제개선 기업 의견 수렴.</p>
         <p class="news-meta">
           <span class="press">강원일보</span> ·
           <span class="pubdate">2026-07-16 00:02</span> ·
-          <span class="region-tag">엔비디아</span>
+          <span class="region-tag">엔비디아</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://n.news.naver.com/mnews/article/087/0001205462?sid=110')">AI 요약하기</button>
         </p>
+        <details class="ai-summary">
+          <summary>AI 요약보기</summary>
+          <p>미국의 리플렉션AI와 신세계그룹이 강원도에 20조원 규모의 초거대 인공지능 데이터센터를 건립할 계획이다. 이 데이터센터는 단순한 정보 저장용이 아니라 고성능의 AI 팩토리를 지향하며, 산업적 파급효과가 크다. 강원도가 글로벌 AI 영토 확장 경쟁의 중심지로 부상할 수 있는 절호의 기회이다. 도와 관련 지자체는 철저하고 기민한 대책을 마련해야 한다.</p>
+        </details>
       </li>
       <li class="news-item">
         <a class="news-title" href="https://www.koreaittimes.com/news/articleView.html?idxno=155258" target="_blank" rel="noopener">LG Energy Solution Wins Battery Supply Deal for Google&#x27;s Largest Solar-ES...</a>
@@ -820,7 +962,8 @@ AI 산업 활성화 위해 규제개선 기업 의견 수렴.</p>
         <p class="news-meta">
           <span class="press">koreaittimes.com</span> ·
           <span class="pubdate">2026-07-15 16:36</span> ·
-          <span class="region-tag">Google</span>
+          <span class="region-tag">Google</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.koreaittimes.com/news/articleView.html?idxno=155258')">AI 요약하기</button>
         </p>
         <details class="ai-summary">
           <summary>AI 요약보기</summary>
@@ -833,7 +976,8 @@ AI 산업 활성화 위해 규제개선 기업 의견 수렴.</p>
         <p class="news-meta">
           <span class="press">에너지경제</span> ·
           <span class="pubdate">2026-07-15 14:42</span> ·
-          <span class="region-tag">엔비디아</span>
+          <span class="region-tag">엔비디아</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.ekn.kr/web/view.php?key=20260715021202741')">AI 요약하기</button>
         </p>
       </li>
       <li class="news-item">
@@ -842,7 +986,8 @@ AI 산업 활성화 위해 규제개선 기업 의견 수렴.</p>
         <p class="news-meta">
           <span class="press">irobotnews.com</span> ·
           <span class="pubdate">2026-07-15 11:22</span> ·
-          <span class="region-tag">엔비디아</span>
+          <span class="region-tag">엔비디아</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.irobotnews.com/news/articleView.html?idxno=47433')">AI 요약하기</button>
         </p>
       </li>
       <li class="news-item">
@@ -851,7 +996,8 @@ AI 산업 활성화 위해 규제개선 기업 의견 수렴.</p>
         <p class="news-meta">
           <span class="press">이피앤씨</span> ·
           <span class="pubdate">2026-07-15 11:00</span> ·
-          <span class="region-tag">슈나이더 일렉트릭</span>
+          <span class="region-tag">슈나이더 일렉트릭</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.epnc.co.kr/news/articleView.html?idxno=404302')">AI 요약하기</button>
         </p>
       </li>
       <li class="news-item">
@@ -860,7 +1006,8 @@ AI 산업 활성화 위해 규제개선 기업 의견 수렴.</p>
         <p class="news-meta">
           <span class="press">newsfc.co.kr</span> ·
           <span class="pubdate">2026-07-15 09:56</span> ·
-          <span class="region-tag">엔비디아</span>
+          <span class="region-tag">엔비디아</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('http://www.newsfc.co.kr/news/articleView.html?idxno=79916')">AI 요약하기</button>
         </p>
         <details class="ai-summary">
           <summary>AI 요약보기</summary>
@@ -873,7 +1020,8 @@ AI 산업 활성화 위해 규제개선 기업 의견 수렴.</p>
         <p class="news-meta">
           <span class="press">industrynews.co.kr</span> ·
           <span class="pubdate">2026-07-15 09:06</span> ·
-          <span class="region-tag">NVIDIA</span>
+          <span class="region-tag">NVIDIA</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.industrynews.co.kr/news/articleView.html?idxno=83305')">AI 요약하기</button>
         </p>
       </li>
       <li class="news-item">
@@ -882,7 +1030,8 @@ AI 산업 활성화 위해 규제개선 기업 의견 수렴.</p>
         <p class="news-meta">
           <span class="press">조선일보</span> ·
           <span class="pubdate">2026-07-15 07:00</span> ·
-          <span class="region-tag">AWS</span>
+          <span class="region-tag">AWS</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://it.chosun.com/news/articleView.html?idxno=2023092165804')">AI 요약하기</button>
         </p>
         <details class="ai-summary">
           <summary>AI 요약보기</summary>
@@ -895,8 +1044,13 @@ AI 산업 활성화 위해 규제개선 기업 의견 수렴.</p>
         <p class="news-meta">
           <span class="press">g-enews.com</span> ·
           <span class="pubdate">2026-07-15 05:00</span> ·
-          <span class="region-tag">엔비디아</span>
+          <span class="region-tag">엔비디아</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.g-enews.com/view.php?ud=2026071504551182552bd56fbc3c_1')">AI 요약하기</button>
         </p>
+        <details class="ai-summary">
+          <summary>AI 요약보기</summary>
+          <p>소프트뱅크와 엔비디아는 협력해 가상 환경에서 학습된 인공지능으로 형태가 변하는 물체를 정밀하게 제어하는 로봇 기술을 구현했다. 이 기술은 복잡한 제조 현장에서 로봇의 작업 범위를 넓히고 공정 효율을 극대화할 것으로 기대된다. 소프트뱅크는 엔비디아의 옴니버스 라이브러리를 기반으로 한 피지컬 AI 플랫폼을 구축했으며, 가상 시뮬레이션 환경에서 로봇은 무수한 학습 과정을 거치며 실제 현장에 배치되기 전 발생할 수 있는 오류를 사전에 제거한다. 이는 한국 산업 현장에도 시사하는 바가 크며, 국내 제조업체들의 로봇 도입과 공정 자동화에 긍정적인 영향을 미칠 것으로 분석된다.</p>
+        </details>
       </li>
       <li class="news-item">
         <a class="news-title" href="https://www.newspim.com/news/view/20260715000020" target="_blank" rel="noopener">[미국 특징주] SLB, 리버티 에너지와 손잡고 데이터센터에 모듈형 부품...</a>
@@ -904,16 +1058,8 @@ AI 산업 활성화 위해 규제개선 기업 의견 수렴.</p>
         <p class="news-meta">
           <span class="press">newspim.com</span> ·
           <span class="pubdate">2026-07-15 02:03</span> ·
-          <span class="region-tag">엔비디아</span>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://www.g-enews.com/view.php?ud=20260714145500279424debea800_1" target="_blank" rel="noopener">전력 수요 커지는 아세안…K-전력기기, 베트남서 공략 속도</a>
-        <p class="news-summary">LS일렉트릭은 16개 부스 규모의 전시 공간을 마련해 AI 데이터센터와 디지털 전환(DX), 스마트 전력관리, 스마트팩토리 등 4개 존(Zone)을 운영한다. 고용량 원격전력패널과 무정전 절체 스위치, 국가 단위 전력망 통합...</p>
-        <p class="news-meta">
-          <span class="press">g-enews.com</span> ·
-          <span class="pubdate">2026-07-14 18:42</span> ·
-          <span class="region-tag">스위치</span>
+          <span class="region-tag">엔비디아</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.newspim.com/news/view/20260715000020')">AI 요약하기</button>
         </p>
       </li></ul>
     </section>
@@ -931,6 +1077,127 @@ AI 산업 활성화 위해 규제개선 기업 의견 수렴.</p>
       // 2. 선택한 탭/버튼 활성화
       document.getElementById('tab-' + tab).classList.add('active');
       document.querySelector('.tab-btn[data-tab="' + tab + '"]').classList.add('active');
+    }
+  </script>
+
+  <!-- ===== AI 채팅창 ===== -->
+  <button id="aiChatToggle" onclick="toggleAiChat()" title="AI 요약 채팅">🤖</button>
+  <div id="aiChatPanel">
+    <div class="ai-chat-header">
+      <span>AI 요약 도우미</span>
+      <button type="button" onclick="toggleAiChat()">✕</button>
+    </div>
+    <div id="aiChatMessages">
+      <div class="ai-msg bot"><span class="bubble">안녕하세요! 기사 옆 "AI 요약하기" 버튼을 누르거나, 링크를 붙여넣거나, PDF 파일을 첨부하면 요약해드려요.</span></div>
+    </div>
+    <div class="ai-chat-input">
+      <label for="aiPdfInput">📎 PDF</label>
+      <input type="file" id="aiPdfInput" accept="application/pdf" onchange="aiHandlePdf(this)">
+      <input type="text" id="aiChatText" placeholder="기사 링크 붙여넣기" onkeydown="if(event.key==='Enter')aiSendText()">
+      <button type="button" onclick="aiSendText()">전송</button>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script>
+    const AI_WORKER_URL = "https://ai-summary.wkddlsrjs.workers.dev";
+    if (window.pdfjsLib) {
+      pdfjsLib.GlobalWorkerOptions.workerSrc =
+        "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+    }
+
+    function toggleAiChat() {
+      document.getElementById('aiChatPanel').classList.toggle('open');
+    }
+
+    function aiAddMsg(role, text) {
+      const box = document.getElementById('aiChatMessages');
+      const div = document.createElement('div');
+      div.className = 'ai-msg ' + role;
+      const bubble = document.createElement('span');
+      bubble.className = 'bubble';
+      bubble.textContent = text;
+      div.appendChild(bubble);
+      box.appendChild(div);
+      box.scrollTop = box.scrollHeight;
+      return bubble;
+    }
+
+    async function aiCallWorker(payload, loadingBubble) {
+      try {
+        const resp = await fetch(AI_WORKER_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        const data = await resp.json();
+        if (data.summary) {
+          loadingBubble.textContent = data.summary;
+        } else {
+          loadingBubble.textContent = '요약에 실패했어요. 잠시 후 다시 시도해주세요.';
+          console.error('AI worker error:', data);
+        }
+      } catch (e) {
+        loadingBubble.textContent = '요약 서버에 연결하지 못했어요.';
+        console.error(e);
+      }
+    }
+
+    // 기사 옆 "AI 요약하기" 버튼 → 링크 자동 전송
+    function aiSummarizeUrl(url) {
+      const panel = document.getElementById('aiChatPanel');
+      if (!panel.classList.contains('open')) panel.classList.add('open');
+      aiAddMsg('user', url);
+      const loading = aiAddMsg('bot', '기사를 읽고 요약하는 중...');
+      aiCallWorker({ url: url }, loading);
+    }
+
+    // 입력창 전송 (링크 또는 일반 텍스트)
+    function aiSendText() {
+      const input = document.getElementById('aiChatText');
+      const text = input.value.trim();
+      if (!text) return;
+      input.value = '';
+      aiAddMsg('user', text);
+      const loading = aiAddMsg('bot', '요약하는 중...');
+      if (/^https?:\/\//i.test(text)) {
+        aiCallWorker({ url: text }, loading);
+      } else {
+        aiCallWorker({ text: text }, loading);
+      }
+    }
+
+    // PDF 첨부 → 브라우저 안에서 텍스트 추출(pdf.js) → Worker로 전송
+    async function aiHandlePdf(inputEl) {
+      const file = inputEl.files && inputEl.files[0];
+      if (!file) return;
+      inputEl.value = '';
+      const panel = document.getElementById('aiChatPanel');
+      if (!panel.classList.contains('open')) panel.classList.add('open');
+      aiAddMsg('user', '📄 ' + file.name);
+      const loading = aiAddMsg('bot', 'PDF에서 텍스트를 추출하는 중...');
+      try {
+        const buf = await file.arrayBuffer();
+        const pdf = await pdfjsLib.getDocument({ data: buf }).promise;
+        let fullText = '';
+        const maxPages = Math.min(pdf.numPages, 20);
+        for (let i = 1; i <= maxPages; i++) {
+          const page = await pdf.getPage(i);
+          const content = await page.getTextContent();
+          fullText += content.items.map(it => it.str).join(' ') + '\n';
+          if (fullText.length > 12000) break;
+        }
+        fullText = fullText.replace(/\s+/g, ' ').trim();
+        if (!fullText) {
+          loading.textContent = 'PDF에서 텍스트를 찾지 못했어요. 스캔 이미지 PDF일 수 있어요.';
+          return;
+        }
+        loading.textContent = '요약하는 중...';
+        aiCallWorker({ text: fullText.slice(0, 12000) }, loading);
+      } catch (e) {
+        loading.textContent = 'PDF를 읽는 데 실패했어요.';
+        console.error(e);
+      }
     }
   </script>
 </body>
