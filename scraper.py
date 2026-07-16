@@ -1212,7 +1212,6 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
       {tab_panels_html}
     </div>
   </div>
-  <footer>기관명을 클릭하면 해당 보도자료 게시판 전체 목록으로 이동합니다.</footer>
 
   
   <script>
@@ -1224,17 +1223,6 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
       // 2. 선택한 탭/버튼 활성화
       document.getElementById('tab-' + tab).classList.add('active');
       document.querySelector('.tab-btn[data-tab="' + tab + '"]').classList.add('active');
-
-      // 3. 탭별 푸터 문구 변경
-      const footer = document.getElementById('page-footer');
-      if (tab === 'gov') {{
-        footer.innerText = "기관명을 클릭하면 해당 보도자료 게시판 전체 목록으로 이동합니다.";
-      }} else if (tab === 'public') {{
-        footer.innerText = "기업명을 클릭하면 해당 보도자료 게시판 전체 목록으로 이동합니다.";
-      }} else {{
-        // 지자체, 국내 기업, 해외 기업 탭일 경우
-        footer.innerText = "기사 제목을 클릭하면 해당 뉴스 원문 페이지로 이동합니다.";
-      }}
     }}
   </script>
 </body>
