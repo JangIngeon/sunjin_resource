@@ -1255,7 +1255,9 @@ def main() -> None:
             continue
         matched = [it for it in items if it["date"] == TODAY]
         today_items[org] = matched
-        recent_items[org] = items[:RECENT_LIMIT]
+        matched_links = {it["link"] for it in matched}
+        remaining = [it for it in items if it["link"] not in matched_links]
+        recent_items[org] = remaining[:RECENT_LIMIT]
         log(f"[SUMMARY] {org}: {len(matched)} item(s) today (of {len(items)} total parsed)")
 
     aidc_items, aidc_ok = fetch_aidc_news()
