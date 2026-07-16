@@ -41,7 +41,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add public/index.html
+          git add public/index.html data/summary_cache.json
           git diff --cached --quiet || git commit -m "chore: 자동 업데이트 $(date -u +'%Y-%m-%d %H:%M UTC')"
           git push
 
