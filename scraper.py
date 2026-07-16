@@ -971,8 +971,8 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
     <section class="agency">
       <h2><a href="{escape(BOARD_URL[org])}" target="_blank" rel="noopener">{escape(org)}</a></h2>
       {body}{more_html}
-      <p style="text-align: center; font-size: 12px; color: #888; margin-top: 15px;">
-        기업명을 클릭하면 해당 보도자료 게시판 전체 목록으로 이동합니다.
+      <p style="text-align: center; font-size: 13px; color: #888; margin-top: 20px;">
+      기업명을 클릭하면 해당 보도자료 게시판 전체 목록으로 이동합니다.
       </p>
     </section>"""
 
@@ -1001,8 +1001,8 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
       <h2>AI데이터센터(AIDC) · 지자체 언급 기사</h2>
       <p class="section-desc">네이버 뉴스에서 국내 지역명이 언급된 기사 중 최신 {AIDC_TOP_N}건</p>
       {body}
-      <p style="text-align: center; font-size: 12px; color: #888; margin-top: 15px;">
-        기사 제목을 클릭하면 해당 뉴스 원문 페이지로 이동합니다.
+      <p style="text-align: center; font-size: 13px; color: #888; margin-top: 20px;">
+      기사 제목을 클릭하면 해당 뉴스 원문 페이지로 이동합니다.
       </p>
     </section>"""
 
@@ -1018,7 +1018,7 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
       <h2>AI데이터센터(AIDC) · 국내 기업 언급 기사</h2>
       <p class="section-desc">네이버 뉴스에서 국내 기업명이 언급된 기사 중 최신 {COMPANY_TOP_N}건</p>
       {body}
-      <p style="text-align: center; font-size: 12px; color: #888; margin-top: 15px;">
+      <p style="text-align: center; font-size: 13px; color: #888; margin-top: 20px;">
         기사 제목을 클릭하면 해당 뉴스 원문 페이지로 이동합니다.
       </p>
     </section>"""
@@ -1035,7 +1035,7 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
       <h2>AI데이터센터(AIDC) · 해외 기업 언급 기사</h2>
       <p class="section-desc">네이버 뉴스에서 해외 기업명이 언급된 기사 중 최신 {OVERSEAS_TOP_N}건</p>
       {body}
-      <p style="text-align: center; font-size: 12px; color: #888; margin-top: 15px;">
+      <p style="text-align: center; font-size: 13px; color: #888; margin-top: 20px;">
         기사 제목을 클릭하면 해당 뉴스 원문 페이지로 이동합니다.
       </p>
     </section>"""
