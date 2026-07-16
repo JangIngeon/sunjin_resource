@@ -9,8 +9,28 @@
   body { font-family: -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
           max-width: 1080px; margin: 0 auto; padding: 32px 16px 60px;
           background: #f7f7f5; color: #222; }
-  header h1 { font-size: 22px; margin-bottom: 4px; }
-  header p { color: #666; font-size: 14px; margin-top: 0; }
+  header { 
+    background: #fff; 
+    border: 1px solid #e3e2dc; 
+    border-left: 6px solid #185fa5; 
+    border-radius: 10px; 
+    padding: 24px 30px; 
+    margin-bottom: 24px; 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05); 
+  }
+  header h1 { 
+    font-size: 24px; 
+    font-weight: 800; 
+    color: #185fa5; 
+    margin: 0 0 8px 0; 
+    letter-spacing: -0.5px; 
+  }
+  header p { 
+    color: #666; 
+    font-size: 14px; 
+    margin: 0; 
+    font-weight: 500; 
+  }
   .layout { display: flex; align-items: flex-start; gap: 20px; margin-top: 20px; }
   .sidebar { width: 260px; flex-shrink: 0; position: sticky; top: 20px; height: max-content; }
   .main { flex: 1; min-width: 0; }
@@ -88,13 +108,16 @@
     li.highlight-item { border-top-color: #33353a; }
     li.highlight-item a { color: #e8e8e6; }
     .highlight-sub { color: #999; }
+    header { background: #232527; border-color: #33353a; border-left-color: #3a82ce; box-shadow: none; }
+    header h1 { color: #e8e8e6; }
+    header p { color: #9a9a9a; }
   }
 </style>
 </head>
 <body>
   <header>
     <h1>기관 및 업체별 AI Data Center 일일 동향</h1>
-    <p>2026년 07월 16일 기준 · 마지막 업데이트: 2026-07-16 09:23 · 매일 자동 업데이트(오후 3시~4시)</p>
+    <p>2026년 07월 16일 기준 · 마지막 업데이트: 2026-07-16 09:36 · 매일 자동 업데이트(오후 3시~4시)</p>
   </header>
   <div class="layout">
     <aside class="sidebar">
@@ -173,8 +196,17 @@
   <div id="tab-local" class="tab-panel">
     <section class="agency">
       <h2>AI데이터센터(AIDC) · 지자체 언급 기사</h2>
-      <p class="section-desc">네이버 뉴스에서 "AI데이터센터"/"AIDC"와 국내 지역명이 함께 언급된 기사 중 최신 20건</p>
+      <p class="section-desc">네이버 뉴스에서 국내 지역명이 언급된 기사 중 최신 20건</p>
       <ul class="news-list">
+      <li class="news-item">
+        <a class="news-title" href="https://n.news.naver.com/mnews/article/021/0002805076?sid=102" target="_blank" rel="noopener">박수현 통하는충남호 ‘10대 약속’ 나왔다</a>
+        <p class="news-summary">먼저 초광역 메가시티 구축을 겨냥한 행정통합 추진이 우선 순위에 올랐으며, AI인프라와 재원 확보를 위한 권역별 AI 데이터센터 구축과 AI 대전환 성장펀드 조성이 뒤를 이었다. 첨단 산업의 전초기지가 될 천안 종축장...</p>
+        <p class="news-meta">
+          <span class="press">munhwa.com</span> ·
+          <span class="pubdate">2026-07-16 09:28</span> ·
+          <span class="region-tag">충남</span>
+        </p>
+      </li>
       <li class="news-item">
         <a class="news-title" href="https://news.mtn.co.kr/news-detail/2026071515564854805" target="_blank" rel="noopener">AI·디지털 대전환 속 영토 넓히는 강원 여성기업인들… “지역 경제 핵...</a>
         <p class="news-summary">신지용 한국여성경제인협회 강원지회장은 개회사를 통해 &quot;지금 우리는 AI와 디지털 기술이 세상을 바꾸는 대전환의 시대를 목도하고 있다&quot;며 &quot;강원특별자치도 역시 AI 데이터센터 유치 등을 통해 빠르게 미래 산업을...</p>
@@ -293,8 +325,8 @@
         </p>
       </li>
       <li class="news-item">
-        <a class="news-title" href="https://n.news.naver.com/mnews/article/654/0000190681?sid=100" target="_blank" rel="noopener">본지·G1방송 공동주최 &#x27;2026 강원자치발전전략 대토론회&#x27; 4. 강릉시</a>
-        <p class="news-summary">이에 하반기 시민 1인당 10만 원의 민생안정지원금을 지급해 골목경제를 활성화하고, AI 데이터센터 등 미래산업과 청년·문화정책을 준비하는 동안 지역경제가 버틸 수 있도록 하겠다는 구상이다.&quot; -AI데이터센터 유치에...</p>
+        <a class="news-title" href="https://n.news.naver.com/mnews/article/654/0000190679?sid=100" target="_blank" rel="noopener">국토장관 만나고 강원여권 결집… SOC 공조 나선 우 지사</a>
+        <p class="news-summary">아울러 AI 데이터센터 유치와 미래산업 육성, 교통망 확충 등 민선 9기 핵심 공약을 뒷받침하기 위한 정부·국회 공조 방안도 테이블에 오를 것으로 예상된다. 정치권 안팎에선 강원 현안 해결을 위한 정부 정책 도출 및...</p>
         <p class="news-meta">
           <span class="press">kado.net</span> ·
           <span class="pubdate">2026-07-16 00:06</span> ·
@@ -302,8 +334,8 @@
         </p>
       </li>
       <li class="news-item">
-        <a class="news-title" href="https://n.news.naver.com/mnews/article/654/0000190679?sid=100" target="_blank" rel="noopener">국토장관 만나고 강원여권 결집… SOC 공조 나선 우 지사</a>
-        <p class="news-summary">아울러 AI 데이터센터 유치와 미래산업 육성, 교통망 확충 등 민선 9기 핵심 공약을 뒷받침하기 위한 정부·국회 공조 방안도 테이블에 오를 것으로 예상된다. 정치권 안팎에선 강원 현안 해결을 위한 정부 정책 도출 및...</p>
+        <a class="news-title" href="https://n.news.naver.com/mnews/article/654/0000190681?sid=100" target="_blank" rel="noopener">본지·G1방송 공동주최 &#x27;2026 강원자치발전전략 대토론회&#x27; 4. 강릉시</a>
+        <p class="news-summary">이에 하반기 시민 1인당 10만 원의 민생안정지원금을 지급해 골목경제를 활성화하고, AI 데이터센터 등 미래산업과 청년·문화정책을 준비하는 동안 지역경제가 버틸 수 있도록 하겠다는 구상이다.&quot; -AI데이터센터 유치에...</p>
         <p class="news-meta">
           <span class="press">kado.net</span> ·
           <span class="pubdate">2026-07-16 00:06</span> ·
@@ -320,17 +352,8 @@
         </p>
       </li>
       <li class="news-item">
-        <a class="news-title" href="https://www.ksilbo.co.kr/news/articleView.html?idxno=1062304" target="_blank" rel="noopener">김상욱 울산시장, S-OIL 본사 울산이전 제안</a>
-        <p class="news-summary">앞서 김 시장은 서울 종로구 SK서린빌딩을 찾아 최창원 SK수펙스추구협의회 의장과 울산 AI 데이터센터 투자 및 산업 생태계 조성 방안을 논의했다. 김 시장은 울산 1GW AI 데이터센터 구축이 단순한 시설 투자에 그쳐서는...</p>
-        <p class="news-meta">
-          <span class="press">ksilbo.co.kr</span> ·
-          <span class="pubdate">2026-07-16 00:02</span> ·
-          <span class="region-tag">울산</span>
-        </p>
-      </li>
-      <li class="news-item">
         <a class="news-title" href="https://n.news.naver.com/mnews/article/087/0001205462?sid=110" target="_blank" rel="noopener">[사설]‘20조원 강원도 AI 팩토리’, 치밀하게 대응해야</a>
-        <p class="news-summary">또한 이미 추진 중인 동해 GS, 강릉 SK, 춘천 삼성 AI데이터센터 등 기존 인프라와 이번 ‘리플렉션AI 팩토리’를 유기적으로 연결해야 한다. 글로벌 테크 패권 경쟁 속에서 미국 상무부가 보증하는 초국적 AI 동맹의 첫...</p>
+        <p class="news-summary">250㎿(메가와트)급 규모로 지어질 이번 데이터센터는 단순한 정보 저장용 ‘창고형’을 넘어, 엔비디아의 최신 블랙웰 B300 칩과 자체 AI 모델을 내장한 고성능 ‘AI 팩토리’를 지향한다는 점에서 산업적 파급효과가...</p>
         <p class="news-meta">
           <span class="press">kwnews.co.kr</span> ·
           <span class="pubdate">2026-07-16 00:02</span> ·
@@ -338,21 +361,21 @@
         </p>
       </li>
       <li class="news-item">
-        <a class="news-title" href="https://n.news.naver.com/mnews/article/087/0001205455?sid=100" target="_blank" rel="noopener">무게감 커진 강원정치권, 우상호 도정 국비 확보 데뷔전에 쏠리는 눈</a>
-        <p class="news-summary">과학기술정보방송통신위원장에 선출된 더불어민주당 송기헌(원주을) 의원은 “우상호 지사와 신뢰 관계가 있다”며 “강원도가 AI 데이터센터를 비롯해 최첨단 기술 중심으로 산업을 전환하는 중요한 시점에...</p>
+        <a class="news-title" href="https://www.ekn.kr/web/view.php?key=20260715020412814" target="_blank" rel="noopener">경북도, 인재 육성·현장 안전에 AI 혁신 기반 강화</a>
+        <p class="news-summary">또 행정 질의응답, 통계 해석, 정책메모 평가, AI데이터센터(AIDC) 효과 분석, 피지컬 AI 실증 등 5개 분야를 중심으로 한 6개월 규모의 시범사업도 제안했다. 이와 함께 공공 AI 인증체계 구축과 정책효과 분석, 평가데이터셋...</p>
         <p class="news-meta">
-          <span class="press">kwnews.co.kr</span> ·
-          <span class="pubdate">2026-07-16 00:02</span> ·
-          <span class="region-tag">강원</span>
+          <span class="press">ekn.kr</span> ·
+          <span class="pubdate">2026-07-15 23:46</span> ·
+          <span class="region-tag">경북</span>
         </p>
       </li>
       <li class="news-item">
-        <a class="news-title" href="https://n.news.naver.com/mnews/article/022/0004143412?sid=102" target="_blank" rel="noopener">경북도, 북극항로 시대 대비 AI기반 해양기술 대전환 첫발</a>
-        <p class="news-summary">경북도는 이번 협약과 전문가 포럼을 발판 삼아 영일만항을 북극항로  거점항만이자 로봇·피지컬 AI 데이터센터 등 첨단산업에 필요한 소재를 공급하는 특화항만으로 육성하고, 동해안권을 중심으로 한 해양데이터...</p>
+        <a class="news-title" href="http://www.breaknews.com/1222008" target="_blank" rel="noopener">충남도, 민선 9기 ‘통하는 충남’ 로드맵 최종 확정</a>
+        <p class="news-summary">the center of artificial intelligence (AI) in South Korea, based on the spirit of loyalty, filial piety... future AI data centers by region, and the construction of the East-West Transverse Railway in the central...</p>
         <p class="news-meta">
-          <span class="press">segye.com</span> ·
-          <span class="pubdate">2026-07-16 00:02</span> ·
-          <span class="region-tag">대전</span>
+          <span class="press">breaknews.com</span> ·
+          <span class="pubdate">2026-07-15 18:42</span> ·
+          <span class="region-tag">충남</span>
         </p>
       </li></ul>
     </section>
@@ -360,8 +383,80 @@
   <div id="tab-listed" class="tab-panel">
     <section class="agency">
       <h2>AI데이터센터(AIDC) · 국내 기업 언급 기사</h2>
-      <p class="section-desc">네이버 뉴스에서 "AI데이터센터"/"AIDC"와 국내 기업명이 함께 언급된 기사 중 최신 20건</p>
+      <p class="section-desc">네이버 뉴스에서 국내 기업명이 언급된 기사 중 최신 20건</p>
       <ul class="news-list">
+      <li class="news-item">
+        <a class="news-title" href="https://n.news.naver.com/mnews/article/117/0004085200?sid=105" target="_blank" rel="noopener">최태원 ‘AI 풀스택’ 승부 통했다…SK㈜, 지주사 할인 깨고 밸류업 가...</a>
+        <p class="news-summary">AI 데이터센터와 반도체 공장의 확산으로 전력 수요가 폭발적으로 증가하는 상황에서 반도체뿐 아니라 전력 공급망까지 선점하겠다는 전략이다. SK하이닉스가 AI의 ‘두뇌’를 책임진다면 에너지 계열사들은 이를...</p>
+        <p class="news-meta">
+          <span class="press">mydaily.co.kr</span> ·
+          <span class="pubdate">2026-07-16 09:37</span> ·
+          <span class="region-tag">SK</span>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://n.news.naver.com/mnews/article/119/0003111994?sid=101" target="_blank" rel="noopener">LS일렉트릭, 전 직원에 RSU·자사주 지급…주식 보상 확대</a>
+        <p class="news-summary">최근 북미 AI 데이터센터와 전력 인프라 시장이 성장하면서 현지 인재 확보와 조직 경쟁력 강화에도 속도를 내고 있다. 이와 함께 2019년부터 직급 대신 ‘매니저’ 단일 호칭을 운영하고 있으며, 타운홀 미팅과 Z세대...</p>
+        <p class="news-meta">
+          <span class="press">dailian.co.kr</span> ·
+          <span class="pubdate">2026-07-16 09:36</span> ·
+          <span class="region-tag">LS</span>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="http://www.newslock.co.kr/news/articleView.html?idxno=133048" target="_blank" rel="noopener">LS일렉트릭, 전 직원 주식 보상 도입 확대…&quot;성과 공유하는 선진형 HR 구...</a>
+        <p class="news-summary">최근 AI 데이터센터 확산과 전력 인프라 투자 확대가 이어지는 북미 시장을 중심으로 사업 확대에 속도를 내는 가운데, 인재 경쟁력을 글로벌 성장의 핵심 요소로 보고 있다. 보상 체계 개편과 함께 조직문화 개선에도...</p>
+        <p class="news-meta">
+          <span class="press">newslock.co.kr</span> ·
+          <span class="pubdate">2026-07-16 09:36</span> ·
+          <span class="region-tag">선진</span>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://www.asiatime.co.kr/article/20260715500419" target="_blank" rel="noopener">김동관 체제 본격화…한화, 인적분할로 &#x27;방산·조선·우주&#x27; 날개 달았다</a>
+        <p class="news-summary">투자 계획에는 독자 발사체 개발과 초저궤도 SAR 위성망 구축, 우주 AI 데이터센터, 국방 AI 데이터센터 조성 등이 포함됐다. 이를 통해 우주와 방산, AI를 연계한 새로운 성장 기반을 구축하겠다는 구상이다. 회사 측은 이번...</p>
+        <p class="news-meta">
+          <span class="press">asiatime.co.kr</span> ·
+          <span class="pubdate">2026-07-16 09:36</span> ·
+          <span class="region-tag">한화</span>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://n.news.naver.com/mnews/article/366/0001179593?sid=101" target="_blank" rel="noopener">[특징주] SK텔레콤, AI 데이터센터 사업 속도…6% 급등</a>
+        <p class="news-summary">SK텔레콤도 AI 데이터센터 사업 확대에 속도를 내고 있다. 회사는 전날 최고경영자(CEO) 직속 조직인 ‘AIDC 통합추진단’을 신설하고 정석근 AICIC장을 추진단장으로 선임했다. SK텔레콤은 SK그룹의 AI 데이터센터...</p>
+        <p class="news-meta">
+          <span class="press">조선일보</span> ·
+          <span class="pubdate">2026-07-16 09:36</span> ·
+          <span class="region-tag">SK텔레콤</span>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://www.insight.co.kr/news/563287" target="_blank" rel="noopener">최태원 &#x27;AI 드라이브&#x27; 숫자로...군살 뺀 SK 리밸런싱 통했다</a>
+        <p class="news-summary">100MW급 데이터센터 100개를 가동할 수 있는 규모다.AI 데이터센터 투자도 이어지고 있다. SK그룹은 지난해 울산에서 하이퍼스케일 AI 전용 데이터센터 건설에 착수했다. 울산 데이터센터는 2027년 말부터...</p>
+        <p class="news-meta">
+          <span class="press">insight.co.kr</span> ·
+          <span class="pubdate">2026-07-16 09:32</span> ·
+          <span class="region-tag">SK</span>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://www.epnc.co.kr/news/articleView.html?idxno=404349" target="_blank" rel="noopener">LS일렉트릭 &quot;성과 기반 보상 확대해 &#x27;비전 2030&#x27; 달성 속도 업&quot;</a>
+        <p class="news-summary">최근 북미를 중심으로 AI 데이터센터와 전력 인프라 시장이 빠르게 성장하면서 글로벌 인재 확보 경쟁 역시 치열해지는 만큼 성과와 성장에 기반한 선진형 인사(Advanced HR) 체계를 강화해 조직 경쟁력을 높인다는...</p>
+        <p class="news-meta">
+          <span class="press">epnc.co.kr</span> ·
+          <span class="pubdate">2026-07-16 09:30</span> ·
+          <span class="region-tag">LS</span>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://www.seoultimes.news/news/article.html?no=2000097833" target="_blank" rel="noopener">[이슈] SK하이닉스 ADR 흥행몰이…SK㈜ 밸류업 힘싣는 최태원의 AI 승부...</a>
+        <p class="news-summary">SK하이닉스 ADR 상장으로 지분가치 부각…AI 중심 사업 재편 효과 가시화 SK에코플랜트 반도체 사업 확대·수익성 회복…계열사 경쟁력 동반 강화 AI 데이터센터·신재생에너지 투자 확대…미래 성장 기반 구축 본격화...</p>
+        <p class="news-meta">
+          <span class="press">seoultimes.news</span> ·
+          <span class="pubdate">2026-07-16 09:27</span> ·
+          <span class="region-tag">SK하이닉스</span>
+        </p>
+      </li>
       <li class="news-item">
         <a class="news-title" href="https://www.asiaa.co.kr/news/articleView.html?idxno=255411" target="_blank" rel="noopener">코세스, 블룸에너지와 협력 확대...AI 연료전지 설비 4개월 새 2000억 수...</a>
         <p class="news-summary">반도체 장비업체 코세스가 글로벌 발전용 연료전지 기업 블룸에너지와의 협력을 확대하며 AI 데이터센터 전력 인프라 시장 공략에 속도를 내고 있다. 반도체 패키징 공정에서 축적한 자동화 기술을 기반으로 연료전지...</p>
@@ -378,6 +473,15 @@
           <span class="press">news.mtn.co.kr</span> ·
           <span class="pubdate">2026-07-16 09:26</span> ·
           <span class="region-tag">미래산업</span>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="http://dream.kotra.or.kr/kotranews/cms/news/actionKotraBoardDetail.do?SITE_NO=3&amp;MENU_ID=190&amp;CONTENTS_NO=2&amp;bbsGbn=254&amp;bbsSn=254&amp;pNttSn=242430" target="_blank" rel="noopener">UAE 인쇄회로기판(PCB) 시장동향</a>
+        <p class="news-summary">의료·자동차·AI데이터센터 분야 특화, 2025년 말레이시아 쿨림 공장 양산 개시로 아시아 공급 역량 강화 Shenzhen Kinwong Electronic Co., Ltd. 2024년 매출 17억 6200만 달러, 글로벌 PCB 업계 10위. 자동차 PCB...</p>
+        <p class="news-meta">
+          <span class="press">dream.kotra.or.kr</span> ·
+          <span class="pubdate">2026-07-16 09:23</span> ·
+          <span class="region-tag">레이</span>
         </p>
       </li>
       <li class="news-item">
@@ -408,15 +512,6 @@
         </p>
       </li>
       <li class="news-item">
-        <a class="news-title" href="https://n.news.naver.com/mnews/article/018/0006331463?sid=101" target="_blank" rel="noopener">인공지능 데이터센터 구축 본격 추진…SK텔레콤 9%↑[특징주]</a>
-        <p class="news-summary">정부의 ‘대한민국 대도약 3대 메가프로젝트’ 중 하나인 인공지능(AI) 데이터센터(AI DC) 구축 사업을 본격 추진한다는 소식에 매수세가 몰리는 것으로 보인다. 16일 엠피닥터에 따르면 SK텔레콤은 오전 9시 12분...</p>
-        <p class="news-meta">
-          <span class="press">이데일리</span> ·
-          <span class="pubdate">2026-07-16 09:18</span> ·
-          <span class="region-tag">SK텔레콤</span>
-        </p>
-      </li>
-      <li class="news-item">
         <a class="news-title" href="https://n.news.naver.com/mnews/article/277/0005790741?sid=101" target="_blank" rel="noopener">에스넷시스템, 효성중공업·시스코 &#x27;차세대 디지털 변전소 기술 검증&#x27; 참...</a>
         <p class="news-summary">AI) 인프라 전문기업 에스넷시스템이 효성중공업과 시스코가 공동 추진한 차세대 디지털 변전소 기술 검증 프로젝트에 참여하며 전력 통신 인프라 구축 역량을 입증했다고 16일 밝혔다. 최근 인공지능 데이터센터(AIDC)...</p>
         <p class="news-meta">
@@ -426,12 +521,12 @@
         </p>
       </li>
       <li class="news-item">
-        <a class="news-title" href="https://www.fetv.co.kr/news/articleView.html?idxno=306547" target="_blank" rel="noopener">LS일렉트릭, 전 직원 주식 보상 확대…&quot;인재 동기부여 강화&quot;</a>
-        <p class="news-summary">LS일렉트릭은 AI 데이터센터와 전력 인프라 시장 성장으로 글로벌 인재 확보 경쟁이 치열해지고 있다고 설명했다. 이에 따라 성과와 성장에 기반한 보상 체계를 강화해 조직 경쟁력을 높인다는 방침이다. 최규태...</p>
+        <a class="news-title" href="https://n.news.naver.com/mnews/article/018/0006331463?sid=101" target="_blank" rel="noopener">인공지능 데이터센터 구축 본격 추진…SK텔레콤 9%↑[특징주]</a>
+        <p class="news-summary">정부의 ‘대한민국 대도약 3대 메가프로젝트’ 중 하나인 인공지능(AI) 데이터센터(AI DC) 구축 사업을 본격 추진한다는 소식에 매수세가 몰리는 것으로 보인다. 16일 엠피닥터에 따르면 SK텔레콤은 오전 9시 12분...</p>
         <p class="news-meta">
-          <span class="press">fetv.co.kr</span> ·
-          <span class="pubdate">2026-07-16 09:16</span> ·
-          <span class="region-tag">LS</span>
+          <span class="press">이데일리</span> ·
+          <span class="pubdate">2026-07-16 09:18</span> ·
+          <span class="region-tag">SK텔레콤</span>
         </p>
       </li>
       <li class="news-item">
@@ -441,6 +536,15 @@
           <span class="press">newsinside.kr</span> ·
           <span class="pubdate">2026-07-16 09:16</span> ·
           <span class="region-tag">LG전자</span>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://www.fetv.co.kr/news/articleView.html?idxno=306547" target="_blank" rel="noopener">LS일렉트릭, 전 직원 주식 보상 확대…&quot;인재 동기부여 강화&quot;</a>
+        <p class="news-summary">LS일렉트릭은 AI 데이터센터와 전력 인프라 시장 성장으로 글로벌 인재 확보 경쟁이 치열해지고 있다고 설명했다. 이에 따라 성과와 성장에 기반한 보상 체계를 강화해 조직 경쟁력을 높인다는 방침이다. 최규태...</p>
+        <p class="news-meta">
+          <span class="press">fetv.co.kr</span> ·
+          <span class="pubdate">2026-07-16 09:16</span> ·
+          <span class="region-tag">LS</span>
         </p>
       </li>
       <li class="news-item">
@@ -460,94 +564,13 @@
           <span class="pubdate">2026-07-16 09:10</span> ·
           <span class="region-tag">LG이노텍</span>
         </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="http://kor.theasian.asia/archives/409962" target="_blank" rel="noopener">[오늘의 신문 읽기] 호르무즈 재봉쇄·코스피 7300·AI 투자 논쟁</a>
-        <p class="news-summary">한화시스템은 서울대·성균관대와 국방 반도체 국산화에 나섰고, LG에너지솔루션은 미국 구글의 ESS 프로젝트에 배터리를 공급하며 AI 데이터센터 전력시장 공략에 속도를 내고 있다.ASML과 TSMC의 실적 개선도 반도체 업황...</p>
-        <p class="news-meta">
-          <span class="press">kor.theasian.asia</span> ·
-          <span class="pubdate">2026-07-16 09:08</span> ·
-          <span class="region-tag">LG에너지솔루션</span>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://www.fntimes.com/html/view.php?ud=2026071513531196065e6e69892f_18" target="_blank" rel="noopener">산은·5대 금융지주 참여 ‘KSTP’ 신설, 대출자 넘어 첨단기술 주주로...</a>
-        <p class="news-summary">반도체와 AI 데이터센터(AIDC), 피지컬 AI 등 3대 메가프로젝트에는 장기 성장자본을 집중적으로 공급한다. 기업과 프로젝트의 위험을 정부와 금융회사가 함께 부담하는 직접 지분투자 규모도 연간 3조원에서 5조원...</p>
-        <p class="news-meta">
-          <span class="press">fntimes.com</span> ·
-          <span class="pubdate">2026-07-16 09:06</span> ·
-          <span class="region-tag">TP</span>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://www.tokenpost.kr/news/market/378297" target="_blank" rel="noopener">SK텔레콤, AI 데이터센터 사업으로 기업가치 재평가 시동</a>
-        <p class="news-summary">최근 SK텔레콤 주가는 AI 데이터센터 확장 기대감으로 급등했다가, 실제 실적 추정의 가시성이 아직 높지 않다는 점이 부각되며 다시 밀린 바 있다. 김 연구원은 그럼에도 실적과 배당이 주가의 하단을 받쳐주는...</p>
-        <p class="news-meta">
-          <span class="press">tokenpost.kr</span> ·
-          <span class="pubdate">2026-07-16 09:04</span> ·
-          <span class="region-tag">SK텔레콤</span>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://www.pinpointnews.co.kr/news/articleView.html?idxno=468916" target="_blank" rel="noopener">최태원 &quot;AI 포트폴리오 가장 잘 짜였다&quot;…SK AI 전략, 실적이 증명</a>
-        <p class="news-summary">실제 SK그룹은 AI 메모리(HBM)를 생산하는 SK하이닉스, AI 데이터센터 사업을 추진하는 SK텔레콤, 반도체 소재와 데이터센터 시공 역량을 갖춘 SK에코플랜트, 전력 인프라를 담당하는 SK이노베이션과 SK E&amp;S 등을...</p>
-        <p class="news-meta">
-          <span class="press">pinpointnews.co.kr</span> ·
-          <span class="pubdate">2026-07-16 09:00</span> ·
-          <span class="region-tag">SKAI</span>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://www.catchnews.kr/news/articleView.html?idxno=126228" target="_blank" rel="noopener">7월 15일 주식시장 주요공시</a>
-        <p class="news-summary">6%) 규모 공급계약(용인덕성AI데이터센터 발전기) 체결(계약기간:2026-07-15~2028-03-31) ▶서진시스템, Bloom Energy Corporation과 785.47억원(최근 매출액대비 7.37%) 규모 공급계약(고체산화물 연료전지(SOFC) 모듈...</p>
-        <p class="news-meta">
-          <span class="press">catchnews.kr</span> ·
-          <span class="pubdate">2026-07-16 08:58</span> ·
-          <span class="region-tag">서진시스템</span>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://www.mediapen.com/news/view/1110447" target="_blank" rel="noopener">[미르의 알기쉬운 비즈니스]사우디 통신부장관은 왜 한국으로 날아와 최...</a>
-        <p class="news-summary">▲SK그룹 최태원 회장을 찾은 이유…AI 데이터센터와 반도체 사우디는 중동의 AI허브가 되기 위해 거대한 데이터센터 구축을 원하고 있습니다. 최태원 회장이 이끄는...</p>
-        <p class="news-meta">
-          <span class="press">mediapen.com</span> ·
-          <span class="pubdate">2026-07-16 08:56</span> ·
-          <span class="region-tag">SK</span>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://www.ziksir.com/news/articleView.html?idxno=140238" target="_blank" rel="noopener">LS일렉트릭, 성과 기반 보상 확대…해외 현지 직원 포함</a>
-        <p class="news-summary">북미에서는 AI 데이터센터와 전력 인프라 시장이 성장하면서 인재 확보 경쟁도 커지고 있다. LS일렉트릭은 보상 제도와 함께 수평적 기업문화와 성과·역량 중심 인사 체계도 운영하고 있다. 2019년부터 직급 중심 호칭...</p>
-        <p class="news-meta">
-          <span class="press">ziksir.com</span> ·
-          <span class="pubdate">2026-07-16 08:56</span> ·
-          <span class="region-tag">LS</span>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="http://www.newsprime.co.kr/news/article.html?no=740541" target="_blank" rel="noopener">비나텍, &#x27;블룸에너지 파트너&#x27;로 전력 수요와 함께 성장…&#x27;시스템 전체 ...</a>
-        <p class="news-summary">슈퍼커패시터 사업 부문은 작은 크기의 리드 타입을 주력으로 하고 있었으나 최근 AI 데이터센터 수요 증가로 중대형의 스냅인 타입 성장이 가파르게 나타나고 있다는 설명이다. 김건우 한국투자증권 연구원은...</p>
-        <p class="news-meta">
-          <span class="press">newsprime.co.kr</span> ·
-          <span class="pubdate">2026-07-16 08:56</span> ·
-          <span class="region-tag">비나텍</span>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://n.news.naver.com/mnews/article/417/0001151853?sid=101" target="_blank" rel="noopener">최태원 회장의 &#x27;AI 드라이브&#x27;가 이끈 SK 밸류업</a>
-        <p class="news-summary">2025년에는 국내 최초의 AI 데이터센터 건립이 울산에서 착수됐으며, 최근에는 대한민국 대도약 메가프로젝트의 일환으로 2100조원 규모의 AI 데이터센터와 반도체 공장을 국내에 조성하겠다고 발표했다. 재계...</p>
-        <p class="news-meta">
-          <span class="press">sidae.com</span> ·
-          <span class="pubdate">2026-07-16 08:55</span> ·
-          <span class="region-tag">SK</span>
-        </p>
       </li></ul>
     </section>
     </div>
   <div id="tab-overseas" class="tab-panel">
     <section class="agency">
       <h2>AI데이터센터(AIDC) · 해외 기업 언급 기사</h2>
-      <p class="section-desc">네이버 뉴스에서 "AI데이터센터"/"AI DATA CENTER"/"AIDC"/"AI팩토리"/"AI FACTORY"와 해외 기업명이 함께 언급된 기사 중 최신 20건</p>
+      <p class="section-desc">네이버 뉴스에서 해외 기업명이 언급된 기사 중 최신 20건</p>
       <ul class="news-list">
       <li class="news-item">
         <a class="news-title" href="http://kor.theasian.asia/archives/409962" target="_blank" rel="noopener">[오늘의 신문 읽기] 호르무즈 재봉쇄·코스피 7300·AI 투자 논쟁</a>
@@ -694,21 +717,12 @@
         </p>
       </li>
       <li class="news-item">
-        <a class="news-title" href="https://n.news.naver.com/mnews/article/087/0001205477?sid=100" target="_blank" rel="noopener">리플렉션AI·신세계 등 7개 기업 춘천 AI데이터센터 관심…&#x27;속도전&#x27; 나선...</a>
-        <p class="news-summary">구글 제미나이 개발 주역이 창립한 미국 빅테크 기업 ‘리플렉션AI’와 신세계그룹이 첨단 AI데이터센터 설립 후보지 1순위로 춘천을 낙점한 가운데 총 7개 기업이 수열에너지 융복합 클러스터 분양에 뛰어든 것으로...</p>
+        <a class="news-title" href="https://n.news.naver.com/mnews/article/087/0001205462?sid=110" target="_blank" rel="noopener">[사설]‘20조원 강원도 AI 팩토리’, 치밀하게 대응해야</a>
+        <p class="news-summary">250㎿(메가와트)급 규모로 지어질 이번 데이터센터는 단순한 정보 저장용 ‘창고형’을 넘어, 엔비디아의 최신 블랙웰 B300 칩과 자체 AI 모델을 내장한 고성능 ‘AI 팩토리’를 지향한다는 점에서 산업적 파급효과가...</p>
         <p class="news-meta">
           <span class="press">kwnews.co.kr</span> ·
-          <span class="pubdate">2026-07-16 00:03</span> ·
-          <span class="region-tag">구글</span>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://www.news2day.co.kr/article/20260715500318" target="_blank" rel="noopener">[마켓인사이드] AI 초거대 투자 대신 가격인상 전략 택한 애플, 신고가 ...</a>
-        <p class="news-summary">이는 구글과 메타, 아마존 등 AI 데이터센터를 대규모로 건설하는 경쟁사들의 약 10분의 1 수준이다. 반면 잉여현금흐름(FCF)은 약 1400억 달러에 육박할 것으로 전망된다. 이는 사상 최대 규모에 해당한다. AI 투자 확대에도...</p>
-        <p class="news-meta">
-          <span class="press">news2day.co.kr</span> ·
-          <span class="pubdate">2026-07-15 23:32</span> ·
-          <span class="region-tag">구글</span>
+          <span class="pubdate">2026-07-16 00:02</span> ·
+          <span class="region-tag">엔비디아</span>
         </p>
       </li>
       <li class="news-item">
@@ -726,6 +740,15 @@
         <p class="news-meta">
           <span class="press">ekn.kr</span> ·
           <span class="pubdate">2026-07-15 14:42</span> ·
+          <span class="region-tag">엔비디아</span>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://www.irobotnews.com/news/articleView.html?idxno=47433" target="_blank" rel="noopener">교보증권 &quot;LG전자, 엔비디아와 손잡고 로봇사업 본격 확대&quot;</a>
+        <p class="news-summary">교보증권은 14일 &#x27;엔비디아와의 AI 동맹 확대&#x27; 보고서를 통해 LG전자가 피지컬 AI, AI 인프라(AIDC), 모빌리티 등... 보고서는 로봇 외에도 엔비디아와 AI 데이터센터(AIDC) 및 모빌리티 분야 협력이 확대될 것으로 내다봤다. AI...</p>
+        <p class="news-meta">
+          <span class="press">irobotnews.com</span> ·
+          <span class="pubdate">2026-07-15 11:22</span> ·
           <span class="region-tag">엔비디아</span>
         </p>
       </li></ul>
