@@ -210,19 +210,9 @@ def fetch_overseas_company_news(cache: dict):
         return [], False
 
     candidates.sort(key=lambda x: x["pub_dt"] or datetime.min.replace(tzinfo=KST), reverse=True)
-    top = candidates[:OVERSEAS_TOP_N]
-    new_summaries = 0
-    for it in top:
-        cached = cache["long"].get(it["link"])
-        if cached:
-            it["ai_summary"] = cached
-            continue
-        article_text = fetch_article_text(it["link"], "OVERSEAS")
-        it["ai_summary"] = summarize_article_with_groq(it["title"], article_text)
-        if it["ai_summary"]:
-            cache["long"][it["link"]] = it["ai_summary"]
-            new_summaries += 1
-    log(f"[SUMMARY] OVERSEAS: {len(candidates)}건 매칭, 상위 {len(top)}건 표시 (신규 요약 {new_summaries}건)")
+    top = candidates[:AIDC_TOP_N]
+    maybe_summarize_top_items(cache, top, "AIDC")
+    log(f"[SUMMARY] AIDC: {len(candidates)}건 매칭, 상위 {len(top)}건 표시")
     return top, True
 
 
@@ -975,19 +965,9 @@ def fetch_aidc_news(cache: dict):
         return [], False
 
     candidates.sort(key=lambda x: x["pub_dt"] or datetime.min.replace(tzinfo=KST), reverse=True)
-    top = candidates[:AIDC_TOP_N]
-    new_summaries = 0
-    for it in top:
-        cached = cache["long"].get(it["link"])
-        if cached:
-            it["ai_summary"] = cached
-            continue
-        article_text = fetch_article_text(it["link"], "AIDC")
-        it["ai_summary"] = summarize_article_with_groq(it["title"], article_text)
-        if it["ai_summary"]:
-            cache["long"][it["link"]] = it["ai_summary"]
-            new_summaries += 1
-    log(f"[SUMMARY] AIDC: {len(candidates)}건 매칭, 상위 {len(top)}건 표시 (신규 요약 {new_summaries}건)")
+    top = candidates[:COMPANY_TOP_N]
+    maybe_summarize_top_items(cache, top, "LISTED")
+    log(f"[SUMMARY] LISTED: {len(candidates)}건 매칭, 상위 {len(top)}건 표시")
     return top, True
 
 
@@ -1047,19 +1027,9 @@ def fetch_listed_company_news(cache: dict):
         return [], False
 
     candidates.sort(key=lambda x: x["pub_dt"] or datetime.min.replace(tzinfo=KST), reverse=True)
-    top = candidates[:COMPANY_TOP_N]
-    new_summaries = 0
-    for it in top:
-        cached = cache["long"].get(it["link"])
-        if cached:
-            it["ai_summary"] = cached
-            continue
-        article_text = fetch_article_text(it["link"], "LISTED")
-        it["ai_summary"] = summarize_article_with_groq(it["title"], article_text)
-        if it["ai_summary"]:
-            cache["long"][it["link"]] = it["ai_summary"]
-            new_summaries += 1
-    log(f"[SUMMARY] LISTED: {len(candidates)}건 매칭, 상위 {len(top)}건 표시 (신규 요약 {new_summaries}건)")
+    top = candidates[:OVERSEAS_TOP_N]
+    maybe_summarize_top_items(cache, top, "OVERSEAS")
+    log(f"[SUMMARY] OVERSEAS: {len(candidates)}건 매칭, 상위 {len(top)}건 표시")
     return top, True
 
 
@@ -1078,7 +1048,30 @@ PUBLIC_FETCHERS = {
 }
 
 FETCHERS = {**GOV_FETCHERS, **PUBLIC_FETCHERS}
+# 테스트 중에는 False로 두면 Groq API 호출(본문 다운로드 + 요약)을 전부 건너뛰어서
+# 실행 시간이 크게 줄어듭니다. 나중에 실제 배포할 때 True로 바꾸세요.
+ENABLE_AI_SUMMARIES = os.environ.get("ENABLE_AI_SUMMARIES", "false").lower() == "true"
 
+
+def maybe_summarize_top_items(cache: dict, top: list, label: str) -> None:
+    """ENABLE_AI_SUMMARIES가 False면 요약을 건너뛰고, True일 때만 기존처럼 동작한다."""
+    if not ENABLE_AI_SUMMARIES:
+        for it in top:
+            it["ai_summary"] = ""
+        return
+
+    new_summaries = 0
+    for it in top:
+        cached = cache["long"].get(it["link"])
+        if cached:
+            it["ai_summary"] = cached
+            continue
+        article_text = fetch_article_text(it["link"], label)
+        it["ai_summary"] = summarize_article_with_groq(it["title"], article_text)
+        if it["ai_summary"]:
+            cache["long"][it["link"]] = it["ai_summary"]
+            new_summaries += 1
+    log(f"[SUMMARY] {label}: 신규 요약 {new_summaries}건")
 
 def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
                  aidc_items: list, aidc_ok: bool,
@@ -1582,16 +1575,19 @@ def main() -> None:
             log(f"[SUMMARY] {org}: FETCH FAILED")
             continue
         matched = [it for it in items if it["date"] == TODAY]
-        # 오늘 등록된 글만 상세 본문을 가져와 Groq API로 2줄 요약 (이미 캐시에 있으면 재사용)
-        for it in matched:
-            cached = cache["short"].get(it["link"])
-            if cached:
-                it["summary"] = cached
-                continue
-            body_text = fetch_detail_text(it["link"], org)
-            it["summary"] = summarize_with_groq(it["title"], body_text)
-            if it["summary"]:
-                cache["short"][it["link"]] = it["summary"]
+        if ENABLE_AI_SUMMARIES:
+            for it in matched:
+                cached = cache["short"].get(it["link"])
+                if cached:
+                    it["summary"] = cached
+                    continue
+                body_text = fetch_detail_text(it["link"], org)
+                it["summary"] = summarize_with_groq(it["title"], body_text)
+                if it["summary"]:
+                    cache["short"][it["link"]] = it["summary"]
+        else:
+            for it in matched:
+                it["summary"] = ""
         today_items[org] = matched
         matched_links = {it["link"] for it in matched}
         remaining = [it for it in items if it["link"] not in matched_links]
