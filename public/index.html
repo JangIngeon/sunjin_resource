@@ -14,16 +14,26 @@
     border: 1px solid #e3e2dc;
     border-left: 6px solid #185fa5;
     border-radius: 10px;
-    padding: 24px 30px;
+    padding: 20px 30px;
     margin-bottom: 24px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 16px;
+    flex-wrap: wrap;
   }
+  header .header-text { flex: 1 1 auto; min-width: 0; }
   header h1 {
-    font-size: 24px;
+    font-size: 20pt;
     font-weight: 800;
     color: #185fa5;
     margin: 0 0 8px 0;
     letter-spacing: -0.5px;
+  }
+  header h1 .ai-dc-hl {
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
   header p {
     color: #666;
@@ -31,6 +41,19 @@
     margin: 0;
     font-weight: 500;
     line-height: 1.5;
+  }
+  header .header-logo {
+    flex: 0 0 auto;
+    align-self: flex-end;
+  }
+  header .header-logo img {
+    height: 28px;
+    width: auto;
+    display: block;
+  }
+  @media (max-width: 520px) {
+    header { flex-direction: column; align-items: flex-start; }
+    header .header-logo { align-self: flex-end; }
   }
   .layout { display: flex; align-items: flex-start; gap: 20px; margin-top: 20px; }
   .sidebar { width: 260px; flex-shrink: 0; position: sticky; top: 20px; height: max-content; }
@@ -169,8 +192,13 @@
 </head>
 <body>
   <header>
-    <h1>기관 및 업체별 AI Data Center 일일 동향</h1>
-    <p>2026년 07월 20일 기준 <br>· 마지막 업데이트: 2026-07-20 15:26 <br>· 매일 자동 업데이트(오후 3시~4시)</p>
+    <div class="header-text">
+      <h1>기관 및 업체별 <span class="ai-dc-hl">AI Data Center</span> 일일 동향</h1>
+      <p>2026년 07월 20일 기준 <br>· 마지막 업데이트: 2026-07-20 16:44 <br>· 매일 자동 업데이트(오후 3시~4시)</p>
+    </div>
+    <div class="header-logo">
+      <img src="assets/sunjin_logo.png" alt="SUNJIN ENGINEERING & ARCHITECTURE">
+    </div>
   </header>
   <div class="layout">
     <aside class="sidebar">
@@ -178,6 +206,10 @@
   <section class="highlights">
     <h2>올라온 자료들</h2>
     
+      <div class="highlight-card">
+        <div class="highlight-company">과학기술정보통신부</div>
+        <a class="highlight-title" href="https://www.msit.go.kr/bbs/view.do?sCode=user&amp;bbsSeqNo=94&amp;nttSeqNo=3187558" target="_blank" rel="noopener">배경훈 부총리, 유네스코 사무총장과 면담</a>
+      </div>
       <div class="highlight-card">
         <div class="highlight-company">과학기술정보통신부</div>
         <a class="highlight-title" href="https://www.msit.go.kr/bbs/view.do?sCode=user&amp;bbsSeqNo=94&amp;nttSeqNo=3187561" target="_blank" rel="noopener">과기정통부, 「K-문샷 AI 신약 미션」  본격 추진을 위한 현장 소통 나서</a>
@@ -201,6 +233,10 @@
       <div class="highlight-card">
         <div class="highlight-company">기후에너지환경부</div>
         <a class="highlight-title" href="https://mcee.go.kr/home/web/board/read.do?menuId=10598&amp;boardMasterId=939&amp;boardId=1878210" target="_blank" rel="noopener">동물실험 줄이고 현장 적응 높인다… 대체시험 교육자료 10종 추가 공개</a>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-company">산업통상부</div>
+        <a class="highlight-title" href="https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172036/view" target="_blank" rel="noopener">(참고자료)유미진 주제네바 대표부 1등 서기관 세계무역기구(WTO) 수입허가 위원회 의장으로 선출</a>
       </div>
       <div class="highlight-card">
         <div class="highlight-company">산업통상부</div>
@@ -231,7 +267,8 @@
       <div id="tab-gov" class="tab-panel active">
     <section class="agency">
       <h2><a href="https://www.msit.go.kr/bbs/list.do?sCode=user&amp;mPid=208&amp;mId=307" target="_blank" rel="noopener">과학기술정보통신부</a></h2>
-      <ul><li><a href="https://www.msit.go.kr/bbs/view.do?sCode=user&amp;bbsSeqNo=94&amp;nttSeqNo=3187561" target="_blank" rel="noopener">과기정통부, 「K-문샷 AI 신약 미션」  본격 추진을 위한 현장 소통 나서</a><span class="date">2026-07-20</span></li>
+      <ul><li><a href="https://www.msit.go.kr/bbs/view.do?sCode=user&amp;bbsSeqNo=94&amp;nttSeqNo=3187558" target="_blank" rel="noopener">배경훈 부총리, 유네스코 사무총장과 면담</a><span class="date">2026-07-20</span></li>
+<li><a href="https://www.msit.go.kr/bbs/view.do?sCode=user&amp;bbsSeqNo=94&amp;nttSeqNo=3187561" target="_blank" rel="noopener">과기정통부, 「K-문샷 AI 신약 미션」  본격 추진을 위한 현장 소통 나서</a><span class="date">2026-07-20</span></li>
 <li><a href="https://www.msit.go.kr/bbs/view.do?sCode=user&amp;bbsSeqNo=94&amp;nttSeqNo=3187562" target="_blank" rel="noopener">「연구지원직(Staff Scientist) 채용 대학 및 인력 모집」</a><span class="date">2026-07-20</span></li>
 <li><a href="https://www.msit.go.kr/bbs/view.do?sCode=user&amp;bbsSeqNo=94&amp;nttSeqNo=3187559" target="_blank" rel="noopener">과학기술 미래 상상 1컷 만화 공모전 개최</a><span class="date">2026-07-20</span></li>
 <li><a href="https://www.msit.go.kr/bbs/view.do?sCode=user&amp;bbsSeqNo=94&amp;nttSeqNo=3187560" target="_blank" rel="noopener">방학의 쉼표를, 배움의 느낌표로!  여름방학 탐구생활은 과학관에서!</a><span class="date">2026-07-20</span></li></ul>
@@ -253,7 +290,8 @@
 
     <section class="agency">
       <h2><a href="https://www.motir.go.kr/kor/article/ATCL3f49a5a8c" target="_blank" rel="noopener">산업통상부</a></h2>
-      <ul><li><a href="https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172035/view" target="_blank" rel="noopener">석유·나프타 수급 안정화 등 노고직원 격려</a><span class="date">2026-07-20</span></li>
+      <ul><li><a href="https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172036/view" target="_blank" rel="noopener">(참고자료)유미진 주제네바 대표부 1등 서기관 세계무역기구(WTO) 수입허가 위원회 의장으로 선출</a><span class="date">2026-07-20</span></li>
+<li><a href="https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172035/view" target="_blank" rel="noopener">석유·나프타 수급 안정화 등 노고직원 격려</a><span class="date">2026-07-20</span></li>
 <li><a href="https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172034/view" target="_blank" rel="noopener">다양한 소재부품 공정을 하나의 M.AX로, 반월시화에서 시작되는 ‘중소의 기적’</a><span class="date">2026-07-20</span></li>
 <li><a href="https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172033/view" target="_blank" rel="noopener">기업 지방투자 촉진을 위해 지방투자촉진보조금 지원기준 개선</a><span class="date">2026-07-20</span></li></ul>
       <details class="more">
@@ -314,203 +352,203 @@
       <p class="section-desc">네이버 뉴스에서 국내 지역명이 언급된 기사 중 최신 20건</p>
       <ul class="news-list">
       <li class="news-item">
-        <a class="news-title" href="http://www.sisafocus.co.kr/news/articleView.html?idxno=362733" target="_blank" rel="noopener">주낙영 경주시장, 민선 9기 첫 시정연설…&#x27;경주 미래 100년 대도약&#x27; 제시</a>
-        <p class="news-summary">산업 분야는 혁신형 i-SMR 유치와 SMR 국가산업단지 조성, 글로벌 원자력 공동캠퍼스 구축, AI 데이터센터 기반 조성 등을 통해 원자력과 미래자동차 산업 경쟁력을 강화한다. 농어촌 분야에서는 신농업혁신타운 운영과...</p>
-        <p class="news-meta">
-          <span class="press">sisafocus.co.kr</span> ·
-          <span class="pubdate">2026-07-20 15:24</span> ·
-          <span class="region-tag">경주시</span> ·
-          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('http://www.sisafocus.co.kr/news/articleView.html?idxno=362733')">AI 요약하기</button>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://www.ajunews.com/view/20260720150737935" target="_blank" rel="noopener">&quot;AI 인재 지역 우선 채용&quot;…현대차, 전북대 계약학과 추진</a>
-        <p class="news-summary">현대차그룹은 새만금에 약 9조원을 투자해 AI 데이터센터와 로봇 제조 클러스터, 수전해 플랜트, 태양광 발전시설, AI 수소시티 등을 구축하고 있다. 당장 내년에 AI 데이터센터를 착공해 2029년 준공을 목표로 한다....</p>
-        <p class="news-meta">
-          <span class="press">ajunews.com</span> ·
-          <span class="pubdate">2026-07-20 15:20</span> ·
-          <span class="region-tag">전북</span> ·
-          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.ajunews.com/view/20260720150737935')">AI 요약하기</button>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://news.unn.net/news/articleView.html?idxno=594945" target="_blank" rel="noopener">전남대-GIST-KENTECH, 전남광주통합특별시와 손잡고 반도체·에너지 인재...</a>
-        <p class="news-summary">전남광주통합특별시는 정부가 국가 최우선 재정 투자 방향으로 추진 중인&#x27;3대 메가프로젝트(반도체·AI데이터센터·피지컬AI)&#x27;를 주도적으로 진행하고, 교육부의 역점 거점대학 육성 사업인&#x27;브랜드 단과대학&#x27;선정을...</p>
-        <p class="news-meta">
-          <span class="press">news.unn.net</span> ·
-          <span class="pubdate">2026-07-20 15:02</span> ·
-          <span class="region-tag">광주</span> ·
-          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://news.unn.net/news/articleView.html?idxno=594945')">AI 요약하기</button>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://www.inews365.com/news/article.html?no=928237" target="_blank" rel="noopener">메가프로젝트 시대 충북은</a>
-        <p class="news-summary">반도체, 피지컬AI, AI데이터센터를 중심으로 한 초대형 투자 구상이다. 단순한 기업 투자를 넘는다. 국가 산업지도를 바꾸는 대전환이다. *** 대도약 핵심 파트너 역할 해야 대한민국 3대 메가 프로젝트는 통 큰 약속이다....</p>
-        <p class="news-meta">
-          <span class="press">inews365.com</span> ·
-          <span class="pubdate">2026-07-20 14:48</span> ·
-          <span class="region-tag">충북</span> ·
-          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.inews365.com/news/article.html?no=928237')">AI 요약하기</button>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://www.seoultimes.news/news/article.html?no=2000097905" target="_blank" rel="noopener">[CEO 워치] 최태원의 AI 승부수…제주포럼서 던진 한마디, SK 미래 다시 ...</a>
-        <p class="news-summary">SK하이닉스를 핵심 성장축으로 육성하는 동시에 엔비디아, TSMC, 오픈AI 등 글로벌 기업과 협력을 확대하고 울산 AI 데이터센터 구축도 추진하고 있다. 각각의 투자가 개별 사업이 아니라 하나의 생태계를 구축하기 위한...</p>
-        <p class="news-meta">
-          <span class="press">seoultimes.news</span> ·
-          <span class="pubdate">2026-07-20 14:42</span> ·
-          <span class="region-tag">제주</span> ·
-          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.seoultimes.news/news/article.html?no=2000097905')">AI 요약하기</button>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://daily.hankooki.com/news/articleView.html?idxno=1387216" target="_blank" rel="noopener">주낙영 경주시장, 첫 시정연설...&#x27;6대 운영 방향&#x27; 제시</a>
-        <p class="news-summary">안강 RE100 e-모빌리티 전용산업단지와 AI 데이터센터 기반을 조성해 미래자동차 산업 경쟁력도 높인다. 농어촌 분야는 전국 최대 규모 신농업혁신타운 운영과 스마트 과학영농 육성, 청년 농업인 지원을 통해 젊은...</p>
-        <p class="news-meta">
-          <span class="press">daily.hankooki.com</span> ·
-          <span class="pubdate">2026-07-20 14:40</span> ·
-          <span class="region-tag">경주시</span> ·
-          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://daily.hankooki.com/news/articleView.html?idxno=1387216')">AI 요약하기</button>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://www.ppss.kr/news/articleView.html?idxno=302520" target="_blank" rel="noopener">네이버·HD한국조선해양 손잡았다…조선업 &#x27;AI 대전환&#x27; 시작</a>
-        <p class="news-summary">양사는 AI 팩토리를 기반으로 GPU 인프라를 최적화하고 프라이빗 클라우드 운영 환경을 구축한다. 이를 통해 HD현대 그룹 차원의 AI 활용 기반을 마련하는 한편, 공동 CoE(Center of Excellence) 조직을 구성해 AI와 클라우드...</p>
-        <p class="news-meta">
-          <span class="press">ppss.kr</span> ·
-          <span class="pubdate">2026-07-20 14:33</span> ·
-          <span class="region-tag">대전</span> ·
-          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.ppss.kr/news/articleView.html?idxno=302520')">AI 요약하기</button>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://www.hidomin.com/news/articleView.html?idxno=713861" target="_blank" rel="noopener">경주시, 관광·원자력·미래차 3대 축 성장전략 가속...민선9기 청사진 ...</a>
-        <p class="news-summary">이와 함께 안강 RE100 e-모빌리티 전용산단 조성과 AI 데이터센터 기반 구축을 통해 첨단산업 경쟁력을 강화한다. 농어촌 부문은 신농업혁신타운 운영을 중심으로 스마트농업 확산과 청년 농업인 육성에 초점을 맞췄다....</p>
-        <p class="news-meta">
-          <span class="press">hidomin.com</span> ·
-          <span class="pubdate">2026-07-20 14:26</span> ·
-          <span class="region-tag">경주시</span> ·
-          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.hidomin.com/news/articleView.html?idxno=713861')">AI 요약하기</button>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://www.dnews.co.kr/uhtml/view.jsp?idxno=202607201136001820673" target="_blank" rel="noopener">포항시, 2조 원 규모 글로벌 AI 데이터센터 착공…AI 산업 거점 도약 시...</a>
-        <p class="news-summary">시는 20일 광명일반산업단지에서 글로벌 AI 데이터센터 착공식을 열고 AI 기반 미래산업 육성을 위한 핵심 인프라 구축에 나섰다. 착공식에는 박용선 포항시장과 김철수 포항시의회 의장, 지역 시·도의원, 투자사인...</p>
+        <a class="news-title" href="https://www.dnews.co.kr/uhtml/view.jsp?idxno=202607201627162080759" target="_blank" rel="noopener">현대차, 전북도ㆍ전북대와 ‘새만금 AI 밸리’ 인재 키운다</a>
+        <p class="news-summary">그룹은 전북 새만금 지역에 약 9조원 규모의 AI 데이터센터, 로봇 제조 클러스터, 수전해 플랜트, 태양광 발전, AI 수소 시티 등 ‘새만금 AI 밸리’를 구축하고 있다. 투자는 지난 2월 MOU 체결 이후 계획대로 진행 중이라는...</p>
         <p class="news-meta">
           <span class="press">dnews.co.kr</span> ·
-          <span class="pubdate">2026-07-20 14:22</span> ·
-          <span class="region-tag">포항시</span> ·
-          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.dnews.co.kr/uhtml/view.jsp?idxno=202607201136001820673')">AI 요약하기</button>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://n.news.naver.com/mnews/article/014/0005550159?sid=102" target="_blank" rel="noopener">강원도는 AI데이터센터 투자 격전지…삼성·GS·SK·신세계 몰려</a>
-        <p class="news-summary">21일 강원특별자치도와 춘천시 등에 따르면 삼성은 다음달 24일 춘천시 칠전동 삼성SDS 데이터센터 부지에서 모듈러 AI데이터센터 착공식을 연다. 이 자리에는 우상호 강원특별자치도지사와 육동한 춘천시장, 삼성...</p>
-        <p class="news-meta">
-          <span class="press">파이낸셜뉴스</span> ·
-          <span class="pubdate">2026-07-20 14:12</span> ·
-          <span class="region-tag">강원</span> ·
-          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://n.news.naver.com/mnews/article/014/0005550159?sid=102')">AI 요약하기</button>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://n.news.naver.com/mnews/article/030/0003449111?sid=102" target="_blank" rel="noopener">조영훈 KIRIA 원장 “현장에 답 있다”… 대구 시작으로 전국 로봇 소통...</a>
-        <p class="news-summary">AI 팩토리와 휴머노이드 등 M.AX 얼라이언스 핵심 분과의 중심에 로봇이 있는 만큼, 기업 육성과 현장 실증을 확대해 정부 정책의 &#x27;실행 파트너&#x27; 역할을 강화하겠다는 구상이다. 간담회에 참석한 수요기업들은 저출산...</p>
-        <p class="news-meta">
-          <span class="press">전자신문</span> ·
-          <span class="pubdate">2026-07-20 14:10</span> ·
-          <span class="region-tag">대구</span> ·
-          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://n.news.naver.com/mnews/article/030/0003449111?sid=102')">AI 요약하기</button>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://n.news.naver.com/mnews/article/001/0016203703?sid=102" target="_blank" rel="noopener">경남도 &#x27;첨단산업 추진단&#x27; 가동…기업 투자 지원 &#x27;속도전&#x27;</a>
-        <p class="news-summary">지난 3일 이재명 대통령이 참석한 가운데 진주 경상국립대에서 열린 &#x27;영남권 첨단산업 발전비전 국민보고회&#x27;에서 한화, 현대차, 삼성은 우주항공, 방산, 전기차, AI데이터센터 등을 중심으로 경남에 대규모 투자계획을...</p>
-        <p class="news-meta">
-          <span class="press">연합뉴스</span> ·
-          <span class="pubdate">2026-07-20 14:02</span> ·
-          <span class="region-tag">경남</span> ·
-          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://n.news.naver.com/mnews/article/001/0016203703?sid=102')">AI 요약하기</button>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://www.shinailbo.co.kr/news/articleView.html?idxno=5042351" target="_blank" rel="noopener">&#x27;관광 6천만·K-원자력&#x27;…경주시, 예산 3조원 시대로 &#x27;미래 100년&#x27; 열다</a>
-        <p class="news-summary">안강 RE100 e-모빌리티 전용산업단지와 AI 데이터센터 기반 구축을 통해 미래자동차 산업 경쟁력도 높일 계획이다. 농어촌 정책으로는 신농업혁신타운 운영과 농촌중심지 활성화, 스마트 과학영농 육성, 청년 농업인...</p>
-        <p class="news-meta">
-          <span class="press">shinailbo.co.kr</span> ·
-          <span class="pubdate">2026-07-20 13:50</span> ·
-          <span class="region-tag">경주시</span> ·
-          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.shinailbo.co.kr/news/articleView.html?idxno=5042351')">AI 요약하기</button>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://www.ekn.kr/web/view.php?key=20260720028163562" target="_blank" rel="noopener">숫자보다 전략…현대차 9조원 새만금도 ‘메가프로젝트’</a>
-        <p class="news-summary">AI 데이터센터를 중심으로 로봇 제조, 수소 생산, 태양광 발전 등을 하나의 산업 생태계로 연결하는 미래산업 플랫폼 구축이 핵심이다. 자동차 제조기업을 넘어 AI와 에너지, 로봇을 아우르는 &#x27;미래 모빌리티 기업&#x27;으로의...</p>
-        <p class="news-meta">
-          <span class="press">에너지경제</span> ·
-          <span class="pubdate">2026-07-20 13:42</span> ·
+          <span class="pubdate">2026-07-20 16:42</span> ·
           <span class="region-tag">새만금</span> ·
-          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.ekn.kr/web/view.php?key=20260720028163562')">AI 요약하기</button>
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.dnews.co.kr/uhtml/view.jsp?idxno=202607201627162080759')">AI 요약하기</button>
         </p>
       </li>
       <li class="news-item">
-        <a class="news-title" href="https://www.asiatoday.co.kr/kn/view.php?key=20260720010006860" target="_blank" rel="noopener">주낙영 경주시장 &quot;예산 3조원 시대 열어 미래 100년 대도약 이끌겠다&quot;</a>
-        <p class="news-summary">안강 RE100 e-모빌리티 전용 산업단지와 AI 데이터센터 기반 조성 등을 통해 미래차 산업 경쟁력도 강화한다는 방침이다.농어촌 분야에서는 신농업혁신타운 운영과 농촌중심지 활성화, 스마트 과학영농 확대, 청년 농업인...</p>
+        <a class="news-title" href="http://www.popcornnews.net/news/articleView.html?idxno=127061" target="_blank" rel="noopener">현대차, 전북도·전북대와 손잡고 미래 인재 키운다…새만금 AI 밸리 속...</a>
+        <p class="news-summary">현대차그룹은 새만금에 AI 데이터센터와 로봇 제조 클러스터, 수전해 플랜트, 태양광 발전시설, AI 수소시티 등을 포함한 약 9조 원 규모의 &#x27;새만금 AI 밸리&#x27; 구축을 추진 중이다. AI 데이터센터는 2027년 착공해 2029년 준공을...</p>
         <p class="news-meta">
-          <span class="press">asiatoday.co.kr</span> ·
-          <span class="pubdate">2026-07-20 13:42</span> ·
-          <span class="region-tag">경주시</span> ·
-          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.asiatoday.co.kr/kn/view.php?key=20260720010006860')">AI 요약하기</button>
+          <span class="press">popcornnews.net</span> ·
+          <span class="pubdate">2026-07-20 16:42</span> ·
+          <span class="region-tag">새만금</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('http://www.popcornnews.net/news/articleView.html?idxno=127061')">AI 요약하기</button>
         </p>
       </li>
       <li class="news-item">
-        <a class="news-title" href="https://www.energydaily.co.kr/news/articleView.html?idxno=201527" target="_blank" rel="noopener">남부발전, 국내 최초 중앙계약시장형 장주기 BESS &#x27;제주 안덕 BESS&#x27; 준공</a>
-        <p class="news-summary">특히 AI 데이터센터와 첨단산업단지 확산으로 전력 수요가 빠르게 증가하는 가운데, 발전설비 확대뿐 아니라 전력을 저장하고 효율적으로 공급하는 계통 유연성 확보가 국가 전력망의 핵심 과제로 떠오르고 있다....</p>
+        <a class="news-title" href="https://www.joongangenews.com/news/articleView.html?idxno=533995" target="_blank" rel="noopener">현대차, 전북대에 피지컬 AI·로봇·수소 계약학과 추진</a>
+        <p class="news-summary">새만금 AI 밸리가 AI 데이터센터와 로봇 제조, 수소 생산 등 여러 첨단산업을 아우르는 만큼 시설 투자뿐 아니라 이를 운영하고 기술을 고도화할 전문인력을 안정적으로 확보하는 것이 사업 지속성의 핵심 요소로 꼽힌다....</p>
         <p class="news-meta">
-          <span class="press">energydaily.co.kr</span> ·
-          <span class="pubdate">2026-07-20 13:20</span> ·
-          <span class="region-tag">제주</span> ·
-          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.energydaily.co.kr/news/articleView.html?idxno=201527')">AI 요약하기</button>
+          <span class="press">joongangenews.com</span> ·
+          <span class="pubdate">2026-07-20 16:38</span> ·
+          <span class="region-tag">전북</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.joongangenews.com/news/articleView.html?idxno=533995')">AI 요약하기</button>
         </p>
       </li>
       <li class="news-item">
-        <a class="news-title" href="https://www.ekn.kr/web/view.php?key=20260720028083871" target="_blank" rel="noopener">주낙영 경주시장, 민선 9기 첫 시정연설… “경주 미래 100년 대도약 열...</a>
-        <p class="news-summary">또 안강 RE100 e-모빌리티 전용산업단지 조성과 AI 데이터센터 기반 구축을 통해 미래자동차 산업 경쟁력을 강화하고 첨단산업 육성에도 속도를 낼 방침이다. 농어촌 분야에서는 전국 최대 규모의 신농업혁신타운 운영을...</p>
+        <a class="news-title" href="https://n.news.naver.com/mnews/article/138/0002234704?sid=101" target="_blank" rel="noopener">새만금 AI 밸리 속도내는 현대차…전북대와 미래 인재 키운다</a>
+        <p class="news-summary">현대차그룹은 새만금에 AI 데이터센터와 로봇 제조 클러스터·수전해 플랜트·태양광 발전시설·AI 수소시티 등을 포함한 약 9조원 규모의 투자 계획을 추진하고 있다. AI 데이터센터는 2027년 착공해 2029년 준공을 목표로...</p>
         <p class="news-meta">
-          <span class="press">에너지경제</span> ·
-          <span class="pubdate">2026-07-20 13:02</span> ·
-          <span class="region-tag">경주시</span> ·
-          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.ekn.kr/web/view.php?key=20260720028083871')">AI 요약하기</button>
+          <span class="press">디지털데일리</span> ·
+          <span class="pubdate">2026-07-20 16:38</span> ·
+          <span class="region-tag">새만금</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://n.news.naver.com/mnews/article/138/0002234704?sid=101')">AI 요약하기</button>
         </p>
       </li>
       <li class="news-item">
-        <a class="news-title" href="https://n.news.naver.com/mnews/article/015/0005311618?sid=102" target="_blank" rel="noopener">포항시, &#x27;2조 원 규모 글로벌 AI 데이터센터 첫 삽&#x27;</a>
-        <p class="news-summary">포항시는 20일 광명일반산업단지에서 ‘글로벌 AI 데이터센터 착공식’을 열고, AI 기반 미래 산업 육성을 위한 첫걸음을 내디뎠다. 착공식에는 박용선 포항시장, 김철수 포항시의회 의장을 비롯해 지역 시·도의원...</p>
+        <a class="news-title" href="https://n.news.naver.com/mnews/article/025/0003538770?sid=101" target="_blank" rel="noopener">현대차 ‘새만금 AI밸리’ 인력 직접 키운다…전북대 계약학과 추진</a>
+        <p class="news-summary">현대차그룹은 약 9조원을 투자해 전북 새만금 지역에 AI 데이터센터, 로봇 제조 클러스터, 수전해 플랜트, 태양광 발전, AI 수소 시티 등으로 구성된 ‘새만금 AI 밸리’를 추진하고 있다. 내년 착공하는 AI 데이터센터는...</p>
         <p class="news-meta">
-          <span class="press">한국경제</span> ·
-          <span class="pubdate">2026-07-20 12:24</span> ·
-          <span class="region-tag">포항시</span> ·
-          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://n.news.naver.com/mnews/article/015/0005311618?sid=102')">AI 요약하기</button>
+          <span class="press">중앙일보</span> ·
+          <span class="pubdate">2026-07-20 16:37</span> ·
+          <span class="region-tag">새만금</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://n.news.naver.com/mnews/article/025/0003538770?sid=101')">AI 요약하기</button>
         </p>
       </li>
       <li class="news-item">
-        <a class="news-title" href="https://www.newspim.com/news/view/20260720000553" target="_blank" rel="noopener">강릉시, 민선9기 첫 추경 1973억 증액…민생·미래산업·균형발전 &#x27;3축&#x27;...</a>
-        <p class="news-summary">젊은도시 분야에서는 관광·문화에 AI·바이오·IT 산업을 결합해 산업구조를 다층적으로 전환하고 AI 데이터센터 클러스터와 구정 천연물바이오 국가산업단지, &#x27;강릉 실리콘힐스&#x27; 조성, 청년 정착 거버넌스 플랫폼...</p>
+        <a class="news-title" href="https://www.itbiznews.com/news/articleView.html?idxno=219529" target="_blank" rel="noopener">현대차, 전북도·전북대와 맞손…미래산업 지역인재 키운다</a>
+        <p class="news-summary">현대차그룹은 전북 새만금 지역에 약 9조원 규모의 AI데이터센터, 로봇 제조 클러스터, 수전해 플랜트, 태양광 발전, AI 수소 시티 등 &#x27;새만금 AI 밸리&#x27;를 구축하고 있다. 앞서 2월 협약 체결 후 계획된 투자를 진행 중으로...</p>
         <p class="news-meta">
-          <span class="press">newspim.com</span> ·
-          <span class="pubdate">2026-07-20 12:01</span> ·
+          <span class="press">IT비즈뉴스</span> ·
+          <span class="pubdate">2026-07-20 16:36</span> ·
+          <span class="region-tag">전북</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.itbiznews.com/news/articleView.html?idxno=219529')">AI 요약하기</button>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="http://www.newslock.co.kr/news/articleView.html?idxno=133156" target="_blank" rel="noopener">현대차, 전북도·전북대와 첨단산업 인재 키운다…새만금 AI 밸리 실행력...</a>
+        <p class="news-summary">현대차그룹은 새만금에 AI 데이터센터와 로봇 제조 클러스터, 수전해 플랜트, 태양광 발전시설, AI 수소시티 등을 구축하고 있다. AI 데이터센터는 2027년 착공해 2029년 준공을 목표로 하며, 수전해 플랜트와 태양광...</p>
+        <p class="news-meta">
+          <span class="press">newslock.co.kr</span> ·
+          <span class="pubdate">2026-07-20 16:32</span> ·
+          <span class="region-tag">새만금</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('http://www.newslock.co.kr/news/articleView.html?idxno=133156')">AI 요약하기</button>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://www.ajunews.com/view/20260720162325186" target="_blank" rel="noopener">전북 피지컬 AI·로봇 인재양성 &#x27;탄력&#x27;</a>
+        <p class="news-summary">한편, 현대차그룹은 지난 2월 로봇 제조부터 AI 데이터센터, 수소 생산, 재생에너지 발전까지 5개 사업과 관련해 새만금 일원에 9조원을 투자한다는 것을 핵심으로 하는 &#x27;새만금 로봇·수소 첨단산업 육성 및 수소AI 도시...</p>
+        <p class="news-meta">
+          <span class="press">ajunews.com</span> ·
+          <span class="pubdate">2026-07-20 16:28</span> ·
+          <span class="region-tag">전북</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.ajunews.com/view/20260720162325186')">AI 요약하기</button>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="http://www.hansbiz.co.kr/news/articleView.html?idxno=851245" target="_blank" rel="noopener">현대차, 전북과 손잡고 AI·로봇 인재 키운다</a>
+        <p class="news-summary">현대차그룹은 AI 데이터센터와 로봇 제조 클러스터, 수전해 플랜트, 태양광 발전시설 등을 단계적으로 구축하고 있으며 AI 데이터센터는 내년에 착공해 오는 2029년 준공을 목표로 하고 있다. 현대차 관계자는 &quot;첨단산업...</p>
+        <p class="news-meta">
+          <span class="press">hansbiz.co.kr</span> ·
+          <span class="pubdate">2026-07-20 16:28</span> ·
+          <span class="region-tag">전북</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('http://www.hansbiz.co.kr/news/articleView.html?idxno=851245')">AI 요약하기</button>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://www.megaeconomy.co.kr/news/newsview.php?ncode=1065597293364805" target="_blank" rel="noopener">현대차, 새만금 9조 규모 &#x27;AI 밸리&#x27; 인재도 직접 키운다…전북대와 맞손</a>
+        <p class="news-summary">현대차그룹은 AI 데이터센터와 로봇 제조 클러스터, 수전해 플랜트, 태양광 발전, AI 수소도시 등을 구축할 계획이다. AI 데이터센터는 2027년 착공해 2029년 준공을 목표로 하고 있으며, 로봇 제조 클러스터는 2028년 착공 후...</p>
+        <p class="news-meta">
+          <span class="press">megaeconomy.co.kr</span> ·
+          <span class="pubdate">2026-07-20 16:26</span> ·
+          <span class="region-tag">새만금</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.megaeconomy.co.kr/news/newsview.php?ncode=1065597293364805')">AI 요약하기</button>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://www.newsworks.co.kr/news/articleView.html?idxno=847619" target="_blank" rel="noopener">현대차, 전북대와 맞손…&#x27;새만금 AI밸리&#x27; 인재 직접 키운다</a>
+        <p class="news-summary">현대차그룹은 지난 2월 27일 전북 새만금 지역 112만4000㎡(약 34만평) 부지에 9조원을 투입해 로봇 제조·부품 클러스터, AI 데이터센터, 수전해 플랜트, 태양광 발전, AI 수소 시티 등을 구축하는 투자협약을 정부...</p>
+        <p class="news-meta">
+          <span class="press">newsworks.co.kr</span> ·
+          <span class="pubdate">2026-07-20 16:26</span> ·
+          <span class="region-tag">새만금</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.newsworks.co.kr/news/articleView.html?idxno=847619')">AI 요약하기</button>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://www.seoulfn.com/news/articleView.html?idxno=633696" target="_blank" rel="noopener">9조원 새만금 AI 밸리 인재 직접 키운다···현대차, 전북자치도·전북...</a>
+        <p class="news-summary">현대차그룹은 AI 데이터센터, 로봇 제조 클러스터, 수전해 플랜트, 태양광 발전, AI 수소 시티 등을 구축하고 있으며 사업별 투자를 차질 없이 이행하고 있다. 핵심 시설인 AI 데이터센터는 2027년 착공해 2029년 준공을...</p>
+        <p class="news-meta">
+          <span class="press">seoulfn.com</span> ·
+          <span class="pubdate">2026-07-20 16:25</span> ·
+          <span class="region-tag">새만금</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.seoulfn.com/news/articleView.html?idxno=633696')">AI 요약하기</button>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://www.womentimes.co.kr/news/articleView.html?idxno=104485" target="_blank" rel="noopener">현대차, 전북도·전북대와 함께 미래산업 인재 육성 협력 본격화</a>
+        <p class="news-summary">현대차그룹은 또 전북 새만금 지역에 모두 9조원 규모로 AI 데이터센터와 로봇 제조 클러스터, 수전해 플랜트, 태양광 발전, AI 수소 시티 등 &#x27;새만금 AI 밸리&#x27;를 구축 중이다. 지난 2월 MOU 체결 뒤 마련된 투자 계획이 차질...</p>
+        <p class="news-meta">
+          <span class="press">womentimes.co.kr</span> ·
+          <span class="pubdate">2026-07-20 16:24</span> ·
+          <span class="region-tag">전북</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.womentimes.co.kr/news/articleView.html?idxno=104485')">AI 요약하기</button>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://n.news.naver.com/mnews/article/002/0002448972?sid=102" target="_blank" rel="noopener">전통 철강도시 포항, AI 산업 중심도시로 대전환…글로벌 AI 데이터센터...</a>
+        <p class="news-summary">포항 광명산단서 40MW 글로벌 AI 데이터센터 착공…2027년 준공, 260MW 규모로 단계적 확장 2조 원 민간투자·행정 패스트트랙 지원…‘대한민국 AI 수도’ 도약 본격화 “철강·이차전지 이어 AI 산업 중심지로 도약”...</p>
+        <p class="news-meta">
+          <span class="press">pressian.com</span> ·
+          <span class="pubdate">2026-07-20 16:24</span> ·
+          <span class="region-tag">대전</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://n.news.naver.com/mnews/article/002/0002448972?sid=102')">AI 요약하기</button>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://www.financialpost.co.kr/news/articleView.html?idxno=267154" target="_blank" rel="noopener">현대자동차-전북자치도-전북대, 인재 육성에 머리 맞댄다…&#x27;계약학과 신...</a>
+        <p class="news-summary">이를 위해 지난 2월 MOU 체결 이후 계획된 투자를 진행하고 있으며, AI 데이터센터는 2027년 착공해 2029년 준공을 목표하고 있다. 같은 해 첫 삽을 뜨는 수전해 플랜트와 태양광 발전 시설은 2029년 1차 완공 이후 단계적으로...</p>
+        <p class="news-meta">
+          <span class="press">financialpost.co.kr</span> ·
+          <span class="pubdate">2026-07-20 16:24</span> ·
+          <span class="region-tag">전북</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.financialpost.co.kr/news/articleView.html?idxno=267154')">AI 요약하기</button>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="http://www.econonews.co.kr/news/articleView.html?idxno=441477" target="_blank" rel="noopener">현대차, 전북도·전북대와 미래산업 인재양성 맞손</a>
+        <p class="news-summary">현대차그룹은 현재 전북 새만금에 약 9조원을 투자해 AI 데이터센터와 로봇 제조 클러스터, 수전해 플랜트, 태양광 발전시설, AI 수소시티 등을 포함한 &#x27;새만금 AI 밸리&#x27;를 조성하고 있다. AI 데이터센터는 2027년 착공해 2029년...</p>
+        <p class="news-meta">
+          <span class="press">econonews.co.kr</span> ·
+          <span class="pubdate">2026-07-20 16:22</span> ·
+          <span class="region-tag">전북</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('http://www.econonews.co.kr/news/articleView.html?idxno=441477')">AI 요약하기</button>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://n.news.naver.com/mnews/article/421/0009068937?sid=102" target="_blank" rel="noopener">김중남 강릉시장 &quot;시민 행복이 시정의 기준&quot;…민선 9기 밑그림 공개</a>
+        <p class="news-summary">주요 공약으로는 시정회의 실시간 생중계, 공약 이행 시민점검단 운영, 전 시민 긴급지원금 지급, 소아·청소년 필수의료 체계 구축, 경포 람사르습지 등록 추진, 글로벌 마이스 산업 육성, AI 데이터센터 클러스터 조성, KTX...</p>
+        <p class="news-meta">
+          <span class="press">뉴스1</span> ·
+          <span class="pubdate">2026-07-20 16:21</span> ·
           <span class="region-tag">강릉시</span> ·
-          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.newspim.com/news/view/20260720000553')">AI 요약하기</button>
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://n.news.naver.com/mnews/article/421/0009068937?sid=102')">AI 요약하기</button>
         </p>
       </li>
       <li class="news-item">
-        <a class="news-title" href="https://n.news.naver.com/mnews/article/016/0002671985?sid=101" target="_blank" rel="noopener">반도체 800조 승부수 띄운 삼성·SK, 에너지 전현직 관료 영입 사활[세종...</a>
-        <p class="news-summary">SK텔레콤이 미래 먹거리로 키우는 AI 데이터센터(AIDC)와 SK하이닉스의 AI 반도체 사업은 무역안보, 수출 통제, 공급망 이슈 등 산업부 소관 정책과 밀접하게 연결돼 있기 때문이다. 세종 관가 한 관계자는 “부처의 인사...</p>
+        <a class="news-title" href="https://www.autodaily.co.kr/news/articleView.html?idxno=545890" target="_blank" rel="noopener">현대자동차, 전북대에 피지컬 AI·로봇 계약학과 추진, 9조원 새만금 투...</a>
+        <p class="news-summary">현대자동차그룹은 이 지역에 약 9조원을 투자해 AI 데이터센터와 로봇 제조 클러스터, 수전해 플랜트, 태양광발전 시설, AI 수소도시 등을 조성하고 있다. AI 데이터센터는 2027년 착공해 2029년 준공할 예정이다. 수전해...</p>
         <p class="news-meta">
-          <span class="press">헤럴드경제</span> ·
-          <span class="pubdate">2026-07-19 21:56</span> ·
-          <span class="region-tag">세종</span> ·
-          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://n.news.naver.com/mnews/article/016/0002671985?sid=101')">AI 요약하기</button>
+          <span class="press">autodaily.co.kr</span> ·
+          <span class="pubdate">2026-07-20 16:16</span> ·
+          <span class="region-tag">새만금</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.autodaily.co.kr/news/articleView.html?idxno=545890')">AI 요약하기</button>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://www.ajunews.com/view/20260720161026152" target="_blank" rel="noopener">주낙영 경주시장 &quot;미래 100년 대도약&quot;…민선 9기 첫 시정 연설</a>
+        <p class="news-summary">산업 분야는 혁신형 i-SMR 유치와 SMR 국가산업단지 조성, 글로벌 원자력 공동캠퍼스 구축 등을 통해 K-원자력 혁신 생태계를 조성하고, 미래자동차 산업과 AI 데이터센터 기반 구축에도 속도를 낼 계획이다. 농어촌...</p>
+        <p class="news-meta">
+          <span class="press">ajunews.com</span> ·
+          <span class="pubdate">2026-07-20 16:16</span> ·
+          <span class="region-tag">경주시</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.ajunews.com/view/20260720161026152')">AI 요약하기</button>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://www.gukjenews.com/news/articleView.html?idxno=3640606" target="_blank" rel="noopener">포항시, 2조원 규모 글로벌 AI 데이터센터 착공식…2027년 완공 예정</a>
+        <p class="news-summary">포항시는 20일 광명일반산업단지에서 2조원 규모의 글로벌 AI 데이터센터 건립을 위한 착공식을 진행했다. (사진 = 포항시) 포항시는 20일 광명일반산업단지에서 2조원 규모의 글로벌 AI 데이터센터 건립을 위한 착공식을...</p>
+        <p class="news-meta">
+          <span class="press">gukjenews.com</span> ·
+          <span class="pubdate">2026-07-20 16:16</span> ·
+          <span class="region-tag">포항시</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.gukjenews.com/news/articleView.html?idxno=3640606')">AI 요약하기</button>
         </p>
       </li></ul>
     </section>
@@ -521,203 +559,203 @@
       <p class="section-desc">네이버 뉴스에서 국내 기업명이 언급된 기사 중 최신 20건</p>
       <ul class="news-list">
       <li class="news-item">
-        <a class="news-title" href="https://n.news.naver.com/mnews/article/138/0002234680?sid=101" target="_blank" rel="noopener">철강3사, 불황에도 2분기 실적 &#x27;선방&#x27; 전망…하반기 회복 기대감</a>
-        <p class="news-summary">AI·AI 데이터센터)가 구체화될 경우 추가적인 수요 확대가 기대된다&quot;고 내다봤다. 동국제강은 올해 2분기 매출은 9477억원으로 전년 동기보다 6%, 영업이익은 337억원으로 지난해 같은 기간보다 12.8% 증가할 것으로...</p>
+        <a class="news-title" href="https://dealsite.co.kr/articles/165555" target="_blank" rel="noopener">가온전선, 美시장 호재에…상반기 실적 &#x27;사상 최대&#x27;</a>
+        <p class="news-summary">특히 AI 데이터센터와 태양광 발전단지용 케이블 공급이 확대되면서 올해 매출은 지난해의 두 배 가까이 증가할 것으로 전망된다. 가온전선은 LS전선과 협력해 미국 빅테크 AI 데이터센터에 버스덕트를 공급하면서...</p>
+        <p class="news-meta">
+          <span class="press">dealsite.co.kr</span> ·
+          <span class="pubdate">2026-07-20 16:44</span> ·
+          <span class="region-tag">가온전선</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://dealsite.co.kr/articles/165555')">AI 요약하기</button>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://www.dnews.co.kr/uhtml/view.jsp?idxno=202607201627162080759" target="_blank" rel="noopener">현대차, 전북도ㆍ전북대와 ‘새만금 AI 밸리’ 인재 키운다</a>
+        <p class="news-summary">그룹은 전북 새만금 지역에 약 9조원 규모의 AI 데이터센터, 로봇 제조 클러스터, 수전해 플랜트, 태양광 발전, AI 수소 시티 등 ‘새만금 AI 밸리’를 구축하고 있다. 투자는 지난 2월 MOU 체결 이후 계획대로 진행 중이라는...</p>
+        <p class="news-meta">
+          <span class="press">dnews.co.kr</span> ·
+          <span class="pubdate">2026-07-20 16:42</span> ·
+          <span class="region-tag">태양</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.dnews.co.kr/uhtml/view.jsp?idxno=202607201627162080759')">AI 요약하기</button>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="http://www.popcornnews.net/news/articleView.html?idxno=127061" target="_blank" rel="noopener">현대차, 전북도·전북대와 손잡고 미래 인재 키운다…새만금 AI 밸리 속...</a>
+        <p class="news-summary">현대차그룹은 새만금에 AI 데이터센터와 로봇 제조 클러스터, 수전해 플랜트, 태양광 발전시설, AI 수소시티 등을 포함한 약 9조 원 규모의 &#x27;새만금 AI 밸리&#x27; 구축을 추진 중이다. AI 데이터센터는 2027년 착공해 2029년 준공을...</p>
+        <p class="news-meta">
+          <span class="press">popcornnews.net</span> ·
+          <span class="pubdate">2026-07-20 16:42</span> ·
+          <span class="region-tag">태양</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('http://www.popcornnews.net/news/articleView.html?idxno=127061')">AI 요약하기</button>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://n.news.naver.com/mnews/article/015/0005311708?sid=101" target="_blank" rel="noopener">LS그룹, 전기동부터 송·변·배전까지…전력망 수직계열화</a>
+        <p class="news-summary">가온전선 미국법인 LSCUS는 최근 미국 빅테크 기업과 AI 데이터센터용 버스덕트를 향후 5년간 공급하는 장기 계약을 체결했다. 올해 약 500억원 규모를 시작으로 2030년까지 누적 공급 규모가 최대 4조원에 이를...</p>
+        <p class="news-meta">
+          <span class="press">한국경제</span> ·
+          <span class="pubdate">2026-07-20 16:41</span> ·
+          <span class="region-tag">LS</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://n.news.naver.com/mnews/article/015/0005311708?sid=101')">AI 요약하기</button>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://n.news.naver.com/mnews/article/138/0002234704?sid=101" target="_blank" rel="noopener">새만금 AI 밸리 속도내는 현대차…전북대와 미래 인재 키운다</a>
+        <p class="news-summary">현대차그룹은 새만금에 AI 데이터센터와 로봇 제조 클러스터·수전해 플랜트·태양광 발전시설·AI 수소시티 등을 포함한 약 9조원 규모의 투자 계획을 추진하고 있다. AI 데이터센터는 2027년 착공해 2029년 준공을 목표로...</p>
         <p class="news-meta">
           <span class="press">디지털데일리</span> ·
-          <span class="pubdate">2026-07-20 15:26</span> ·
-          <span class="region-tag">동국제강</span> ·
-          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://n.news.naver.com/mnews/article/138/0002234680?sid=101')">AI 요약하기</button>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://n.news.naver.com/mnews/article/277/0005791982?sid=102" target="_blank" rel="noopener">포항·영천·청도·경주, 미래 산업 유치 및 민생·복지 강화 총력</a>
-        <p class="news-summary">포항시는 20일 광명일반산업단지에서 총 2조 원 규모의 &#x27;글로벌 AI 데이터센터 착공식&#x27;을 개최했다. 오는 2027년 준공을 목표로 하는 1단계 40MW급 구축을 시작으로, 향후 260MW 규모의 2단계 확장까지 추진해 국내 AI...</p>
-        <p class="news-meta">
-          <span class="press">아시아경제</span> ·
-          <span class="pubdate">2026-07-20 15:24</span> ·
-          <span class="region-tag">미래산업</span> ·
-          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://n.news.naver.com/mnews/article/277/0005791982?sid=102')">AI 요약하기</button>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://n.news.naver.com/mnews/article/215/0001259284?sid=101" target="_blank" rel="noopener">네이버클라우드-HD한국조선해양, 조선업 &#x27;AI 생태계&#x27; 구축</a>
-        <p class="news-summary">이를 위해 양사는 AI 팩토리를 기반으로 하는 그래픽처리장치(GPU) 인프라 최적화 및 프라이빗 클라우드 운영 환경을 구축한다. 이를 토대로 HD현대 그룹 차원의 AI 활용 기반을 마련하고, 공동 전문가 조직(CoE) 구성을...</p>
-        <p class="news-meta">
-          <span class="press">wowtv.co.kr</span> ·
-          <span class="pubdate">2026-07-20 15:24</span> ·
-          <span class="region-tag">HD한국조선해양</span> ·
-          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://n.news.naver.com/mnews/article/215/0001259284?sid=101')">AI 요약하기</button>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://www.businesspost.co.kr/BP?command=article_view&amp;num=442640" target="_blank" rel="noopener">중국 고성능 AI &#x27;키미 K3&#x27;에 미 빅테크 긴장, 삼성전자·SK하이닉스 메모...</a>
-        <p class="news-summary">오픈웨이트형 AI의 확산을 위해선 결국 AI 데이터센터 등 인프라가 충분히 갖춰져야 한다는 점도 향후 메모리 수요를 더 높이는 요인이 될 것이란 분석이 나온다. 문샷AI는 지난 19일 &#x27;키미 K3&#x27;에 사용자가 몰리자...</p>
-        <p class="news-meta">
-          <span class="press">businesspost.co.kr</span> ·
-          <span class="pubdate">2026-07-20 15:20</span> ·
-          <span class="region-tag">SK하이닉스</span> ·
-          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.businesspost.co.kr/BP?command=article_view&amp;num=442640')">AI 요약하기</button>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://www.m-i.kr/news/articleView.html?idxno=1393055" target="_blank" rel="noopener">가온전선, 상반기 매출 1조6330억·영업익 640억…역대 최대</a>
-        <p class="news-summary">미국 법인 LSCUS는 AI 데이터센터와 태양광 발전소용 케이블 공급을 대폭 늘리며 올해 매출이 전년 대비 약 2배 수준으로 확대될 것으로 전망된다. 아울러 가온전선은 LS전선과의 협업을 통해 미국 주요 빅테크 기업의 AI...</p>
-        <p class="news-meta">
-          <span class="press">m-i.kr</span> ·
-          <span class="pubdate">2026-07-20 15:20</span> ·
-          <span class="region-tag">가온전선</span> ·
-          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.m-i.kr/news/articleView.html?idxno=1393055')">AI 요약하기</button>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://www.ajunews.com/view/20260720150737935" target="_blank" rel="noopener">&quot;AI 인재 지역 우선 채용&quot;…현대차, 전북대 계약학과 추진</a>
-        <p class="news-summary">현대차그룹은 새만금에 약 9조원을 투자해 AI 데이터센터와 로봇 제조 클러스터, 수전해 플랜트, 태양광 발전시설, AI 수소시티 등을 구축하고 있다. 당장 내년에 AI 데이터센터를 착공해 2029년 준공을 목표로 한다....</p>
-        <p class="news-meta">
-          <span class="press">ajunews.com</span> ·
-          <span class="pubdate">2026-07-20 15:20</span> ·
+          <span class="pubdate">2026-07-20 16:38</span> ·
           <span class="region-tag">태양</span> ·
-          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.ajunews.com/view/20260720150737935')">AI 요약하기</button>
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://n.news.naver.com/mnews/article/138/0002234704?sid=101')">AI 요약하기</button>
         </p>
       </li>
       <li class="news-item">
-        <a class="news-title" href="https://n.news.naver.com/mnews/article/032/0003459183?sid=101" target="_blank" rel="noopener">가온전선, 올해 상반기 영업이익 640억원…반기 기준 최대 실적</a>
-        <p class="news-summary">정현 가온전선 대표는 “AI 데이터센터와 전력망 투자를 중심으로 미국 전력 인프라 시장의 성장세가 이어지고 있다”며 “본사 수출 확대와 LSCUS의 성장을 기반으로 하반기에도 매출 성장과 수익성 개선을...</p>
+        <a class="news-title" href="https://www.financialpost.co.kr/news/articleView.html?idxno=267160" target="_blank" rel="noopener">&quot;재무 효율성 강화&quot;…LS, JCR &#x27;A0&#x27; 등급 획득에 신평사 전망 일제 상향까...</a>
+        <p class="news-summary">JCR과 국내 신평사들은 글로벌 인공지능 데이터센터(AIDC) 확충 및 전력망 투자 확대에 따른 주력 자회사들의 실적 개선을 주요 상향 요인으로 꼽았다. 특히 LS전선은 초고압 케이블 분야의 우수한 시장 지위와...</p>
         <p class="news-meta">
-          <span class="press">경향신문</span> ·
-          <span class="pubdate">2026-07-20 15:16</span> ·
-          <span class="region-tag">가온전선</span> ·
-          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://n.news.naver.com/mnews/article/032/0003459183?sid=101')">AI 요약하기</button>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://www.m-i.kr/news/articleView.html?idxno=1393051" target="_blank" rel="noopener">LS, 日 신평사 JCR로부터 &#x27;A0&#x27; 신용등급 획득</a>
-        <p class="news-summary">신평사들은 글로벌 AI 데이터센터 확대와 전력망 투자 증가에 따른 LS전선과 LS일렉트릭의 실적 개선 가능성을 주요 평가 요인으로 꼽았다. 재무 건전성도 안정적인 수준을 유지하고 있다고 평가했다. LS 관계자는...</p>
-        <p class="news-meta">
-          <span class="press">m-i.kr</span> ·
-          <span class="pubdate">2026-07-20 15:16</span> ·
+          <span class="press">financialpost.co.kr</span> ·
+          <span class="pubdate">2026-07-20 16:38</span> ·
           <span class="region-tag">LS</span> ·
-          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.m-i.kr/news/articleView.html?idxno=1393051')">AI 요약하기</button>
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.financialpost.co.kr/news/articleView.html?idxno=267160')">AI 요약하기</button>
         </p>
       </li>
       <li class="news-item">
-        <a class="news-title" href="http://www.newsroad.co.kr/news/articleView.html?idxno=61752" target="_blank" rel="noopener">AI가 화면 밖으로 나왔다… 전력·데이터·제도가 가른 산업 승부</a>
-        <p class="news-summary">AI 데이터센터는 반도체만으로 돌아가지 않는다. 외부 전력망과 데이터센터를 잇는 배전 케이블, 내부에서 대용량 전력을 분배하는 버스덕트가 함께 필요하다. 가온전선의 미국 생산법인 LSCUS는 AI 데이터센터와 태양광...</p>
+        <a class="news-title" href="https://n.news.naver.com/mnews/article/025/0003538770?sid=101" target="_blank" rel="noopener">현대차 ‘새만금 AI밸리’ 인력 직접 키운다…전북대 계약학과 추진</a>
+        <p class="news-summary">현대차그룹은 약 9조원을 투자해 전북 새만금 지역에 AI 데이터센터, 로봇 제조 클러스터, 수전해 플랜트, 태양광 발전, AI 수소 시티 등으로 구성된 ‘새만금 AI 밸리’를 추진하고 있다. 내년 착공하는 AI 데이터센터는...</p>
         <p class="news-meta">
-          <span class="press">newsroad.co.kr</span> ·
-          <span class="pubdate">2026-07-20 15:14</span> ·
-          <span class="region-tag">가온전선</span> ·
-          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('http://www.newsroad.co.kr/news/articleView.html?idxno=61752')">AI 요약하기</button>
+          <span class="press">중앙일보</span> ·
+          <span class="pubdate">2026-07-20 16:37</span> ·
+          <span class="region-tag">태양</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://n.news.naver.com/mnews/article/025/0003538770?sid=101')">AI 요약하기</button>
         </p>
       </li>
       <li class="news-item">
-        <a class="news-title" href="https://www.newstopkorea.com/news/articleView.html?idxno=46359" target="_blank" rel="noopener">LS, 日 JCR 신용등급 &#x27;A0&#x27; 획득…해외 자금조달 기반 넓혀</a>
-        <p class="news-summary">글로벌 AI 데이터센터 구축과 전력망 교체 수요가 자회사들의 펀더멘털을 강하게 끌어올렸다. LS전선의 초고압 케이블 시장 지배력과 LS일렉트릭의 전력기기 부문 수익성 급증이 지주사의 연결 기준 이익 체력을...</p>
+        <a class="news-title" href="https://www.itbiznews.com/news/articleView.html?idxno=219529" target="_blank" rel="noopener">현대차, 전북도·전북대와 맞손…미래산업 지역인재 키운다</a>
+        <p class="news-summary">현대차그룹은 전북 새만금 지역에 약 9조원 규모의 AI데이터센터, 로봇 제조 클러스터, 수전해 플랜트, 태양광 발전, AI 수소 시티 등 &#x27;새만금 AI 밸리&#x27;를 구축하고 있다. 앞서 2월 협약 체결 후 계획된 투자를 진행 중으로...</p>
         <p class="news-meta">
-          <span class="press">newstopkorea.com</span> ·
-          <span class="pubdate">2026-07-20 15:08</span> ·
+          <span class="press">IT비즈뉴스</span> ·
+          <span class="pubdate">2026-07-20 16:36</span> ·
+          <span class="region-tag">미래산업</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.itbiznews.com/news/articleView.html?idxno=219529')">AI 요약하기</button>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="http://www.newslock.co.kr/news/articleView.html?idxno=133156" target="_blank" rel="noopener">현대차, 전북도·전북대와 첨단산업 인재 키운다…새만금 AI 밸리 실행력...</a>
+        <p class="news-summary">현대차그룹은 새만금에 AI 데이터센터와 로봇 제조 클러스터, 수전해 플랜트, 태양광 발전시설, AI 수소시티 등을 구축하고 있다. AI 데이터센터는 2027년 착공해 2029년 준공을 목표로 하며, 수전해 플랜트와 태양광...</p>
+        <p class="news-meta">
+          <span class="press">newslock.co.kr</span> ·
+          <span class="pubdate">2026-07-20 16:32</span> ·
+          <span class="region-tag">태양</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('http://www.newslock.co.kr/news/articleView.html?idxno=133156')">AI 요약하기</button>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://n.news.naver.com/mnews/article/047/0002523048?sid=101" target="_blank" rel="noopener">반도체 공장 멈출까봐 ○○ 지어야 한다? 장관 발언 황당한 이유 [반도...</a>
+        <p class="news-summary">ⓒ 연합뉴스 지난 3일 김성환 기후에너지환경부 장관은 MBC 라디오 &lt;김종배의 시선집중&gt;에 출연해 반도체 팹과 AI 데이터센터 건설 계획으로 인해 &quot;원전을 추가로 더 지어야 할지 여부를 빨리 검토해 봐야 한다&quot;라며...</p>
+        <p class="news-meta">
+          <span class="press">ohmynews.com</span> ·
+          <span class="pubdate">2026-07-20 16:31</span> ·
+          <span class="region-tag">디오</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://n.news.naver.com/mnews/article/047/0002523048?sid=101')">AI 요약하기</button>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://www.lcnews.co.kr/news/articleView.html?idxno=205145" target="_blank" rel="noopener">[산업 Pick] 헥토파이낸셜·LS·티시스, AI 결제부터 신용도·안전경영</a>
+        <p class="news-summary">JCR은 LS전선, LS일렉트릭, LS MnM 등 핵심 계열사의 경쟁력과 안정적인 수익 창출 구조를 높이 평가했으며, 국내 신평사들도 AI 데이터센터 확대와 전력망 투자 증가에 따른 실적 개선 가능성을 반영해 전망을 상향했다....</p>
+        <p class="news-meta">
+          <span class="press">lcnews.co.kr</span> ·
+          <span class="pubdate">2026-07-20 16:30</span> ·
+          <span class="region-tag">헥토파이낸셜</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.lcnews.co.kr/news/articleView.html?idxno=205145')">AI 요약하기</button>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="http://www.hansbiz.co.kr/news/articleView.html?idxno=851245" target="_blank" rel="noopener">현대차, 전북과 손잡고 AI·로봇 인재 키운다</a>
+        <p class="news-summary">현대차그룹은 AI 데이터센터와 로봇 제조 클러스터, 수전해 플랜트, 태양광 발전시설 등을 단계적으로 구축하고 있으며 AI 데이터센터는 내년에 착공해 오는 2029년 준공을 목표로 하고 있다. 현대차 관계자는 &quot;첨단산업...</p>
+        <p class="news-meta">
+          <span class="press">hansbiz.co.kr</span> ·
+          <span class="pubdate">2026-07-20 16:28</span> ·
+          <span class="region-tag">태양</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('http://www.hansbiz.co.kr/news/articleView.html?idxno=851245')">AI 요약하기</button>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://www.megaeconomy.co.kr/news/newsview.php?ncode=1065597293364805" target="_blank" rel="noopener">현대차, 새만금 9조 규모 &#x27;AI 밸리&#x27; 인재도 직접 키운다…전북대와 맞손</a>
+        <p class="news-summary">현대차그룹은 AI 데이터센터와 로봇 제조 클러스터, 수전해 플랜트, 태양광 발전, AI 수소도시 등을 구축할 계획이다. AI 데이터센터는 2027년 착공해 2029년 준공을 목표로 하고 있으며, 로봇 제조 클러스터는 2028년 착공 후...</p>
+        <p class="news-meta">
+          <span class="press">megaeconomy.co.kr</span> ·
+          <span class="pubdate">2026-07-20 16:26</span> ·
+          <span class="region-tag">태양</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.megaeconomy.co.kr/news/newsview.php?ncode=1065597293364805')">AI 요약하기</button>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://www.newsworks.co.kr/news/articleView.html?idxno=847619" target="_blank" rel="noopener">현대차, 전북대와 맞손…&#x27;새만금 AI밸리&#x27; 인재 직접 키운다</a>
+        <p class="news-summary">현대차그룹은 지난 2월 27일 전북 새만금 지역 112만4000㎡(약 34만평) 부지에 9조원을 투입해 로봇 제조·부품 클러스터, AI 데이터센터, 수전해 플랜트, 태양광 발전, AI 수소 시티 등을 구축하는 투자협약을 정부...</p>
+        <p class="news-meta">
+          <span class="press">newsworks.co.kr</span> ·
+          <span class="pubdate">2026-07-20 16:26</span> ·
+          <span class="region-tag">태양</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.newsworks.co.kr/news/articleView.html?idxno=847619')">AI 요약하기</button>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://www.seoulfn.com/news/articleView.html?idxno=633696" target="_blank" rel="noopener">9조원 새만금 AI 밸리 인재 직접 키운다···현대차, 전북자치도·전북...</a>
+        <p class="news-summary">현대차그룹은 AI 데이터센터, 로봇 제조 클러스터, 수전해 플랜트, 태양광 발전, AI 수소 시티 등을 구축하고 있으며 사업별 투자를 차질 없이 이행하고 있다. 핵심 시설인 AI 데이터센터는 2027년 착공해 2029년 준공을...</p>
+        <p class="news-meta">
+          <span class="press">seoulfn.com</span> ·
+          <span class="pubdate">2026-07-20 16:25</span> ·
+          <span class="region-tag">태양</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.seoulfn.com/news/articleView.html?idxno=633696')">AI 요약하기</button>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://n.news.naver.com/mnews/article/079/0004170014?sid=102" target="_blank" rel="noopener">포항 광명산단에 2조원 규모 글로벌 AI 데이터센터 첫 삽</a>
+        <p class="news-summary">포항시는 20일 남구 오천읍 광명일반산업단지에서 &#x27;글로벌 AI 데이터센터 착공식&#x27;을 개최하고 AI 기반 미래 산업 육성을 위한 첫걸음을 내디뎠다. 이번 사업은 광명일반산업단지 내에 1단계로 총 2조 원 규모의...</p>
+        <p class="news-meta">
+          <span class="press">nocutnews.co.kr</span> ·
+          <span class="pubdate">2026-07-20 16:25</span> ·
+          <span class="region-tag">미래산업</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://n.news.naver.com/mnews/article/079/0004170014?sid=102')">AI 요약하기</button>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://www.womentimes.co.kr/news/articleView.html?idxno=104485" target="_blank" rel="noopener">현대차, 전북도·전북대와 함께 미래산업 인재 육성 협력 본격화</a>
+        <p class="news-summary">현대차그룹은 또 전북 새만금 지역에 모두 9조원 규모로 AI 데이터센터와 로봇 제조 클러스터, 수전해 플랜트, 태양광 발전, AI 수소 시티 등 &#x27;새만금 AI 밸리&#x27;를 구축 중이다. 지난 2월 MOU 체결 뒤 마련된 투자 계획이 차질...</p>
+        <p class="news-meta">
+          <span class="press">womentimes.co.kr</span> ·
+          <span class="pubdate">2026-07-20 16:24</span> ·
+          <span class="region-tag">미래산업</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.womentimes.co.kr/news/articleView.html?idxno=104485')">AI 요약하기</button>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://n.news.naver.com/mnews/article/119/0003113012?sid=101" target="_blank" rel="noopener">파두, 2분기 영업익 163억원…전분기 대비 111% 증가</a>
+        <p class="news-summary">남이현 파두 대표는 &quot;2분기에는 안정적인 흑자 구조를 구축했다. 고객 다변화와 AI 데이터센터용 스토리지 수요 확대를 바탕으로 하반기에는 상반기보다 큰 성장을 기대한다&quot;고 말했다.</p>
+        <p class="news-meta">
+          <span class="press">데일리안</span> ·
+          <span class="pubdate">2026-07-20 16:24</span> ·
+          <span class="region-tag">파두</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://n.news.naver.com/mnews/article/119/0003113012?sid=101')">AI 요약하기</button>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="http://www.kdfnews.com/news/articleView.html?idxno=185427" target="_blank" rel="noopener">신용보증기금·현대차·토스, 금융·산학 협력 확대</a>
+        <p class="news-summary">현대차그룹은 AI 데이터센터와 로봇 제조 클러스터, 수전해 플랜트, 태양광 발전시설 등을 순차적으로 구축할 계획이다. 6일 서울 강남구 토스 신논현 오피스에서 (왼쪽부터) 김문석 SBI저축은행 대표이사와 이승건 토스...</p>
+        <p class="news-meta">
+          <span class="press">kdfnews.com</span> ·
+          <span class="pubdate">2026-07-20 16:24</span> ·
+          <span class="region-tag">태양</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('http://www.kdfnews.com/news/articleView.html?idxno=185427')">AI 요약하기</button>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://www.eroun.net/news/articleView.html?idxno=85826" target="_blank" rel="noopener">LS, 일본 JCR &#x27;A0&#x27; 등급 획득...국내 신용등급 전망도 일제히 상향</a>
+        <p class="news-summary">국내외 신용평가기관은 글로벌 AI 데이터센터 확대와 전력망 투자 증가에 따른 주력 계열사의 실적 개선을 주요 평가 요인으로 꼽았다. 특히 LS전선의 초고압 케이블 사업 경쟁력과 안정적인 현금 창출 능력...</p>
+        <p class="news-meta">
+          <span class="press">eroun.net</span> ·
+          <span class="pubdate">2026-07-20 16:24</span> ·
           <span class="region-tag">LS</span> ·
-          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.newstopkorea.com/news/articleView.html?idxno=46359')">AI 요약하기</button>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://n.news.naver.com/mnews/article/082/0001390419?sid=101" target="_blank" rel="noopener">LS, JCR &#x27;A0&#x27; 등급 획득…국내 신평사 전망 일제히 상향</a>
-        <p class="news-summary">JCR과 국내 신평사들은 글로벌 AI 데이터센터 확충과 전력망 투자 확대에 따른 주력 자회사들의 실적 개선을 주요 상향 요인으로 꼽았다. 특히 LS전선은 초고압 케이블 분야의 우수한 시장 지위와 안정적인 현금 창출...</p>
-        <p class="news-meta">
-          <span class="press">부산일보</span> ·
-          <span class="pubdate">2026-07-20 15:07</span> ·
-          <span class="region-tag">LS</span> ·
-          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://n.news.naver.com/mnews/article/082/0001390419?sid=101')">AI 요약하기</button>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://n.news.naver.com/mnews/article/087/0001206044?sid=102" target="_blank" rel="noopener">가온전선, 상반기 사상 최대 실적…미국 수출 확대에 성장세</a>
-        <p class="news-summary">LS동해전선의 자회사인 가온전선이 미국 전력 인프라 투자 확대와 AI 데이터센터 수요 증가에 힘입어 올해 상반기 매출과 영업이익 모두 반기 기준 사상 최대 실적을 기록했다. 가온전선은 올해 상반기 연결 기준 잠정...</p>
-        <p class="news-meta">
-          <span class="press">강원일보</span> ·
-          <span class="pubdate">2026-07-20 15:05</span> ·
-          <span class="region-tag">가온전선</span> ·
-          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://n.news.naver.com/mnews/article/087/0001206044?sid=102')">AI 요약하기</button>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://kpenews.com/View.aspx?No=4154622" target="_blank" rel="noopener">미국 AI 전력 특수에 가온전선, 상반기 최대 실적 달성..영업이익 41.8% ...</a>
-        <p class="news-summary">AI 데이터센터와 태양광 발전단지용 케이블 공급이 늘면서 올해 매출이 지난해의 2배 가까이 늘어날 전망이다. 여기에 LS전선과 손잡고 미국 빅테크 기업에 버스덕트를 공급하며 글로벌 톱5 공급업체로 입지를...</p>
-        <p class="news-meta">
-          <span class="press">kpenews.com</span> ·
-          <span class="pubdate">2026-07-20 15:04</span> ·
-          <span class="region-tag">가온전선</span> ·
-          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://kpenews.com/View.aspx?No=4154622')">AI 요약하기</button>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://www.econovill.com/news/articleView.html?idxno=745627" target="_blank" rel="noopener">가온전선, 상반기 매출 1조6330억원 &#x27;역대 최대&#x27;…영업익 42% 증가</a>
-        <p class="news-summary">판매 물량 확대뿐 아니라 미국향 케이블과 AI 데이터센터용 버스덕트 등 상대적으로 부가가치가 높은 제품의 매출 비중이 커진 영향으로 풀이된다. 실적 성장은 미국 시장이 주도했다. 미국 내 전력망 투자 확대와...</p>
-        <p class="news-meta">
-          <span class="press">econovill.com</span> ·
-          <span class="pubdate">2026-07-20 15:00</span> ·
-          <span class="region-tag">가온전선</span> ·
-          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.econovill.com/news/articleView.html?idxno=745627')">AI 요약하기</button>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://n.news.naver.com/mnews/article/469/0000943219?sid=101" target="_blank" rel="noopener">HD현대, 조선업 &#x27;피지컬 AI&#x27; 순항… 네이버클라우드와 기술 협력</a>
-        <p class="news-summary">AI 데이터센터에 필요한 전력 인프라 분야 협력도 추진한다. 네이버클라우드의 AI 역량과 HD현대가 보유한 친환경 엔진 기술, 에너지저장장치(ESS), 수소 연료전지 등 솔루션을 결합해 데이터센터용 전력 공급망을...</p>
-        <p class="news-meta">
-          <span class="press">한국일보</span> ·
-          <span class="pubdate">2026-07-20 14:56</span> ·
-          <span class="region-tag">HD현대</span> ·
-          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://n.news.naver.com/mnews/article/469/0000943219?sid=101')">AI 요약하기</button>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="http://www.snmnews.com/news/articleView.html?idxno=572269" target="_blank" rel="noopener">가온전선, 미국 전력 인프라 호조에 상반기 사상 최대 실적</a>
-        <p class="news-summary">이번 실적은 미국 AI 데이터센터와 신재생에너지 투자 확대에 따른 케이블 및 버스덕트 수요 증가가 견인했다. 미국 내 공급 부족과 전력망 투자 확대에 힘입어 배전 케이블 수출이 꾸준히 증가하고 있다. 미국...</p>
-        <p class="news-meta">
-          <span class="press">snmnews.com</span> ·
-          <span class="pubdate">2026-07-20 14:54</span> ·
-          <span class="region-tag">가온전선</span> ·
-          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('http://www.snmnews.com/news/articleView.html?idxno=572269')">AI 요약하기</button>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://www.econotimes.com/Belimo-H1-Sales-Surge-as-AI-Data-Center-Cooling-Drives-More-Than-Half-of-Growth-1747172" target="_blank" rel="noopener">Belimo H1 Sales Surge as AI Data Center Cooling Drives More Than Half of ...</a>
-        <p class="news-summary">Swiss HVAC field-device manufacturer Belimo Holding (SIX: BEAN) reported strong first-half 2026 results, with booming demand for AI-driven data center cooling solutions fueling more than half of...</p>
-        <p class="news-meta">
-          <span class="press">econotimes.com</span> ·
-          <span class="pubdate">2026-07-20 14:54</span> ·
-          <span class="region-tag">LF</span> ·
-          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.econotimes.com/Belimo-H1-Sales-Surge-as-AI-Data-Center-Cooling-Drives-More-Than-Half-of-Growth-1747172')">AI 요약하기</button>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="http://www.iminju.net/news/articleView.html?idxno=166839" target="_blank" rel="noopener">[산업계 동향] LS·KG그룹·티웨이항공</a>
-        <p class="news-summary">신용등급은 A+를 유지했으며 글로벌 AI 데이터센터와 전력망 투자 확대에 따른 계열사 실적 개선이 주요 요인으로 반영됐다. LS는 이번 평가를 바탕으로 일본 금융기관과의 협력을 확대하고 글로벌 자금 조달 경쟁력을...</p>
-        <p class="news-meta">
-          <span class="press">iminju.net</span> ·
-          <span class="pubdate">2026-07-20 14:52</span> ·
-          <span class="region-tag">LS</span> ·
-          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('http://www.iminju.net/news/articleView.html?idxno=166839')">AI 요약하기</button>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://www.cnbizm.com/news/articleView.html?idxno=308971" target="_blank" rel="noopener">가온전선, 올 상반기 영업익 640억… 전년比 41.8%↑</a>
-        <p class="news-summary">가온전선이 미국 전력 인프라 투자 확대와 AI 데이터센터 수요 증가에 힘입어 상반기 기준 역대 최대 실적을 달성했다. 가온전선은 올 상반기 연결 기준 잠정 매출 1조6330억원, 영업이익 640억원을 기록했다고 20일...</p>
-        <p class="news-meta">
-          <span class="press">cnbizm.com</span> ·
-          <span class="pubdate">2026-07-20 14:52</span> ·
-          <span class="region-tag">가온전선</span> ·
-          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.cnbizm.com/news/articleView.html?idxno=308971')">AI 요약하기</button>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://n.news.naver.com/mnews/article/016/0002672378?sid=101" target="_blank" rel="noopener">가온전선, 상반기 영업이익 640억원 ‘역대 최대’…전년 比 42% 증가</a>
-        <p class="news-summary">미국 생산법인 LSCUS 역시 LS전선과 미국 빅테크 AI 데이터센터에 버스덕트를 공급하는 등 현지 주요 업체로 자리잡고 있다.가온전선은 미국 향 고부가 제품 수출을 지속 확대하는 한편, 현지 생산 기반을 활용해 고객...</p>
-        <p class="news-meta">
-          <span class="press">헤럴드경제</span> ·
-          <span class="pubdate">2026-07-20 14:52</span> ·
-          <span class="region-tag">가온전선</span> ·
-          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://n.news.naver.com/mnews/article/016/0002672378?sid=101')">AI 요약하기</button>
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.eroun.net/news/articleView.html?idxno=85826')">AI 요약하기</button>
         </p>
       </li></ul>
     </section>
@@ -728,38 +766,48 @@
       <p class="section-desc">네이버 뉴스에서 해외 기업명이 언급된 기사 중 최신 20건</p>
       <ul class="news-list">
       <li class="news-item">
-        <a class="news-title" href="https://www.m-i.kr/news/articleView.html?idxno=1392945" target="_blank" rel="noopener">KT, 개인정보 유출 제재 분수령…보안·AI 투자로 신뢰 회복 나선다</a>
-        <p class="news-summary">마이크로소프트(MS)와 협력해 금융·공공 분야 소버린 AI 사업을 추진하고 있으며 향후 5년간 1GW 규모 AI 데이터센터 구축도 진행 중이다. 제조·의료 등 산업 현장 중심의 &#x27;에지 AI&#x27; 인프라를 확대해 실시간 AI 서비스...</p>
+        <a class="news-title" href="https://www.shinailbo.co.kr/news/articleView.html?idxno=5042536" target="_blank" rel="noopener">[기고] 채굴자는 코인을 판다…코인은 팔려도 태운 전기는 남는다</a>
+        <p class="news-summary">그 돈으로 빚을 갚고, 505메가와트 가스발전소를 사서 AI 데이터센터로 틀었다. 아이렌(IREN)은 엔비디아(Nvidia)와 34억 달러짜리 계약을 맺었다. 당신이라면 그 돈을 들고 어디로 가겠는가. 채굴기와 AI 서버는 같은 전기...</p>
         <p class="news-meta">
-          <span class="press">m-i.kr</span> ·
-          <span class="pubdate">2026-07-20 14:46</span> ·
-          <span class="region-tag">마이크로소프트</span> ·
-          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.m-i.kr/news/articleView.html?idxno=1392945')">AI 요약하기</button>
+          <span class="press">shinailbo.co.kr</span> ·
+          <span class="pubdate">2026-07-20 16:42</span> ·
+          <span class="region-tag">NVIDIA</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.shinailbo.co.kr/news/articleView.html?idxno=5042536')">AI 요약하기</button>
         </p>
       </li>
       <li class="news-item">
-        <a class="news-title" href="https://www.seoultimes.news/news/article.html?no=2000097905" target="_blank" rel="noopener">[CEO 워치] 최태원의 AI 승부수…제주포럼서 던진 한마디, SK 미래 다시 ...</a>
-        <p class="news-summary">SK하이닉스를 핵심 성장축으로 육성하는 동시에 엔비디아, TSMC, 오픈AI 등 글로벌 기업과 협력을 확대하고 울산 AI 데이터센터 구축도 추진하고 있다. 각각의 투자가 개별 사업이 아니라 하나의 생태계를 구축하기 위한...</p>
+        <a class="news-title" href="https://n.news.naver.com/mnews/article/629/0000517372?sid=101" target="_blank" rel="noopener">네이버 이해진·최수연, 캐나다 방문…브룩필드와 &#x27;AI 팩토리&#x27; 투자 논의...</a>
+        <p class="news-summary">브룩필드는 특히 데이터센터, 그래픽처리장치(GPU), 연산 자원 등 AI 인프라 전반에 대한 투자처를 찾고 있는 것으로 알려졌다. 네이버는 최근 엔비디아와 협력해 GW급 글로벌 AI 팩토리 건립 계획을 발표했다. 우선 내년...</p>
         <p class="news-meta">
-          <span class="press">seoultimes.news</span> ·
-          <span class="pubdate">2026-07-20 14:42</span> ·
+          <span class="press">news.tf.co.kr</span> ·
+          <span class="pubdate">2026-07-20 16:26</span> ·
           <span class="region-tag">엔비디아</span> ·
-          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.seoultimes.news/news/article.html?no=2000097905')">AI 요약하기</button>
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://n.news.naver.com/mnews/article/629/0000517372?sid=101')">AI 요약하기</button>
         </p>
       </li>
       <li class="news-item">
-        <a class="news-title" href="http://www.newstomato.com/ReadNews.aspx?no=1307565&amp;inflow=N" target="_blank" rel="noopener">‘키미 쇼크’에 AI 고비용 투자 회의론…삼성·SK도 촉각</a>
-        <p class="news-summary">당시에도 중국 AI 기업이 제한된 자원으로 고성능 모델을 구현했다는 평가가 확산되면서 AI 데이터센터(DC) 투자 축소 우려가 불거졌습니다. 이어 엔비디아를 비롯한 AI 반도체 기업들의 주가가 급락한 바 있습니다....</p>
+        <a class="news-title" href="https://n.news.naver.com/mnews/article/056/0012221244?sid=101" target="_blank" rel="noopener">[성공예감] AI 서사와 반도체의 흥망, 엔비디아 주가에 달려있습니다 -...</a>
+        <p class="news-summary">되면서 AI 데이터센터도 그렇고 인프라에 천문학적인 투자가 필요하다 보니 기존에 우리가 쌓아놨던 건 없었고 다시 조달을 하게 되는데 미국의 투자자들, 글로벌 투자자들은 그런 빅테크 기업들의 그런 모습은 되게...</p>
         <p class="news-meta">
-          <span class="press">newstomato.com</span> ·
-          <span class="pubdate">2026-07-20 14:42</span> ·
+          <span class="press">KBS</span> ·
+          <span class="pubdate">2026-07-20 16:10</span> ·
           <span class="region-tag">엔비디아</span> ·
-          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('http://www.newstomato.com/ReadNews.aspx?no=1307565&amp;inflow=N')">AI 요약하기</button>
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://n.news.naver.com/mnews/article/056/0012221244?sid=101')">AI 요약하기</button>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://www.epnc.co.kr/news/articleView.html?idxno=404493" target="_blank" rel="noopener">엔비디아, 일본과 &#x27;국가 AI 팩토리&#x27; 구축...산업형 AI 모델 개발 가속</a>
+        <p class="news-summary">이 인프라는 단순한 데이터센터를 넘어 &#x27;AI 생산 공장(AI Factory)&#x27; 개념을 구현하는 것이 특징이다. 엔비디아 DSX 레퍼런스 아키텍처를 적용해 대규모 AI 모델 학습과 추론을 효율적으로 수행하고 메가와트당 토큰...</p>
+        <p class="news-meta">
+          <span class="press">이피앤씨</span> ·
+          <span class="pubdate">2026-07-20 16:04</span> ·
+          <span class="region-tag">엔비디아</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.epnc.co.kr/news/articleView.html?idxno=404493')">AI 요약하기</button>
         </p>
       </li>
       <li class="news-item">
         <a class="news-title" href="https://m.sports.naver.com/esports/article/442/0000194594" target="_blank" rel="noopener">엔비디아, 베라 CPU 및 루빈 GPU 4만여 개로 일본 국가 AI 팩토리 구축</a>
-        <p class="news-summary">엔비디아 DSX 플랫폼과 스펙트럼-X 이더넷 네트워킹을 기반으로 구축되는 해당 AI 데이터센터는 총 140메가와트 규모로 운영된다. 엔비디아가 공개한 인프라는 노에트라가 구축을 담당하며, 엔비디아 DSX 플랫폼을...</p>
+        <p class="news-summary">엔비디아는 노에트라와 협력해 베라 CPU 1만 3,750개와 루빈 GPU 2만 7,500개를 탑재한 국가 차원의 &#x27;엔비디아 베라 루빈 AI 팩토리&#x27;를 일본에 구축한다고 밝혔다. 이번 이니셔티브는 일본 경제산업성이 추진하는 프론티아...</p>
         <p class="news-meta">
           <span class="press">inven.co.kr</span> ·
           <span class="pubdate">2026-07-20 14:41</span> ·
@@ -768,33 +816,23 @@
         </p>
       </li>
       <li class="news-item">
-        <a class="news-title" href="https://n.news.naver.com/mnews/article/023/0003988538?sid=105" target="_blank" rel="noopener">CIA까지 개입한 미·중의 중동 AI 패권 전쟁</a>
-        <p class="news-summary">지난해 5월에는 G42가 구축하는 대규모 AI 데이터센터에 오픈AI와 엔비디아 등이 참여하는 ‘스타게이트 UAE’ 사업이 발표됐다. 미 상무부도 이달 10일 UAE에 대한 AI 반도체 수출 통제를 대폭 완화했다. 오일머니...</p>
+        <a class="news-title" href="https://n.news.naver.com/mnews/article/117/0004086376?sid=105" target="_blank" rel="noopener">최태원 “제조업, AI로 일으켜야” 1년 전 약속…SK하이닉스 ‘최대 호...</a>
+        <p class="news-summary">SK그룹은 지난해 10월 엔비디아와 5만개 이상의 그래픽처리장치(GPU)를 기반으로 한 ‘AI 팩토리’ 구축 계획을 발표했다. SK하이닉스 제조 현장에는 엔비디아의 최신 GPU 약 2000개를 투입해 반도체 공정을 분석하고...</p>
         <p class="news-meta">
-          <span class="press">조선일보</span> ·
-          <span class="pubdate">2026-07-20 14:21</span> ·
+          <span class="press">mydaily.co.kr</span> ·
+          <span class="pubdate">2026-07-20 14:13</span> ·
           <span class="region-tag">엔비디아</span> ·
-          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://n.news.naver.com/mnews/article/023/0003988538?sid=105')">AI 요약하기</button>
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://n.news.naver.com/mnews/article/117/0004086376?sid=105')">AI 요약하기</button>
         </p>
       </li>
       <li class="news-item">
-        <a class="news-title" href="https://www.koreaittimes.com/news/articleView.html?idxno=155319" target="_blank" rel="noopener">&quot;AI 수요는 이제 시작&quot;… TSMC, 393조원 美 투자 승부수</a>
-        <p class="news-summary">실제로 엔비디아를 비롯한 주요 AI 칩 기업들은 차세대 GPU와 AI 가속기 출시를 이어가고 있으며, 글로벌 클라우드 기업들도 AI 데이터센터 투자를 확대하고 있다. 미국 투자 확대에도 불구하고 TSMC는 핵심 기술 유출...</p>
+        <a class="news-title" href="https://n.news.naver.com/mnews/article/003/0014076034?sid=105" target="_blank" rel="noopener">네이버 이해진·최수연, 캐나다行…브룩필드와 AI 투자 &#x27;빅딜&#x27; 주목</a>
+        <p class="news-summary">브룩필드가 엔비디아와 함께 대규모 인공지능(AI) 인프라 투자 사업을 추진하고 있는 만큼 네이버의 AI 팩토리 구축을 위한 투자·자금 조달 협의가 본격화하는 것 아니냐는 해석이 나온다. 20일 업계에 따르면 이해진...</p>
         <p class="news-meta">
-          <span class="press">koreaittimes.com</span> ·
-          <span class="pubdate">2026-07-20 14:12</span> ·
+          <span class="press">뉴시스</span> ·
+          <span class="pubdate">2026-07-20 14:06</span> ·
           <span class="region-tag">엔비디아</span> ·
-          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.koreaittimes.com/news/articleView.html?idxno=155319')">AI 요약하기</button>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://www.theguru.co.kr/news/article.html?no=104634" target="_blank" rel="noopener">美 블룸에너지, 연료전지 기반 AI 인프라 사업 17억 달러 투자 유치</a>
-        <p class="news-summary">이 회사의 연료전지는 기존 전력망과 연결 없이도 소형 발전소에 맞먹는 전력 생산이 가능하고 설치 기간도 짧다는 장점이 주목받으며 AI 데이터센터 전력원으로 급부상했다. 이에 오라클을 비롯해 AEP, 에퀴닉스...</p>
-        <p class="news-meta">
-          <span class="press">theguru.co.kr</span> ·
-          <span class="pubdate">2026-07-20 13:44</span> ·
-          <span class="region-tag">에퀴닉스</span> ·
-          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.theguru.co.kr/news/article.html?no=104634')">AI 요약하기</button>
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://n.news.naver.com/mnews/article/003/0014076034?sid=105')">AI 요약하기</button>
         </p>
       </li>
       <li class="news-item">
@@ -805,6 +843,16 @@
           <span class="pubdate">2026-07-20 13:18</span> ·
           <span class="region-tag">엔비디아</span> ·
           <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.delighti.co.kr/news/articleView.html?idxno=119176')">AI 요약하기</button>
+        </p>
+      </li>
+      <li class="news-item">
+        <a class="news-title" href="https://www.datanet.co.kr/news/articleView.html?idxno=213162" target="_blank" rel="noopener">엔비디아, 日 정부·산업계와 국가 피지컬 AI 인프라 구축</a>
+        <p class="news-summary">노에트라가 구축하는 AI 팩토리는 엔비디아 베라 CPU(NVIDIA Vera CPU) 1만3750개와 루빈 GPU(Rubin GPU) 2만7500개를 탑재한 베라 루빈 NVL72 랙으로 구성된다. 엔비디아 DSX 플랫폼을 기반으로 설계되며, 스펙트럼-X 이더넷...</p>
+        <p class="news-meta">
+          <span class="press">datanet.co.kr</span> ·
+          <span class="pubdate">2026-07-20 12:50</span> ·
+          <span class="region-tag">엔비디아</span> ·
+          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.datanet.co.kr/news/articleView.html?idxno=213162')">AI 요약하기</button>
         </p>
       </li>
       <li class="news-item">
@@ -915,16 +963,6 @@
           <span class="pubdate">2026-07-17 09:50</span> ·
           <span class="region-tag">엔비디아</span> ·
           <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.g-enews.com/view.php?ud=202607170944185968fbbec65dfb_1')">AI 요약하기</button>
-        </p>
-      </li>
-      <li class="news-item">
-        <a class="news-title" href="https://www.digitaltoday.co.kr/news/articleView.html?idxno=684949" target="_blank" rel="noopener">엔비디아, 일본서 로보틱스용 국가 AI 인프라 구축 나선다</a>
-        <p class="news-summary">엔비디아 [사진: 셔터스톡] 엔비디아가 일본에서 2만7500개 GPU 규모의 로보틱스용 &#x27;AI 팩토리&#x27; 구축에 나선다. 16일(현지시간) 비즈니스인사이더에 따르면 엔비디아는 소프트뱅크, NEC, 소니, 혼다가 참여한 국책 AI 개발사...</p>
-        <p class="news-meta">
-          <span class="press">digitaltoday.co.kr</span> ·
-          <span class="pubdate">2026-07-17 09:04</span> ·
-          <span class="region-tag">엔비디아</span> ·
-          <button type="button" class="ai-chat-btn" onclick="aiSummarizeUrl('https://www.digitaltoday.co.kr/news/articleView.html?idxno=684949')">AI 요약하기</button>
         </p>
       </li></ul>
     </section>
