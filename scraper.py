@@ -22,7 +22,7 @@ import time
 from datetime import date, datetime, timedelta, timezone
 from email.utils import parsedate_to_datetime
 from html import escape, unescape
-from urllib.parse import urljoin, urlparse
+from urllib.parse import urljoin, urlparse, quote
 
 import requests
 from bs4 import BeautifulSoup, NavigableString
@@ -48,6 +48,21 @@ TIMEOUT = 20
 RETRIES = 3
 RETRY_WAIT_SECONDS = 5
 RECENT_LIMIT = 5
+
+# 깃허브 액션(해외 클라우드 IP)에서 접속이 막힌 것으로 확인된 도메인 목록.
+# 직접 접속이 타임아웃되면, 이 목록에 있는 도메인만 무료 공개 프록시를 거쳐 한 번 더 시도한다.
+BLOCKED_FROM_CLOUD_DOMAINS = {
+    "msit.go.kr", "www.msit.go.kr",
+    "mcee.go.kr", "www.mcee.go.kr",
+    "motir.go.kr", "www.motir.go.kr",
+}
+
+# 원본 HTML을 그대로 반환하는 "raw" 방식 무료 프록시만 사용 (요약/가공하는 프록시는
+# 기존 BeautifulSoup 파싱 로직이 깨지므로 사용 불가). 순서대로 시도해서 먼저 되는 걸 씀.
+PROXY_URL_TEMPLATES = [
+    "https://api.allorigins.win/raw?url={url}",
+    "https://corsproxy.io/?url={url}",
+]
 
 GOV_AGENCIES = ["과학기술정보통신부", "기후에너지환경부", "산업통상부", "국가인공지능전략위원회"]
 PUBLIC_ENTERPRISES = ["한국전력공사", "한국수자원공사", "정보통신산업진흥원", "한국지능정보사회진흥원"]
@@ -437,8 +452,8 @@ def log(msg: str) -> None:
     print(msg, file=sys.stderr)
 
 
-def fetch(url: str, label: str):
-    """최대 RETRIES회 재시도 후 성공하면 Response, 전부 실패하면 None."""
+def _direct_fetch(url: str, label: str):
+    """직접 접속 시도. 성공하면 Response, 실패하면 None."""
     last_err = None
     for attempt in range(1, RETRIES + 1):
         try:
@@ -453,7 +468,44 @@ def fetch(url: str, label: str):
             log(f"[WARN] {label}: attempt {attempt} failed: {e}")
             if attempt < RETRIES:
                 time.sleep(RETRY_WAIT_SECONDS)
-    log(f"[ERROR] {label}: all {RETRIES} attempts failed ({last_err})")
+    log(f"[ERROR] {label}: all {RETRIES} direct attempts failed ({last_err})")
+    return None
+
+
+def _proxy_fetch(url: str, label: str):
+    """직접 접속이 막힌 도메인용: 무료 공개 프록시를 순서대로 시도한다."""
+    encoded = quote(url, safe="")
+    for template in PROXY_URL_TEMPLATES:
+        proxy_url = template.format(url=encoded)
+        proxy_name = proxy_url.split("?")[0]
+        try:
+            resp = requests.get(proxy_url, headers=HEADERS, timeout=TIMEOUT)
+            resp.raise_for_status()
+            if not resp.text or len(resp.text) < 200:
+                log(f"[WARN] {label}: proxy({proxy_name}) 응답이 비정상적으로 짧음, 다음 프록시 시도")
+                continue
+            resp.encoding = resp.apparent_encoding or "utf-8"
+            log(f"[OK] {label}: proxy({proxy_name}) 경유 성공, {len(resp.text)} chars")
+            return resp
+        except requests.RequestException as e:
+            log(f"[WARN] {label}: proxy({proxy_name}) 실패: {e}")
+            continue
+    log(f"[ERROR] {label}: 모든 프록시 시도 실패")
+    return None
+
+
+def fetch(url: str, label: str):
+    """직접 접속을 먼저 시도하고, 실패했는데 해당 도메인이 '클라우드에서 차단된 것으로
+    확인된 목록'에 있으면 무료 프록시를 통해 한 번 더 시도한다."""
+    resp = _direct_fetch(url, label)
+    if resp is not None:
+        return resp
+
+    domain = urlparse(url).netloc
+    if domain in BLOCKED_FROM_CLOUD_DOMAINS:
+        log(f"[INFO] {label}: {domain}은 클라우드 차단 목록에 있어 프록시로 재시도합니다")
+        return _proxy_fetch(url, label)
+
     return None
 
 

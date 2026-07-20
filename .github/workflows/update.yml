@@ -1,13 +1,14 @@
 name: Daily Press Release Update
 
 on:
-  schedule:
-    # 한국 시간(KST) 매일 오후 3시 (UTC 06:00) 실행
-    - cron: "0 6 * * *"
+  push:
+    branches: [main]
+    paths:
+      - "public/**"
   workflow_dispatch: {}
 
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 
@@ -16,34 +17,14 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-
-      - name: Install dependencies
-        run: pip install -r requirements.txt
-
-      - name: Run scraper
-        env:
-          NAVER_CLIENT_ID: ${{ secrets.NAVER_CLIENT_ID }}
-          NAVER_CLIENT_SECRET: ${{ secrets.NAVER_CLIENT_SECRET }}
-          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
-        run: python scraper.py
-
-      - name: Commit and push if changed
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add public/index.html data/summary_cache.json
-          git diff --cached --quiet || git commit -m "chore: 자동 업데이트 $(date -u +'%Y-%m-%d %H:%M UTC')"
-          git push
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
@@ -53,13 +34,6 @@ jobs:
         with:
           path: public
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
