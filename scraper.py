@@ -1305,16 +1305,26 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
     border: 1px solid #e3e2dc;
     border-left: 6px solid #185fa5;
     border-radius: 10px;
-    padding: 24px 30px;
+    padding: 20px 30px;
     margin-bottom: 24px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 16px;
+    flex-wrap: wrap;
   }}
+  header .header-text {{ flex: 1 1 auto; min-width: 0; }}
   header h1 {{
-    font-size: 24px;
+    font-size: 20pt;
     font-weight: 800;
     color: #185fa5;
     margin: 0 0 8px 0;
     letter-spacing: -0.5px;
+  }}
+  header h1 .ai-dc-hl {{
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }}
   header p {{
     color: #666;
@@ -1322,6 +1332,19 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
     margin: 0;
     font-weight: 500;
     line-height: 1.5;
+  }}
+  header .header-logo {{
+    flex: 0 0 auto;
+    align-self: flex-end;
+  }}
+  header .header-logo img {{
+    height: 28px;
+    width: auto;
+    display: block;
+  }}
+  @media (max-width: 520px) {{
+    header {{ flex-direction: column; align-items: flex-start; }}
+    header .header-logo {{ align-self: flex-end; }}
   }}
   .layout {{ display: flex; align-items: flex-start; gap: 20px; margin-top: 20px; }}
   .sidebar {{ width: 260px; flex-shrink: 0; position: sticky; top: 20px; height: max-content; }}
@@ -1460,8 +1483,13 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
 </head>
 <body>
   <header>
-    <h1>기관 및 업체별 AI Data Center 일일 동향</h1>
-    <p>{TODAY_LABEL} 기준 <br>· 마지막 업데이트: {GENERATED_AT_LABEL} <br>· 매일 자동 업데이트(오후 3시~4시)</p>
+    <div class="header-text">
+      <h1>기관 및 업체별 <span class="ai-dc-hl">AI Data Center</span> 일일 동향</h1>
+      <p>{TODAY_LABEL} 기준 <br>· 마지막 업데이트: {GENERATED_AT_LABEL} <br>· 매일 자동 업데이트(오후 3시~4시)</p>
+    </div>
+    <div class="header-logo">
+      <img src="assets/sunjin_logo.png" alt="SUNJIN ENGINEERING & ARCHITECTURE">
+    </div>
   </header>
   <div class="layout">
     <aside class="sidebar">
