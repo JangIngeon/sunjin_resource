@@ -1301,22 +1301,18 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
           max-width: 1080px; margin: 0 auto; padding: 32px 16px 60px;
           background: #f7f7f5; color: #222; }}
   header {{
+    position: relative;
     background: #fff;
     border: 1px solid #e3e2dc;
     border-left: 6px solid #185fa5;
     border-radius: 10px;
-    padding: 20px 30px;
+    padding: 20px 140px 20px 30px;
     margin-bottom: 24px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    gap: 16px;
-    flex-wrap: wrap;
   }}
-  header .header-text {{ flex: 1 1 auto; min-width: 0; }}
+  header .header-text {{ min-width: 0; }}
   header h1 {{
-    font-size: 20pt;
+    font-size: 30pt;
     font-weight: 800;
     color: #185fa5;
     margin: 0 0 8px 0;
@@ -1334,17 +1330,18 @@ def render_html(today_items: dict, recent_items: dict, fetch_failed: set,
     line-height: 1.5;
   }}
   header .header-logo {{
-    flex: 0 0 auto;
-    align-self: flex-end;
+    position: absolute;
+    right: 24px;
+    bottom: 16px;
   }}
   header .header-logo img {{
-    height: 28px;
+    height: 22px;
     width: auto;
     display: block;
   }}
   @media (max-width: 520px) {{
-    header {{ flex-direction: column; align-items: flex-start; }}
-    header .header-logo {{ align-self: flex-end; }}
+    header {{ padding-right: 30px; }}
+    header .header-logo {{ position: static; margin-top: 12px; text-align: right; }}
   }}
   .layout {{ display: flex; align-items: flex-start; gap: 20px; margin-top: 20px; }}
   .sidebar {{ width: 260px; flex-shrink: 0; position: sticky; top: 20px; height: max-content; }}
